@@ -1,0 +1,183 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+	android:gravity="center"
+	android:background="@drawable/bg" >
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/login_padding">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:gravity="center">
+			
+			<EditText
+				android:id="@+id/s_user"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/edittext_bg"
+				android:drawableLeft="@drawable/ic_person_white_24dp"
+				android:hint="@string/prompt_name"
+				android:inputType="textPersonName"
+				android:maxLines="1"
+				android:drawableStart="@drawable/ic_person_white_24dp" />
+
+			<Space
+				android:layout_width="wrap_content"
+				android:layout_height="@dimen/ui_elems_spacing" />
+
+			<EditText
+				android:id="@+id/s_email"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/edittext_bg"
+				android:drawableLeft="@drawable/ic_email_white_24dp"
+				android:hint="@string/prompt_email"
+				android:inputType="textEmailAddress"
+				android:maxLines="1"
+				android:drawableStart="@drawable/ic_email_white_24dp" />
+
+			<Space
+				android:layout_width="wrap_content"
+				android:layout_height="@dimen/ui_elems_spacing" />
+
+			<EditText
+				android:id="@+id/s_pass"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/edittext_bg"
+				android:drawableLeft="@drawable/ic_lock_white_24dp"
+				android:hint="@string/prompt_password"
+				android:inputType="textPassword"
+				android:maxLines="1"
+				android:drawableStart="@drawable/ic_lock_white_24dp" />
+			
+			<Space
+				android:layout_width="wrap_content"
+				android:layout_height="@dimen/ui_elems_spacing" />
+			
+			<RadioGroup
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal" >
+				
+				<RadioButton
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:text="@string/radio_male"
+					android:checked="true"
+					android:id="@+id/m"
+					android:onClick="setGender" />
+				
+				<RadioButton
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:text="@string/radio_female"
+					android:id="@+id/f"
+					android:onClick="setGender" />
+				
+			</RadioGroup>
+			
+			<RadioGroup
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal" >
+
+				<RadioButton
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:text="@string/radio_student"
+					android:checked="true"
+					android:id="@+id/s"
+					android:onClick="setProf" />
+
+				<RadioButton
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:text="@string/radio_professional"
+					android:id="@+id/p"
+					android:onClick="setProf" />
+
+			</RadioGroup>
+			
+			<Space
+				android:layout_width="wrap_content"
+				android:layout_height="@dimen/ui_elems_spacing" />
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" >
+
+				<EditText
+					android:id="@+id/s_ph"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:background="@drawable/edittext_bg"
+					android:drawableLeft="@drawable/ic_call_white_24dp"
+					android:hint="@string/prompt_phone"
+					android:inputType="phone"
+					android:maxLines="1"
+					android:drawableStart="@drawable/ic_call_white_24dp" />
+				
+				<Button
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/button_otp"
+					android:onClick="send_otp"
+					android:id="@+id/s_button_send" />
+			
+			</LinearLayout>
+			
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/otp_info" />
+			
+			<Space
+				android:layout_width="wrap_content"
+				android:layout_height="@dimen/ui_elems_spacing" />
+
+			<EditText
+				android:id="@+id/s_otp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/edittext_bg"
+				android:gravity="center"
+				android:hint="@string/prompt_otp"
+				android:inputType="number"
+				android:maxLength="@integer/otp_length"
+				android:maxLines="1" />
+
+			<Space
+				android:layout_width="wrap_content"
+				android:layout_height="8dp" />
+
+			<Button
+				android:id="@+id/s_otg"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="8dp"
+				android:enabled="false"
+				android:background="@drawable/ripple_red"
+				android:text="@string/button_signup" />
+
+		</LinearLayout>
+
+	</ScrollView>
+
+</LinearLayout>
+
+<!--
+style="@style/Widget.AppCompat.RatingBar.Small"
+-->
