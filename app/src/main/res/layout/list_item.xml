@@ -20,7 +20,8 @@
 			<ImageView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:id="@+id/item_image" />
+				android:id="@+id/item_image"
+				android:contentDescription="@string/photo_content_description" />
 	
 			<TextView
 				android:layout_width="wrap_content"

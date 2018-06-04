@@ -14,5 +14,6 @@
     <string name="button_otp">Send OTP</string>
     <string name="otp_info">An OTP will be sent to the mobile number</string>
     <string name="prompt_otp">OTP</string>
+    <string name="photo_content_description">Photo of location</string>
     <integer name="otp_length">4</integer>
 </resources>

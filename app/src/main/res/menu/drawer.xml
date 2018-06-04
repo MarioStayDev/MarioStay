@@ -1,4 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:name="Add property"
+        android:icon="@drawable/ic_add" />
+
+    <item
+        android:name="Inbox"
+        android:icon="@drawable/ic_add_black_24" />
+
+    <item
+        android:name="Dashboard"
+        android:icon="@drawable/ic_add_black_24" />
+
+    <item
+        android:name="All payments"
+        android:icon="@drawable/ic_add_black_24" />
+
+    <item
+        android:name="Current members"
+        android:icon="@drawable/ic_add_black_24" />
+
+    <item
+        android:name="Manage bookings"
+        android:icon="@drawable/ic_add_black_24" />
+
+    <item
+        android:name="All receipts"
+        android:icon="@drawable/ic_add_black_24" />
+
+    <item
+        android:name="Refund"
+        android:icon="@drawable/ic_add_black_24" />
+
 </menu>

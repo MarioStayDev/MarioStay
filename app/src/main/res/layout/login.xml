@@ -25,7 +25,8 @@
 					android:drawableLeft="@drawable/ic_person_white_24dp"
 					android:hint="@string/prompt_email"
 					android:inputType="textEmailAddress"
-					android:maxLines="1" />
+					android:maxLines="1"
+					android:drawableStart="@drawable/ic_person_white_24dp" />
 				
 			<Space
 				android:layout_width="wrap_content"
@@ -39,7 +40,8 @@
 					android:drawableLeft="@drawable/ic_lock_white_24dp"
 					android:hint="@string/prompt_password"
 					android:inputType="textPassword"
-					android:maxLines="1" />
+					android:maxLines="1"
+					android:drawableStart="@drawable/ic_lock_white_24dp" />
 				
 			<Space
 				android:layout_width="wrap_content"
