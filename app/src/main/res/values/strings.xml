@@ -15,5 +15,7 @@
     <string name="otp_info">An OTP will be sent to the mobile number</string>
     <string name="prompt_otp">OTP</string>
     <string name="photo_content_description">Photo of location</string>
+    <string name="menu_add_property">Add property</string>
+    <string name="menu_inbox">Inbox</string>
     <integer name="otp_length">4</integer>
 </resources>
