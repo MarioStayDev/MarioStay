@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
         <item
@@ -8,9 +9,9 @@
             android:title="@string/menu_add_property"
             android:id="@+id/menu_add_prop" />
         <item
+            android:id="@+id/menu_inbox"
             android:icon="@drawable/ic_add_black_24"
-            android:title="@string/menu_inbox"
-            android:id="@+id/menu_inbox" />
+            android:title="@string/menu_inbox" />
     </group>
 
 </menu>
