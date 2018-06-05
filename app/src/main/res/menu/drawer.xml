@@ -3,7 +3,7 @@
 
     <item
         android:name="Add property"
-        android:icon="@drawable/ic_add" />
+        android:icon="@drawable/ic_add_24" />
 
     <item
         android:name="Inbox"
