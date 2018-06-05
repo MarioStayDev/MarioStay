@@ -28,13 +28,13 @@ public class SignupActivity extends AppCompatActivity
 		
 		OTG_LENGTH=getResources().getInteger(R.integer.otp_length);
 		mToast=Toast.makeText(this,"",0);
-		mUser=(EditText)findViewById(R.id.s_user);
-		mEmail=(EditText)findViewById(R.id.s_email);
-		mPass=(EditText)findViewById(R.id.s_pass);
-		mPhone=(EditText)findViewById(R.id.s_ph);
-		mOtp=(EditText)findViewById(R.id.s_otp);
-		mBSignup=(Button)findViewById(R.id.s_otg);
-		mBOtp=(Button)findViewById(R.id.s_button_send);
+		mUser=findViewById(R.id.s_user);
+		mEmail=findViewById(R.id.s_email);
+		mPass=findViewById(R.id.s_pass);
+		mPhone=findViewById(R.id.s_ph);
+		mOtp=findViewById(R.id.s_otp);
+		mBSignup=findViewById(R.id.s_otg);
+		mBOtp=findViewById(R.id.s_button_send);
 		mOtp.addTextChangedListener(new TextWatcher() {
 			public void beforeTextChanged(CharSequence c,int i1,int i2,int i3) {}
 			public void onTextChanged(CharSequence c,int i1, int i2,int i3) {}
