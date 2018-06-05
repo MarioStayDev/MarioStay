@@ -1,36 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <group android:checkableBehavior="single">
+
     <item
-        android:name="Add property"
+        android:id="@+id/menu_add_prop"
+        android:title="Add property"
         android:icon="@drawable/ic_add_black_24" />
 
     <item
-        android:name="Inbox"
+        android:id="@+id/menu_inbox"
+
+        android:title="Inbox"
         android:icon="@drawable/ic_add_black_24" />
 
     <item
-        android:name="Dashboard"
+        android:id="@+id/menu_dashboard"
+
+        android:title="Dashboard"
         android:icon="@drawable/ic_add_black_24" />
 
     <item
-        android:name="All payments"
+        android:id="@+id/menu_payments"
+
+        android:title="All payments"
         android:icon="@drawable/ic_add_black_24" />
 
     <item
-        android:name="Current members"
+        android:id="@+id/menu_memebers"
+
+        android:title="Current members"
         android:icon="@drawable/ic_add_black_24" />
 
     <item
-        android:name="Manage bookings"
+        android:id="@+id/menu_bookings"
+
+        android:title="Manage bookings"
         android:icon="@drawable/ic_add_black_24" />
 
     <item
-        android:name="All receipts"
+        android:id="@+id/menu_receipts"
+
+        android:title="All receipts"
         android:icon="@drawable/ic_add_black_24" />
 
     <item
-        android:name="Refund"
+        android:id="@+id/menu_refund"
+
+        android:title="Refund"
         android:icon="@drawable/ic_add_black_24" />
+
+    </group>
 
 </menu>
