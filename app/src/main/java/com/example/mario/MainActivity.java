@@ -3,6 +3,9 @@ package com.example.mario;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +23,7 @@ public class MainActivity extends AppCompatActivity
 	private RecyclerView mList;
 	private DataAdapter mAdapter;
 	private SharedPreferences pfm;
+	private Toast mToast;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -27,10 +31,29 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 		
-		Toolbar mToolbar = (Toolbar)findViewById(R.id.toolbar);
+		Toolbar mToolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(mToolbar);
+
+		final DrawerLayout mDrawer = findViewById(R.id.drawer_layout);
+
+		NavigationView mNav = findViewById(R.id.navigation_view);
+		mNav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+			@Override
+			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+				mDrawer.closeDrawers();
+				switch(item.getItemId()) {
+					case R.id.menu_add_prop:
+						d("Add prop");
+						return true;
+					case R.id.menu_inbox:
+						d("Inbox");
+						return true;
+				}
+				return false;
+			}
+		});
 		
-		mList = (RecyclerView)findViewById(R.id.list);
+		mList = findViewById(R.id.list);
 		mList.setLayoutManager(new GridLayoutManager(this,2));
 		mAdapter = new DataAdapter();
 		mList.setAdapter(mAdapter);
@@ -44,12 +67,13 @@ public class MainActivity extends AppCompatActivity
 			Intent loginIntent = new Intent(this, LoginActivity.class);
 			startActivityForResult(loginIntent,REQUEST_LOGIN);
 		}
+
+		mToast = Toast.makeText(this, "Init", Toast.LENGTH_LONG);
     }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		// TODO: Implement this method
 		getMenuInflater().inflate(R.menu.menu_main,menu);
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -57,7 +81,6 @@ public class MainActivity extends AppCompatActivity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		// TODO: Implement this method
 		switch(item.getItemId()) {
 			case R.id.menu_logout:
 				pfm.edit().putBoolean(KEY_LOGGED_IN,false).apply();
@@ -71,6 +94,12 @@ public class MainActivity extends AppCompatActivity
 	private void loadData() {
 		for(int i=0;i<32;i++)
 			mAdapter.add(new Data());
+	}
+
+	private void d(String s) {
+    	mToast.cancel();
+    	mToast = Toast.makeText(this, s, Toast.LENGTH_LONG);
+    	mToast.show();
 	}
 
 	@Override
