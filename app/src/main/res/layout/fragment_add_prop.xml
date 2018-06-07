@@ -1,79 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AddPropFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/ui_elems_spacing">
 
-
-
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                
-                android:hint="Property Name"/>
-        
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="5dp" />
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:spinnerMode="dialog"
-                android:prompt="@string/property_type"
-                android:entries="@array/property_types"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_property_name"
+            android:inputType="text" />
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="10dp" />
+            android:layout_height="@dimen/ui_elems_spacing" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/property_types"
+            android:prompt="@string/property_type"
+            android:spinnerMode="dialog" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ui_elems_spacing" />
 
         <EditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:ems="10"
-            android:hint="Enter your property's full address"
             android:gravity="start"
+            android:hint="@string/enter_your_property_s_full_address"
             android:inputType="textMultiLine" />
+
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="10dp" />
+            android:layout_height="@dimen/ui_elems_spacing" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/prompt_landmark"
+            android:inputType="text" />
 
-            android:hint="Landmark"/>
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="10dp" />
+            android:layout_height="@dimen/ui_elems_spacing" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:hint="@string/prompt_floors"
+            android:inputType="number" />
 
-            android:hint="No. of Floors"/>
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="10dp" />
+            android:layout_height="@dimen/ui_elems_spacing" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:hint="@string/prompt_stay_time"
+            android:inputType="number" />
 
-            android:hint="Minimum Stay Time(In Months)"/>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ui_elems_spacing" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,63 +80,50 @@
 
             <EditText
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:inputType="time"
+                android:layout_weight="1"
+                android:hint="@string/prompt_in_time"
+                android:inputType="time" />
 
-                android:hint="In Time"/>
             <EditText
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:inputType="time"
-
-
-                android:hint="Out Time"/>
-
-
+                android:layout_weight="1"
+                android:hint="@string/prompt_out_time"
+                android:inputType="time" />
 
         </LinearLayout>
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="10dp" />
+            android:layout_height="@dimen/ui_elems_spacing" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-
-            android:hint="Security Multiplier w.r.t. Rent"/>
+            android:hint="@string/prompt_security_deposit"
+            android:inputType="numberDecimal" />
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="10dp" />
+            android:layout_height="@dimen/ui_elems_spacing" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-
-            android:hint="Prior Notice Period(in Days)"/>
+            android:hint="@string/prompt_notice_period"
+            android:inputType="numberDecimal" />
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="10dp" />
+            android:layout_height="@dimen/ui_elems_spacing" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="descPage"
-            android:text="Next"/>
-
-
-
-
-
+            android:text="@string/prompt_next_button" />
 
     </LinearLayout>
-
-
-
 
 </ScrollView>
