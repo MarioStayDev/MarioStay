@@ -37,4 +37,15 @@
     <string name="prompt_notice_period">Prior Notice Period(in Days)</string>
     <string name="prompt_next_button">Next</string>
     <string name="title_add_property">Add property</string>
+    <string name="prompt_amenities">Select available amenities:</string>
+    <string name="prompt_desc_property">Enter Short Description of Property</string>
+    <string name="prompt_location">Tag your location on map:</string>
+    <string name="button_add_photos">Add Photos</string>
+    <string name="chip_text_lift">Lift Service</string>
+    <string name="chip_text_parking">Parking</string>
+    <string name="chip_text_cctv">CCTV camera</string>
+    <string name="chip_text_power">Power backup</string>
+    <string name="chip_text_playground">Playground</string>
+    <string name="chip_text_pool">Swimming pool</string>
+    <integer name="number_of_chips" type="id">6</integer>
 </resources>
