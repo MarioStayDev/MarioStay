@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">MarioStay</string>
-    <string name="hello_world">Hello world!</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_phone">Phone number</string>
@@ -27,4 +26,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="prompt_property_name">Property Name</string>
+    <string name="enter_your_property_s_full_address">Address</string>
+    <string name="prompt_landmark">Landmark</string>
+    <string name="prompt_floors">No. of Floors</string>
+    <string name="prompt_stay_time">Minimum Stay Time(In Months)</string>
+    <string name="prompt_in_time">In Time</string>
+    <string name="prompt_out_time">Out Time</string>
+    <string name="prompt_security_deposit">Security Multiplier w.r.t. Rent</string>
+    <string name="prompt_notice_period">Prior Notice Period(in Days)</string>
+    <string name="prompt_next_button">Next</string>
+    <string name="title_add_property">Add property</string>
 </resources>
