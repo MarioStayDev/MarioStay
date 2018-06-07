@@ -22,7 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements BrowseFragment.OnFragmentInteractionListener,AddPropFragment.OnFragmentInteractionListener,PropertyDescFragment.OnFragmentInteractionListener
+public class MainActivity extends AppCompatActivity implements BrowseFragment.OnFragmentInteractionListener,AddPropFragment.OnFragmentInteractionListener,PropertyDescFragment.OnFragmentInteractionListener,PaymentsFragment.OnFragmentInteractionListener
 {
 	private boolean userIsLoggedIn;
 	//private Toolbar mToolbar;
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 	private SharedPreferences pfm;
 	private Toast mToast;
 	private FragmentManager mFragmentManager;
+	private Fragment mFragment;
 
 	@Override
     protected void onCreate(Bundle savedInstanceState)
@@ -61,10 +62,12 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 				mDrawerLayout.closeDrawers();
 				switch(item.getItemId()) {
 					case R.id.menu_add_prop:
-						mFragmentManager.beginTransaction().replace(R.id.frame, new AddPropFragment()).commit();
+						mFragment = new AddPropFragment();
+						mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
 						return true;
 					case R.id.menu_inbox:
-						mFragmentManager.beginTransaction().replace(R.id.frame, new BrowseFragment()).commit();
+						mFragment = new BrowseFragment();
+						mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
 						return true;
 				}
 				return false;
@@ -96,7 +99,8 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		userIsLoggedIn = pfm.getBoolean(KEY_LOGGED_IN,false); // Check login state here
 		
 		if(userIsLoggedIn) {
-			mFragmentManager.beginTransaction().replace(R.id.frame, new BrowseFragment()).commit();
+			mFragment = new BrowseFragment();
+			mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
 		} else {
 			Intent loginIntent = new Intent(this, LoginActivity.class);
 			startActivityForResult(loginIntent,REQUEST_LOGIN);
@@ -130,7 +134,8 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 	}
 	public void descPage(View v)
 	{
-		mFragmentManager.beginTransaction().replace(R.id.frame, new PropertyDescFragment()).commit();
+		mFragment = new PropertyDescFragment();
+		mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
 	}
 
 	private void d(String s) {

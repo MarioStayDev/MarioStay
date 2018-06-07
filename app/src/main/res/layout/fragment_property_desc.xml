@@ -1,64 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".AddPropFragment">
+    android:layout_height="match_parent" >
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
 <!-- , ,Playground,Garden,Gym, TV/fridge/Washing Macine,Water Purifier,WIFI, Sofa, Table-->
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="10dp" />
+            android:layout_height="@dimen/ui_elems_spacing" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Available Amenities:"/>
+            android:text="@string/prompt_amenities"/>
+
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="10dp" />
-        <View
+            android:layout_height="@dimen/ui_elems_spacing" />
+
+        <!--<View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="#000000"></View>
-
+            android:background="#000000" />-->
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="3">
-            <ToggleButton
+            android:columnCount="3" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip1"
+                android:background="@drawable/chip_shape_deactivated"
+                android:text="@string/chip_text_lift"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip2"
+                android:background="@drawable/chip_shape_deactivated"
+                android:text="@string/chip_text_parking"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip3"
+                android:background="@drawable/chip_shape_deactivated"
+                android:text="@string/chip_text_cctv"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip4"
+                android:background="@drawable/chip_shape_deactivated"
+                android:text="@string/chip_text_power"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip5"
+                android:background="@drawable/chip_shape_deactivated"
+                android:text="@string/chip_text_playground"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip6"
+                android:background="@drawable/chip_shape_deactivated"
+                android:text="@string/chip_text_pool"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <!--<ToggleButton
                 android:id="@+id/toggleButton"
                 android:layout_width="0dp"
                 android:layout_columnWeight="1"
                 android:layout_height="60dp"
                 android:textOn="Lift Service"
-                android:textOff="Lift Service"
+                android:textOff="Lift Service" />
 
-                 />
             <ToggleButton
                 android:id="@+id/toggleButton2"
                 android:layout_width="0dp"
                 android:layout_columnWeight="1"
                 android:layout_height="wrap_content"
                 android:textOn="Parking"
-                android:textOff="Parking"
-                android:text="ToggleButton" />
+                android:textOff="Parking" />
+
             <ToggleButton
                 android:id="@+id/toggleButton3"
                 android:layout_width="0dp"
                 android:layout_columnWeight="1"
                 android:layout_height="wrap_content"
                 android:textOn="CCTV Security"
-                android:textOff="CCTV Security"
-                android:text="ToggleButton" />
+                android:textOff="CCTV Security" />
 
             <ToggleButton
                 android:id="@+id/toggleButton4"
@@ -66,78 +123,71 @@
                 android:layout_columnWeight="1"
                 android:textOn="Power Backup"
                 android:textOff="Power Backup"
-                android:layout_height="wrap_content"
-                android:text="ToggleButton" />
+                android:layout_height="wrap_content" />
+
             <ToggleButton
                 android:id="@+id/toggleButton5"
                 android:layout_width="0dp"
                 android:layout_columnWeight="1"
                 android:textOn="Playground"
                 android:textOff="Playground"
-                android:layout_height="wrap_content"
-                android:text="ToggleButton" />
+                android:layout_height="wrap_content" />
+
             <ToggleButton
                 android:id="@+id/toggleButton6"
                 android:layout_width="0dp"
                 android:layout_columnWeight="1"
                 android:textOn="Swimming Pool"
                 android:textOff="Swimming Pool"
-                android:layout_height="wrap_content"
-                android:text="ToggleButton" />
-
+                android:layout_height="wrap_content" />-->
 
         </GridLayout>
 
-
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="10dp" />
-        <View
+            android:layout_height="@dimen/ui_elems_spacing" />
+
+        <!--<View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="#000000"></View>
+            android:background="#000000" />-->
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="10dp"></Space>
-
-
+            android:layout_height="@dimen/ui_elems_spacing" />
 
         <EditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:ems="10"
-            android:hint="Enter Short Description of Property"
+            android:layout_height="wrap_content"
             android:gravity="start"
+            android:minLines="5"
+            android:hint="@string/prompt_desc_property"
             android:inputType="textMultiLine" />
+
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="10dp" />
-
+            android:layout_height="@dimen/ui_elems_spacing" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/prompt_location"/>
 
-            android:text="Tag your location on map:"/>
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="10dp" />
+            android:layout_height="@dimen/ui_elems_spacing" />
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Photos"/>
-
+            android:text="@string/button_add_photos"/>
 
     </LinearLayout>
-
-
-
 
 </ScrollView>
