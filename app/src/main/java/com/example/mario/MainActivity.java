@@ -1,10 +1,13 @@
 package com.example.mario;
 
+import android.net.Uri;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -18,17 +21,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements BrowseFragment.OnFragmentInteractionListener,AddPropFragment.OnFragmentInteractionListener,PropertyDescFragment.OnFragmentInteractionListener
 {
 	private boolean userIsLoggedIn;
 	//private Toolbar mToolbar;
 	private final int REQUEST_LOGIN=101;
 	private final String KEY_SHARED_PREFERENCE="shared_pref_key",KEY_LOGGED_IN="logged_in_key";
 	private DrawerLayout mDrawerLayout;
-	private RecyclerView mList;
-	private DataAdapter mAdapter;
+
 	private SharedPreferences pfm;
 	private Toast mToast;
+	Fragment fragment;
+	FragmentTransaction fragmentTransaction=null;
 
 	@Override
     protected void onCreate(Bundle savedInstanceState)
@@ -46,15 +50,31 @@ public class MainActivity extends AppCompatActivity
 		mDrawerLayout = findViewById(R.id.drawer_layout);
 
 		NavigationView mNav = findViewById(R.id.navigation_view);
+		fragment = new BrowseFragment();
+		fragmentTransaction= getSupportFragmentManager().beginTransaction();
+		fragmentTransaction.add(R.id.frame,fragment);
+		fragmentTransaction.commit();
 		mNav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 			@Override
 			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 				mDrawerLayout.closeDrawers();
 				switch(item.getItemId()) {
 					case R.id.menu_add_prop:
+
+						fragment = new AddPropFragment();
+						fragmentTransaction = getSupportFragmentManager().beginTransaction();
+						fragmentTransaction.replace(R.id.frame,fragment);
+						fragmentTransaction.commit();
+
+
 						d("Add prop");
 						return true;
 					case R.id.menu_inbox:
+
+						fragment = new BrowseFragment();
+						fragmentTransaction = getSupportFragmentManager().beginTransaction();
+						fragmentTransaction.replace(R.id.frame,fragment);
+						fragmentTransaction.commit();
 						d("Inbox");
 						return true;
 				}
@@ -81,16 +101,13 @@ public class MainActivity extends AppCompatActivity
 
 		mDrawerToggle.syncState();
 		
-		mList = findViewById(R.id.list);
-		mList.setLayoutManager(new GridLayoutManager(this,2));
-		mAdapter = new DataAdapter();
-		mList.setAdapter(mAdapter);
+
 		
 		pfm = getSharedPreferences(KEY_SHARED_PREFERENCE,MODE_PRIVATE);
 		userIsLoggedIn = pfm.getBoolean(KEY_LOGGED_IN,false); // Check login state here
 		
 		if(userIsLoggedIn) {
-			loadData();
+			//loadData();
 		} else {
 			Intent loginIntent = new Intent(this, LoginActivity.class);
 			startActivityForResult(loginIntent,REQUEST_LOGIN);
@@ -122,11 +139,17 @@ public class MainActivity extends AppCompatActivity
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	private void loadData() {
-		for(int i=0;i<32;i++)
-			mAdapter.add(new Data());
+	public void descPage(View v)
+	{
+		fragment= new PropertyDescFragment();
+
+		fragmentTransaction = getSupportFragmentManager().beginTransaction();
+		fragmentTransaction.replace(R.id.frame,fragment);
+		fragmentTransaction.commit();
+
 	}
+	
+
 
 	private void d(String s) {
     	mToast.cancel();
@@ -143,12 +166,18 @@ public class MainActivity extends AppCompatActivity
 				if(resultCode==RESULT_OK) {
 					pfm.edit().putBoolean(KEY_LOGGED_IN,true).apply();
 					userIsLoggedIn=true;
-					loadData();
+
 					Toast.makeText(this,"Logged in",Toast.LENGTH_SHORT).show();
 				}
 				else
 					finish();
 		}
 	}
-	
+
+
+	@Override
+	public void onFragmentInteraction(Uri uri)
+	{
+
+	}
 }
