@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -31,8 +32,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 
 	private SharedPreferences pfm;
 	private Toast mToast;
-	Fragment fragment;
-	FragmentTransaction fragmentTransaction=null;
+	private FragmentManager mFragmentManager;
 
 	@Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,32 +50,21 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		mDrawerLayout = findViewById(R.id.drawer_layout);
 
 		NavigationView mNav = findViewById(R.id.navigation_view);
-		fragment = new BrowseFragment();
+		mFragmentManager = getSupportFragmentManager();
+		/*fragment = new BrowseFragment();
 		fragmentTransaction= getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.add(R.id.frame,fragment);
-		fragmentTransaction.commit();
+		fragmentTransaction.commit();*/
 		mNav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 			@Override
 			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 				mDrawerLayout.closeDrawers();
 				switch(item.getItemId()) {
 					case R.id.menu_add_prop:
-
-						fragment = new AddPropFragment();
-						fragmentTransaction = getSupportFragmentManager().beginTransaction();
-						fragmentTransaction.replace(R.id.frame,fragment);
-						fragmentTransaction.commit();
-
-
-						d("Add prop");
+						mFragmentManager.beginTransaction().replace(R.id.frame, new AddPropFragment()).commit();
 						return true;
 					case R.id.menu_inbox:
-
-						fragment = new BrowseFragment();
-						fragmentTransaction = getSupportFragmentManager().beginTransaction();
-						fragmentTransaction.replace(R.id.frame,fragment);
-						fragmentTransaction.commit();
-						d("Inbox");
+						mFragmentManager.beginTransaction().replace(R.id.frame, new BrowseFragment()).commit();
 						return true;
 				}
 				return false;
@@ -107,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		userIsLoggedIn = pfm.getBoolean(KEY_LOGGED_IN,false); // Check login state here
 		
 		if(userIsLoggedIn) {
-			//loadData();
+			mFragmentManager.beginTransaction().replace(R.id.frame, new BrowseFragment()).commit();
 		} else {
 			Intent loginIntent = new Intent(this, LoginActivity.class);
 			startActivityForResult(loginIntent,REQUEST_LOGIN);
@@ -141,15 +130,8 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 	}
 	public void descPage(View v)
 	{
-		fragment= new PropertyDescFragment();
-
-		fragmentTransaction = getSupportFragmentManager().beginTransaction();
-		fragmentTransaction.replace(R.id.frame,fragment);
-		fragmentTransaction.commit();
-
+		mFragmentManager.beginTransaction().replace(R.id.frame, new PropertyDescFragment()).commit();
 	}
-	
-
 
 	private void d(String s) {
     	mToast.cancel();
@@ -166,7 +148,9 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 				if(resultCode==RESULT_OK) {
 					pfm.edit().putBoolean(KEY_LOGGED_IN,true).apply();
 					userIsLoggedIn=true;
-
+					/*
+					  Check user is logged in or not, from intent
+					 */
 					Toast.makeText(this,"Logged in",Toast.LENGTH_SHORT).show();
 				}
 				else
