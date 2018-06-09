@@ -2,6 +2,7 @@
 <resources>
     <dimen name="login_padding">32dp</dimen>
     <dimen name="ui_elems_spacing">8dp</dimen>
-    <dimen name="chip_padding">12dp</dimen>
+    <dimen name="chip_padding">4dp</dimen>
+    <dimen name="chip_padding_horizontal">8dp</dimen>
     <dimen name="chip_margin">1dp</dimen>
 </resources>

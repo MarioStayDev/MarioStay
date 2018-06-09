@@ -25,6 +25,7 @@ public class BrowseFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setTitle(R.string.menu_inbox);
     }
 
     @Override

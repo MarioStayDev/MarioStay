@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class PropertyDescFragment extends Fragment implements View.OnClickListener {
 
-    private TextView[] chips;
+    //private TextView[] chips;
     private boolean[] selectedChips;
 
     private OnFragmentInteractionListener mListener;
@@ -28,18 +28,27 @@ public class PropertyDescFragment extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         int noOfChips = getResources().getInteger(R.integer.number_of_chips);
-        chips = new TextView[noOfChips];
+        //chips = new TextView[noOfChips];
         selectedChips = new boolean[noOfChips];
         View v = inflater.inflate(R.layout.fragment_property_desc, container, false);
-        chips[0] = v.findViewById(R.id.chip1);
-        chips[1] = v.findViewById(R.id.chip2);
-        chips[2] = v.findViewById(R.id.chip3);
-        chips[3] = v.findViewById(R.id.chip4);
-        chips[4] = v.findViewById(R.id.chip5);
-        chips[5] = v.findViewById(R.id.chip6);
+        v.findViewById(R.id.chip1).setOnClickListener(this);
+        v.findViewById(R.id.chip2).setOnClickListener(this);
+        v.findViewById(R.id.chip3).setOnClickListener(this);
+        v.findViewById(R.id.chip4).setOnClickListener(this);
+        v.findViewById(R.id.chip5).setOnClickListener(this);
+        v.findViewById(R.id.chip6).setOnClickListener(this);
+        v.findViewById(R.id.chip7).setOnClickListener(this);
+        v.findViewById(R.id.chip8).setOnClickListener(this);
+        v.findViewById(R.id.chip9).setOnClickListener(this);
+        v.findViewById(R.id.chip10).setOnClickListener(this);
+        v.findViewById(R.id.chip11).setOnClickListener(this);
+        v.findViewById(R.id.chip12).setOnClickListener(this);
+        v.findViewById(R.id.chip13).setOnClickListener(this);
+        v.findViewById(R.id.chip14).setOnClickListener(this);
+        v.findViewById(R.id.chip15).setOnClickListener(this);
         for(int i = 0; i < noOfChips; i++) {
             selectedChips[i] = false;
-            chips[i].setOnClickListener(this);
+            //chips[i].setOnClickListener(this);
         }
         return v;
     }
@@ -65,6 +74,33 @@ public class PropertyDescFragment extends Fragment implements View.OnClickListen
                 break;
             case R.id.chip6:
                 i = 5;
+                break;
+            case R.id.chip7:
+                i = 6;
+                break;
+            case R.id.chip8:
+                i = 7;
+                break;
+            case R.id.chip9:
+                i = 8;
+                break;
+            case R.id.chip10:
+                i = 9;
+                break;
+            case R.id.chip11:
+                i = 10;
+                break;
+            case R.id.chip12:
+                i = 11;
+                break;
+            case R.id.chip13:
+                i = 12;
+                break;
+            case R.id.chip14:
+                i = 13;
+                break;
+            case R.id.chip15:
+                i = 14;
                 break;
         }
         v.setBackgroundResource(selectedChips[i]?R.drawable.chip_shape_deactivated:R.drawable.chip_shape);

@@ -19,6 +19,7 @@ public class AddPropFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setTitle(R.string.menu_add_property);
     }
 
     @Override
