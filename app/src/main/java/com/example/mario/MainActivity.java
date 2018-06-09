@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 				switch(item.getItemId()) {
 					case R.id.menu_add_prop:
 						mFragment = new AddPropFragment();
-						mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
+						mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).addToBackStack(null).commit();
 						return true;
 					case R.id.menu_inbox:
 						mFragment = new BrowseFragment();
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 	public void descPage(View v)
 	{
 		mFragment = new PropertyDescFragment();
-		mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
+		mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).addToBackStack(null).commit();
 	}
 
 	private void d(String s) {

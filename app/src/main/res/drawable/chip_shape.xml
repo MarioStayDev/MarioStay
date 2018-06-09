@@ -5,8 +5,8 @@
 
     <padding
         android:bottom="@dimen/chip_padding"
-        android:left="@dimen/chip_padding"
-        android:right="@dimen/chip_padding"
+        android:left="@dimen/chip_padding_horizontal"
+        android:right="@dimen/chip_padding_horizontal"
         android:top="@dimen/chip_padding" />
 
     <corners android:radius="30dp" />

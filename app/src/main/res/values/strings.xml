@@ -47,5 +47,14 @@
     <string name="chip_text_power">Power backup</string>
     <string name="chip_text_playground">Playground</string>
     <string name="chip_text_pool">Swimming pool</string>
-    <integer name="number_of_chips" type="id">6</integer>
+    <string name="chip_text_garden">Garden</string>
+    <string name="chip_text_gym">Gym</string>
+    <string name="chip_text_tv">Television</string>
+    <string name="chip_text_fridge">Refrigerator</string>
+    <string name="chip_text_washing_machine">Washing machine</string>
+    <string name="chip_text_purifier">Water purifier</string>
+    <string name="chip_text_wifi">Wifi</string>
+    <string name="chip_text_sofa">Sofa</string>
+    <string name="chip_text_table">Table</string>
+    <integer name="number_of_chips" type="id">15</integer>
 </resources>
