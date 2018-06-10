@@ -1,6 +1,7 @@
 package com.example.mario;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -37,11 +38,11 @@ public class LoginActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 		
-		mToast=Toast.makeText(this,"",0);
-		mEmail = (EditText)findViewById(R.id.email);
-		mPassword = (EditText)findViewById(R.id.password);
-		buttonLogin = (Button)findViewById(R.id.button_login);
-		buttonSignup = (Button)findViewById(R.id.button_signup);
+		mToast=Toast.makeText(this,"",Toast.LENGTH_SHORT);
+		mEmail = findViewById(R.id.email);
+		mPassword = findViewById(R.id.password);
+		buttonLogin = findViewById(R.id.button_login);
+		buttonSignup = findViewById(R.id.button_signup);
 		
 		buttonLogin.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -66,6 +67,13 @@ public class LoginActivity extends AppCompatActivity
 		setResult(RESULT_CANCELED);
 	}
 
+	public void guest(View v) {
+		Intent data = new Intent();
+		data.putExtra("GUEST", true);
+		setResult(RESULT_OK, data);
+		finish();
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
@@ -88,12 +96,13 @@ public class LoginActivity extends AppCompatActivity
 	
 	private class ValidateLogin extends AsyncTask<Void,Void,Void>
 	{
-		private String data,error;
+		private String data,error, na, em = "dummy@email.com";
 		private URL url;
 		
 		public ValidateLogin(String n,String p) {
+			na = n;
 			try {
-				data = URLEncoder.encode("user", "UTF-8") + "=" + URLEncoder.encode(n, "UTF-8");
+				data = URLEncoder.encode("user", "UTF-8") + "=" + URLEncoder.encode(na, "UTF-8");
 				data += "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(p, "UTF-8");
 			}
 			catch(UnsupportedEncodingException e) {error = e.toString();}
@@ -125,6 +134,9 @@ public class LoginActivity extends AppCompatActivity
 				try {
 					jobj = new JSONObject(data);
 					if(jobj.getInt("success") == 1) {
+						//Intent data = new Intent();
+						//data.putExtra("GUEST", 0);
+						getSharedPreferences(MainActivity.KEY_SHARED_PREFERENCE,MODE_PRIVATE).edit().putString(MainActivity.KEY_USER_NAME, na).putString(MainActivity.KEY_EMAIL, em).apply();
 						setResult(RESULT_OK);
 						finish();
 					}

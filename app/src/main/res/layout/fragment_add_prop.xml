@@ -10,6 +10,7 @@
         android:padding="@dimen/ui_elems_spacing">
 
         <EditText
+            android:id="@+id/prop_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_property_name"
@@ -32,12 +33,12 @@
             android:layout_height="@dimen/ui_elems_spacing" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/prop_address"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:ems="10"
             android:gravity="start"
-            android:hint="@string/enter_your_property_s_full_address"
+            android:hint="@string/prompt_address"
             android:inputType="textMultiLine" />
 
         <Space
@@ -45,6 +46,7 @@
             android:layout_height="@dimen/ui_elems_spacing" />
 
         <EditText
+            android:id="@+id/prop_landmark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_landmark"
@@ -55,6 +57,7 @@
             android:layout_height="@dimen/ui_elems_spacing" />
 
         <EditText
+            android:id="@+id/prop_floors"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_floors"
@@ -64,6 +67,12 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/ui_elems_spacing" />
 
+        <!--
+        _________________________________________________
+
+        ADD IDS FROM HERE
+        _________________________________________________
+        -->
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

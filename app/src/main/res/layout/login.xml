@@ -1,74 +1,72 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-	android:gravity="center"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:padding="@dimen/login_padding"
+	android:fitsSystemWindows="true"
 	android:background="@drawable/bg" >
-	
-	<ScrollView
+
+	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_margin="@dimen/login_padding">
-	
-		<LinearLayout
+		android:orientation="vertical"
+		android:gravity="center">
+
+		<EditText
+			android:id="@+id/email"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			android:gravity="center">
+			android:background="@drawable/edittext_bg"
+			android:drawableLeft="@drawable/ic_person_white_24dp"
+			android:hint="@string/prompt_email"
+			android:inputType="textEmailAddress"
+			android:maxLines="1"
+			android:drawableStart="@drawable/ic_person_white_24dp" />
 
-				<EditText
-					android:id="@+id/email"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:background="@drawable/edittext_bg"
-					android:drawableLeft="@drawable/ic_person_white_24dp"
-					android:hint="@string/prompt_email"
-					android:inputType="textEmailAddress"
-					android:maxLines="1"
-					android:drawableStart="@drawable/ic_person_white_24dp" />
-				
-			<Space
-				android:layout_width="wrap_content"
-				android:layout_height="8dp" />
+		<Space
+			android:layout_width="wrap_content"
+			android:layout_height="8dp" />
 
-				<EditText
-					android:id="@+id/password"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:background="@drawable/edittext_bg"
-					android:drawableLeft="@drawable/ic_lock_white_24dp"
-					android:hint="@string/prompt_password"
-					android:inputType="textPassword"
-					android:maxLines="1"
-					android:drawableStart="@drawable/ic_lock_white_24dp" />
-				
-			<Space
-				android:layout_width="wrap_content"
-				android:layout_height="50dp" />
+		<EditText
+			android:id="@+id/password"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/edittext_bg"
+			android:drawableLeft="@drawable/ic_lock_white_24dp"
+			android:hint="@string/prompt_password"
+			android:inputType="textPassword"
+			android:maxLines="1"
+			android:drawableStart="@drawable/ic_lock_white_24dp" />
 
-			<Button
-				android:id="@+id/button_login"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="8dp"
-				android:background="@drawable/ripple_red"
-				android:text="@string/button_login" />
-			
-			<Space
-				android:layout_width="wrap_content"
-				android:layout_height="50dp" />
+		<Space
+			android:layout_width="wrap_content"
+			android:layout_height="50dp" />
 
-			<Button
-				android:id="@+id/button_signup"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="8dp"
-				android:background="@drawable/ripple_green"
-				android:text="@string/button_signup" />
+		<Button
+			android:id="@+id/button_login"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:background="@drawable/ripple_red"
+			android:text="@string/button_login" />
 
-		</LinearLayout>
+		<Space
+			android:layout_width="wrap_content"
+			android:layout_height="50dp" />
 
-	</ScrollView>
+		<Button
+			android:id="@+id/button_signup"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:background="@drawable/ripple_green"
+			android:text="@string/button_signup" />
 
-</LinearLayout>
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/button_guest"
+			style="@style/Base.Widget.AppCompat.Button.Borderless"/>
+
+	</LinearLayout>
+
+</ScrollView>
