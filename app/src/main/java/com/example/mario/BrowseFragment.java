@@ -23,10 +23,7 @@ public class BrowseFragment extends Fragment
     public BrowseFragment() {}
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getActivity().setTitle(R.string.menu_inbox);
-    }
+    public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +37,13 @@ public class BrowseFragment extends Fragment
         loadData();
         return v;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle(R.string.app_name);
+    }
+
     private void loadData()
     {
         //This should be asynchronous load from internet

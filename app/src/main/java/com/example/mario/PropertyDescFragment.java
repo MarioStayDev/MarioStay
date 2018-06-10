@@ -26,9 +26,7 @@ public class PropertyDescFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         int noOfChips = getResources().getInteger(R.integer.number_of_chips);
-        //chips = new TextView[noOfChips];
         selectedChips = new boolean[noOfChips];
         View v = inflater.inflate(R.layout.fragment_property_desc, container, false);
         v.findViewById(R.id.chip1).setOnClickListener(this);
@@ -46,10 +44,7 @@ public class PropertyDescFragment extends Fragment implements View.OnClickListen
         v.findViewById(R.id.chip13).setOnClickListener(this);
         v.findViewById(R.id.chip14).setOnClickListener(this);
         v.findViewById(R.id.chip15).setOnClickListener(this);
-        for(int i = 0; i < noOfChips; i++) {
-            selectedChips[i] = false;
-            //chips[i].setOnClickListener(this);
-        }
+        for(int i = 0; i < noOfChips; i++) selectedChips[i] = false;
         return v;
     }
 

@@ -1,33 +1,18 @@
 <resources>
     <string name="app_name">MarioStay</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="otp_info">An OTP will be sent to the mobile number</string>
+    <string name="photo_content_description">Photo of location</string>
+
+
+    <!-- EditText hints -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_phone">Phone number</string>
-    <string name="button_login">Login</string>
-    <string name="button_signup">Register</string>
     <string name="prompt_name">Username</string>
-    <string name="radio_male">Male</string>
-    <string name="radio_female">Female</string>
-    <string name="radio_student">Student</string>
-    <string name="radio_professional">Professional</string>
-    <string name="button_otp">Send OTP</string>
-    <string name="otp_info">An OTP will be sent to the mobile number</string>
     <string name="prompt_otp">OTP</string>
-    <string name="photo_content_description">Photo of location</string>
-    <string name="menu_add_property">Add property</string>
-    <string name="menu_inbox">Inbox</string>
-    <integer name="otp_length">4</integer>
-    <string name="property_type">Property Type</string>
-    <string-array name="property_types">
-        <item>Appartment</item>
-        <item>Complex</item>
-        <item>Individual</item>
-    </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="prompt_property_name">Property Name</string>
-    <string name="enter_your_property_s_full_address">Address</string>
+    <string name="prompt_address">Address</string>
     <string name="prompt_landmark">Landmark</string>
     <string name="prompt_floors">No. of Floors</string>
     <string name="prompt_stay_time">Minimum Stay Time(In Months)</string>
@@ -36,11 +21,42 @@
     <string name="prompt_security_deposit">Security Multiplier w.r.t. Rent</string>
     <string name="prompt_notice_period">Prior Notice Period(in Days)</string>
     <string name="prompt_next_button">Next</string>
-    <string name="title_add_property">Add property</string>
     <string name="prompt_amenities">Select available amenities:</string>
     <string name="prompt_desc_property">Enter Short Description of Property</string>
     <string name="prompt_location">Tag your location on map:</string>
+
+    <!-- Checkbox texts -->
+    <string name="radio_male">Male</string>
+    <string name="radio_female">Female</string>
+    <string name="radio_student">Student</string>
+    <string name="radio_professional">Professional</string>
+
+    <!-- Button texts -->
+    <string name="button_login">Login</string>
+    <string name="button_signup">Register</string>
+    <string name="button_otp">Send OTP</string>
     <string name="button_add_photos">Add Photos</string>
+    <string name="button_guest">Continue as guest</string>
+
+    <!-- Drawer menu -->
+    <string name="drawer_add_property">Add property</string>
+    <string name="drawer_inbox">Inbox</string>
+    <string name="drawer_dashboard">Dashboard</string>
+    <string name="drawer_payments">All payments</string>
+    <string name="drawer_members">Current members</string>
+    <string name="drawer_bookings">Manage bookings</string>
+    <string name="drawer_receipts">All receipts</string>
+    <string name="drawer_refund">Refund</string>
+
+    <!-- Property type spinner -->
+    <string name="property_type">Property Type</string>
+    <string-array name="property_types">
+        <item>Apartment</item>
+        <item>Complex</item>
+        <item>Individual</item>
+    </string-array>
+
+    <!-- Chips for common amenities -->
     <string name="chip_text_lift">Lift Service</string>
     <string name="chip_text_parking">Parking</string>
     <string name="chip_text_cctv">CCTV camera</string>
@@ -56,5 +72,5 @@
     <string name="chip_text_wifi">Wifi</string>
     <string name="chip_text_sofa">Sofa</string>
     <string name="chip_text_table">Table</string>
-    <integer name="number_of_chips" type="id">15</integer>
+
 </resources>

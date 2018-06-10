@@ -5,49 +5,42 @@
 
     <item
         android:id="@+id/menu_add_prop"
-        android:title="Add property"
+        android:title="@string/drawer_add_property"
         android:icon="@drawable/ic_add_black_24" />
 
     <item
         android:id="@+id/menu_inbox"
-
-        android:title="Inbox"
-        android:icon="@drawable/ic_add_black_24" />
+        android:title="@string/drawer_inbox"
+        android:icon="@drawable/ic_inbox_black_24dp" />
 
     <item
         android:id="@+id/menu_dashboard"
-
-        android:title="Dashboard"
-        android:icon="@drawable/ic_add_black_24" />
+        android:title="@string/drawer_dashboard"
+        android:icon="@drawable/ic_account_circle_black_24dp" />
 
     <item
         android:id="@+id/menu_payments"
-
-        android:title="All payments"
-        android:icon="@drawable/ic_add_black_24" />
+        android:title="@string/drawer_payments"
+        android:icon="@drawable/ic_account_balance_wallet_black_24dp" />
 
     <item
         android:id="@+id/menu_memebers"
-
-        android:title="Current members"
-        android:icon="@drawable/ic_add_black_24" />
+        android:title="@string/drawer_members"
+        android:icon="@drawable/ic_people_black_24dp" />
 
     <item
         android:id="@+id/menu_bookings"
-
-        android:title="Manage bookings"
+        android:title="@string/drawer_bookings"
         android:icon="@drawable/ic_add_black_24" />
 
     <item
         android:id="@+id/menu_receipts"
-
-        android:title="All receipts"
+        android:title="@string/drawer_receipts"
         android:icon="@drawable/ic_add_black_24" />
 
     <item
         android:id="@+id/menu_refund"
-
-        android:title="Refund"
+        android:title="@string/drawer_refund"
         android:icon="@drawable/ic_add_black_24" />
 
     </group>
