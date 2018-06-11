@@ -29,7 +29,7 @@ public class AddPropFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().setTitle(R.string.menu_add_property);
+        getActivity().setTitle(R.string.drawer_add_property);
     }
 
     @Override
