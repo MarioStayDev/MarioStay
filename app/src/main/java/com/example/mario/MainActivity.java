@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 	{
 		switch(item.getItemId()) {
 			case R.id.menu_logout:
-				pfm.edit().putBoolean(KEY_LOGGED_IN,false).apply();
+				pfm.edit().putBoolean(KEY_LOGGED_IN,false).remove(KEY_USER_NAME).remove(KEY_EMAIL).apply();
 				userIsLoggedIn = false;
 				Intent loginIntent = new Intent(this, LoginActivity.class);
 				startActivityForResult(loginIntent,REQUEST_LOGIN);
