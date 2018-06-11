@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 	private Toast mToast;
 	private FragmentManager mFragmentManager;
 	private Fragment mFragment;
+	private TextView x;
 
 	private boolean userIsGuest;
 	private String UserName, Email;
@@ -52,10 +53,13 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		mNavView = findViewById(R.id.navigation_view);
 		mFragmentManager = getSupportFragmentManager();
 
+		View header = mNavView.getHeaderView(R.layout.header);
+
+
 		mNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 			@Override
 			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-				//mDrawerLayout.closeDrawers();
+				mDrawerLayout.closeDrawers();
 				switch(item.getItemId()) {
 					case R.id.menu_add_prop:
 						mFragment = new AddPropFragment();
@@ -81,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		userIsLoggedIn = pfm.getBoolean(KEY_LOGGED_IN,false); // Fetch and check login state here
 		
 		if(userIsLoggedIn) {
-			setUserInfoInDrawer();
+			//setUserInfoInDrawer();
 			mFragment = new BrowseFragment();
 			mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
 		} else {
@@ -157,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 						menu.removeItem(R.id.menu_add_prop);*/
 					}
 					else {
-						setUserInfoInDrawer();
+						//setUserInfoInDrawer();
 						mFragment = new BrowseFragment();
 						mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
 						d("Logged in");
