@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 	private TextView UserNameText, EmailText;
 
 	private boolean userIsGuest;
-	private String UserName, Email;
+	//private String UserName, Email;
 
 	@Override
     protected void onCreate(Bundle savedInstanceState)
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 	{
 		switch(item.getItemId()) {
 			case R.id.menu_logout:
-				pfm.edit().putBoolean(KEY_LOGGED_IN,false).apply();
+				pfm.edit().putBoolean(KEY_LOGGED_IN,false).remove(KEY_USER_NAME).remove(KEY_EMAIL).apply();
 				userIsLoggedIn = false;
 				Intent loginIntent = new Intent(this, LoginActivity.class);
 				startActivityForResult(loginIntent,REQUEST_LOGIN);
@@ -131,8 +131,8 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 	}
 
 	private void setUserInfoInDrawer() {
-		UserName = pfm.getString(KEY_USER_NAME, "");
-		Email = pfm.getString(KEY_EMAIL, "");
+		String UserName = pfm.getString(KEY_USER_NAME, "");
+		String Email = pfm.getString(KEY_EMAIL, "");
 		UserNameText.setText(UserName);
 		EmailText.setText(Email);
 	}
@@ -156,13 +156,9 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 				if(resultCode==RESULT_OK) {
 					pfm.edit().putBoolean(KEY_LOGGED_IN,true).apply();
 					userIsLoggedIn=true;
-					boolean guest = data.getBooleanExtra("GUEST", false);
-					if(guest) {
+					if(data !=null && data.getBooleanExtra("GUEST", false)) {
 						mFragment = new BrowseFragment();
 						mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
-						/*Menu menu = mNavView.getMenu();
-						menu.removeItem(R.id.menu_dashboard);
-						menu.removeItem(R.id.menu_add_prop);*/
 					}
 					else {
 						setUserInfoInDrawer();
