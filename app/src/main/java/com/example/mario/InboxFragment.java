@@ -17,7 +17,8 @@ import android.view.ViewGroup;
  * Use the {@link InboxFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class InboxFragment extends Fragment {
+public class InboxFragment extends Fragment
+{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +30,8 @@ public class InboxFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public InboxFragment() {
+    public InboxFragment()
+    {
         // Required empty public constructor
     }
 
@@ -42,7 +44,8 @@ public class InboxFragment extends Fragment {
      * @return A new instance of fragment InboxFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static InboxFragment newInstance(String param1, String param2) {
+    public static InboxFragment newInstance(String param1, String param2)
+    {
         InboxFragment fragment = new InboxFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -52,7 +55,8 @@ public class InboxFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
