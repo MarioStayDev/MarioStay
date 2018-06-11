@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 	private Toast mToast;
 	private FragmentManager mFragmentManager;
 	private Fragment mFragment;
-	private TextView x;
+	private TextView UserNameText, EmailText;
 
 	private boolean userIsGuest;
 	private String UserName, Email;
@@ -53,7 +53,9 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		mNavView = findViewById(R.id.navigation_view);
 		mFragmentManager = getSupportFragmentManager();
 
-		View header = mNavView.getHeaderView(R.layout.header);
+		View header = mNavView.getHeaderView(0);
+		UserNameText = header.findViewById(R.id.username);
+		EmailText = header.findViewById(R.id.email);
 
 
 		mNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -85,9 +87,11 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		userIsLoggedIn = pfm.getBoolean(KEY_LOGGED_IN,false); // Fetch and check login state here
 		
 		if(userIsLoggedIn) {
-			//setUserInfoInDrawer();
-			mFragment = new BrowseFragment();
-			mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
+			setUserInfoInDrawer();
+			if(findViewById(R.id.frame) != null && savedInstanceState == null) {
+				mFragment = new BrowseFragment();
+				mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
+			}
 		} else {
 			Intent loginIntent = new Intent(this, LoginActivity.class);
 			startActivityForResult(loginIntent,REQUEST_LOGIN);
@@ -129,8 +133,8 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 	private void setUserInfoInDrawer() {
 		UserName = pfm.getString(KEY_USER_NAME, "");
 		Email = pfm.getString(KEY_EMAIL, "");
-		((TextView)(mDrawerLayout.findViewById(R.id.username))).setText(UserName);
-		((TextView)(mDrawerLayout.findViewById(R.id.email))).setText(Email);
+		UserNameText.setText(UserName);
+		EmailText.setText(Email);
 	}
 
 	private void loginPrompt() {
@@ -161,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 						menu.removeItem(R.id.menu_add_prop);*/
 					}
 					else {
-						//setUserInfoInDrawer();
+						setUserInfoInDrawer();
 						mFragment = new BrowseFragment();
 						mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
 						d("Logged in");

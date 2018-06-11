@@ -134,10 +134,10 @@ public class LoginActivity extends AppCompatActivity
 				try {
 					jobj = new JSONObject(data);
 					if(jobj.getInt("success") == 1) {
-						//Intent data = new Intent();
-						//data.putExtra("GUEST", 0);
+						Intent data = new Intent();
+						data.putExtra("GUEST", false);
 						getSharedPreferences(MainActivity.KEY_SHARED_PREFERENCE,MODE_PRIVATE).edit().putString(MainActivity.KEY_USER_NAME, na).putString(MainActivity.KEY_EMAIL, em).apply();
-						setResult(RESULT_OK);
+						setResult(RESULT_OK, data);
 						finish();
 					}
 					else {
