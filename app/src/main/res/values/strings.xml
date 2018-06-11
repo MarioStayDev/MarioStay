@@ -55,6 +55,11 @@
         <item>Complex</item>
         <item>Individual</item>
     </string-array>
+    <string-array name="dummy_props">
+        <item>Property 1</item>
+        <item>Property 2</item>
+        <item>Property 3</item>
+    </string-array>
 
     <!-- Chips for common amenities -->
     <string name="chip_text_lift">Lift Service</string>
