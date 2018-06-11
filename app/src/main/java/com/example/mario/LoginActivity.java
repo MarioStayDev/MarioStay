@@ -34,7 +34,6 @@ public class LoginActivity extends AppCompatActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		// TODO: Implement this method
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 		
@@ -49,20 +48,14 @@ public class LoginActivity extends AppCompatActivity
 				String n,p;
 				n = mEmail.getText().toString();
 				p = mPassword.getText().toString();
-				if("".equals(n))
-					d("Username required");
-				else if("".equals(p))
-					d("Password required");
-				else
-					new ValidateLogin(n,p).execute();
+				if("".equals(n)) d("Username required");
+				else if("".equals(p)) d("Password required");
+				else new ValidateLogin(n,p).execute();
 			}
 		});
-		buttonSignup.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					Intent ri = new Intent(LoginActivity.this,SignupActivity.class);
-					startActivityForResult(ri,REQUEST_SIGNUP);
-				}
-			});
+		buttonSignup.setOnClickListener(new OnClickListener() { public void onClick(View v) {
+			startActivityForResult(new Intent(LoginActivity.this,SignupActivity.class), REQUEST_SIGNUP);
+		} });
 		
 		setResult(RESULT_CANCELED);
 	}
@@ -111,66 +104,49 @@ public class LoginActivity extends AppCompatActivity
 		@Override
 		protected void onPreExecute()
 		{
-			// TODO: Implement this method
 			super.onPreExecute();
 			buttonLogin.setEnabled(false);
 			buttonSignup.setEnabled(false);
-			try {
-				//url = new URL("http://client.epizy.com/mario/login.php");
-				url = new URL("http://skhastagir98.000webhostapp.com/login.php");
-			}
+			try { url = new URL("http://skhastagir98.000webhostapp.com/login.php"); }
 			catch(MalformedURLException e) {error = e.toString();}
 		}
 
 		@Override
 		protected void onPostExecute(Void result)
 		{
-			// TODO: Implement this method
 			super.onPostExecute(result);
 			buttonLogin.setEnabled(true);
 			buttonSignup.setEnabled(true);
 			if(error == null) {
-				JSONObject jobj = null;
+				JSONObject jobj;
 				try {
 					jobj = new JSONObject(data);
 					if(jobj.getInt("success") == 1) {
-						Intent data = new Intent();
-						data.putExtra("GUEST", false);
 						getSharedPreferences(MainActivity.KEY_SHARED_PREFERENCE,MODE_PRIVATE).edit().putString(MainActivity.KEY_USER_NAME, na).putString(MainActivity.KEY_EMAIL, em).apply();
-						setResult(RESULT_OK, data);
+						setResult(RESULT_OK);
 						finish();
-					}
-					else {
-						d(jobj.getString("message"));
-					}
-				}
-				catch(JSONException e) {d(e.toString());}
-			}
-			else {
-				d(error);
-			}
+					} else { d(jobj.getString("message")); }
+				} catch(JSONException e) {d(e.toString());}
+			} else { d(error); }
 		}
 
 		@Override
-		protected Void doInBackground(Void[] p1)
-		{
-			// TODO: Implement this method
+		protected Void doInBackground(Void[] p1) {
 			try {
 				HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 				conn.setUseCaches(true);
 				conn.setRequestMethod("POST");
 				
-				//conn.setDoOutput(true); 
-				OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream()); 
+				OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
 				wr.write(data); 
 				wr.flush();
 				wr.close();
 				
 				BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 				StringBuilder sb = new StringBuilder();
-				String line = null;
+				String line;
 
-				while((line = reader.readLine()) != null)
+				while(null != (line = reader.readLine()))
 					sb.append(line + "\n");
 				reader.close();
 
@@ -178,10 +154,7 @@ public class LoginActivity extends AppCompatActivity
 			}
 			catch(UnknownHostException e) {error = "No internet connection";}
 			catch(IOException e) {error = e.toString();}
-			//catch(InterruptedException e) {error = e.toString();}
 			return null;
 		}
-
 	}
-	
 }
