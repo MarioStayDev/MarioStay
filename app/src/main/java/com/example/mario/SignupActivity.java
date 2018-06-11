@@ -31,7 +31,7 @@ public class SignupActivity extends AppCompatActivity
 	private int OTG_LENGTH;
 
 	FloatingActionButton searchPic;
-	CircleImageView profilePic;
+	private CircleImageView profilePic;
 	private static int RESULT_LOAD_IMAGE=1;
 
 	private static final int REQUEST_WRITE_PERMISSION = 786;
@@ -70,7 +70,7 @@ public class SignupActivity extends AppCompatActivity
 		setContentView(R.layout.signup);
 
 		searchPic = (FloatingActionButton) findViewById(R.id.SearchPic);
-		profilePic=(CircleImageView)findViewById(R.id.)
+
 
 		searchPic.setOnClickListener(new View.OnClickListener()
 		{
@@ -84,7 +84,7 @@ public class SignupActivity extends AppCompatActivity
 		});
 		
 		OTG_LENGTH=getResources().getInteger(R.integer.otp_length);
-		mToast=Toast.makeText(this,"",0);
+		mToast=Toast.makeText(this,"",Toast.LENGTH_SHORT);
 		mUser=findViewById(R.id.s_user);
 		mEmail=findViewById(R.id.s_email);
 		mPass=findViewById(R.id.s_pass);
@@ -190,7 +190,9 @@ public class SignupActivity extends AppCompatActivity
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+
 		super.onActivityResult(requestCode, resultCode, data);
 
 		if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
@@ -205,7 +207,7 @@ public class SignupActivity extends AppCompatActivity
 			String picturePath = cursor.getString(columnIndex);
 			cursor.close();
 
-			CircleImageView imageView = (CircleImageView) findViewById(R.id.P);
+			CircleImageView imageView = (CircleImageView) findViewById(R.id.ProPic);
 			imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
 
 			// String picturePath contains the path of selected Image
