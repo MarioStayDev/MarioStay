@@ -20,21 +20,21 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements BrowseFragment.OnFragmentInteractionListener,AddPropFragment.OnFragmentInteractionListener,PropertyDescFragment.OnFragmentInteractionListener,AllPaymentFragment.OnFragmentInteractionListener
+public class MainActivity extends AppCompatActivity implements BrowseFragment.OnFragmentInteractionListener,AddPropFragment.OnFragmentInteractionListener,PropertyDescFragment.OnFragmentInteractionListener,PaymentsFragment.OnFragmentInteractionListener,
+                                                                RefundFragment.OnFragmentInteractionListener
 {
 	private boolean userIsLoggedIn;
 	//private Toolbar mToolbar;
 	private final int REQUEST_LOGIN=101;
 	public final static String KEY_SHARED_PREFERENCE = "shared_pref_key", KEY_LOGGED_IN = "logged_in_key", KEY_USER_NAME = "user_name_key", KEY_EMAIL = "email_key";
 	private DrawerLayout mDrawerLayout;
-	private NavigationView mNavView;
+	//private NavigationView mNavView;
 	private SharedPreferences pfm;
 	private Toast mToast;
 	private FragmentManager mFragmentManager;
 	private Fragment mFragment;
 	private TextView UserNameText, EmailText;
 
-	private boolean userIsGuest;
 	//private String UserName, Email;
 
 	@Override
@@ -47,16 +47,15 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		setSupportActionBar(mToolbar);
 
 		ActionBar actionbar = getSupportActionBar();
-		actionbar.setDisplayHomeAsUpEnabled(true);
+		if (actionbar != null) actionbar.setDisplayHomeAsUpEnabled(true);
 
 		mDrawerLayout = findViewById(R.id.drawer_layout);
-		mNavView = findViewById(R.id.navigation_view);
+		NavigationView mNavView = findViewById(R.id.navigation_view);
 		mFragmentManager = getSupportFragmentManager();
 
 		View header = mNavView.getHeaderView(0);
 		UserNameText = header.findViewById(R.id.username);
 		EmailText = header.findViewById(R.id.email);
-
 
 		mNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 			@Override
@@ -65,25 +64,19 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 				switch(item.getItemId()) {
 					case R.id.menu_add_prop:
 						mFragment = new AddPropFragment();
-						mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).addToBackStack(null).commit();
-						if(userIsGuest)
-							loginPrompt();
-						return true;
+						break;
 					case R.id.menu_inbox:
 						mFragment = new BrowseFragment();
-						mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
-						if(userIsGuest)
-							loginPrompt();
-						return true;
-
-					case R.id.menu_payments:
-						mFragment = new AllPaymentFragment();
-						mFragmentManager.beginTransaction().replace(R.id.frame,mFragment).commit();
-						if(userIsGuest)
-							loginPrompt();
-						return true;
+						break;
+					case R.id.menu_refund:
+						mFragment = new RefundFragment();
+						break;
 				}
-				return false;
+				if(!userIsLoggedIn)
+					loginPrompt();
+				else
+					mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
+				return true;
 			}
 		});
 
@@ -93,19 +86,15 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		pfm = getSharedPreferences(KEY_SHARED_PREFERENCE,MODE_PRIVATE);
 		userIsLoggedIn = pfm.getBoolean(KEY_LOGGED_IN,false); // Fetch and check login state here
 		
-		if(userIsLoggedIn)
-		{
+		if(userIsLoggedIn) {
 			setUserInfoInDrawer();
-			if(findViewById(R.id.frame) != null && savedInstanceState == null)
-			{
+			if(findViewById(R.id.frame) != null && savedInstanceState == null) {
 				mFragment = new BrowseFragment();
 				mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
 			}
-		}
-		else
-			{
-			//Intent loginIntent = new Intent(this, LoginActivity.class);
-			//startActivityForResult(loginIntent,REQUEST_LOGIN);
+		} else {
+			Intent loginIntent = new Intent(this, LoginActivity.class);
+			startActivityForResult(loginIntent,REQUEST_LOGIN);
 		}
 
 		mToast = Toast.makeText(this, "Init", Toast.LENGTH_LONG);
@@ -148,9 +137,9 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		EmailText.setText(Email);
 	}
 
-	private void loginPrompt()
-	{
+	private void loginPrompt() {
 		d("You are not logged in");
+		startActivityForResult(new Intent(this, LoginActivity.class), REQUEST_LOGIN);
 	}
 
 	private void d(String s) {
