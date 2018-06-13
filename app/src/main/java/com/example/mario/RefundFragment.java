@@ -111,9 +111,11 @@ public class RefundFragment extends Fragment {
         public class viewholder extends RecyclerView.ViewHolder {
             TextView mText;
 
-            public viewholder(TextView tv) {
+            public viewholder(View tv) {
                 super(tv);
-                mText = tv;
+
+
+                mText = (TextView)tv.findViewById(R.id.text_refund_room);;
             }
         }
 
@@ -127,7 +129,8 @@ public class RefundFragment extends Fragment {
         @Override
         public viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View h = LayoutInflater.from(getActivity()).inflate(R.layout.list_item_refund, parent, false);
-            return new viewholder((TextView) h.findViewById(R.id.text_refund_room));
+            //TextView tview= (TextView)h.findViewById(R.id.text_refund_room);
+            return new viewholder(h);
         }
 
         @Override

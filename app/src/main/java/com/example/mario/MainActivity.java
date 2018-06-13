@@ -20,7 +20,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements BrowseFragment.OnFragmentInteractionListener,AddPropFragment.OnFragmentInteractionListener,PropertyDescFragment.OnFragmentInteractionListener,PaymentsFragment.OnFragmentInteractionListener
+public class MainActivity extends AppCompatActivity implements BrowseFragment.OnFragmentInteractionListener,AddPropFragment.OnFragmentInteractionListener,PropertyDescFragment.OnFragmentInteractionListener,PaymentsFragment.OnFragmentInteractionListener,
+                                                                RefundFragment.OnFragmentInteractionListener
 {
 	private boolean userIsLoggedIn;
 	//private Toolbar mToolbar;
