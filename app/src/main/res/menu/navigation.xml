@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/menu_inbox"
         android:title="test"
         android:icon="@drawable/ic_inbox_black_24dp" />
     <item
+        android:id="@+id/menu_bookings"
         android:title="test2"
         android:icon="@drawable/ic_account_balance_wallet_black_24dp" />
     <item
+        android:id="@+id/menu_refund"
         android:title="test3"
         android:icon="@drawable/ic_add_black_24" />
+    <item
+        android:id="@+id/menu_dashboard"
+        android:title="@string/drawer_dashboard"
+        android:icon="@drawable/ic_account_circle_black_24dp" />
 </menu>
