@@ -31,7 +31,7 @@ public class SignupActivity extends AppCompatActivity
 	private int OTG_LENGTH;
 
 	FloatingActionButton searchPic;
-	private CircleImageView profilePic;
+	//private CircleImageView profilePic;
 	private static int RESULT_LOAD_IMAGE=1;
 
 	private static final int REQUEST_WRITE_PERMISSION = 786;
@@ -120,8 +120,10 @@ public class SignupActivity extends AppCompatActivity
 		}
 	}
 	
-	public void setProf(View v) {
-		switch(v.getId()) {
+	public void setProf(View v)
+	{
+		switch(v.getId())
+		{
 			case R.id.s:
 				stud=true;
 				break;
@@ -130,7 +132,8 @@ public class SignupActivity extends AppCompatActivity
 		}
 	}
 	
-	public void send_otp(View v) {
+	public void send_otp(View v)
+	{
 		String u=mUser.getText().toString(),
 			p=mPass.getText().toString(),
 			ph=mPhone.getText().toString()
@@ -149,7 +152,8 @@ public class SignupActivity extends AppCompatActivity
 		}
 	}
 	
-	private void d(String s) {
+	private void d(String s)
+	{
 		mToast.cancel();
 		mToast=Toast.makeText(this,s,Toast.LENGTH_LONG);
 		mToast.show();
@@ -160,7 +164,8 @@ public class SignupActivity extends AppCompatActivity
 		private String name,pass,phone;
 		private char gender,profession;
 		
-		public Register(String n,String p,String ph,boolean m,boolean s) {
+		public Register(String n,String p,String ph,boolean m,boolean s)
+		{
 			name=n;pass=p;phone=ph;
 			gender=m?'m':'f';
 			profession=s?'s':'p';

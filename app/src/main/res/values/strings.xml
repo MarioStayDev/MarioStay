@@ -56,6 +56,16 @@
         <item>Individual</item>
     </string-array>
 
+    <string name="property_name_select">Select Property Name</string>
+
+    <string-array name="property_names">
+        <item>Prop1</item>
+        <item>Prop2</item>
+        <item>Prop3</item>
+        <item>Prop4</item>
+        <item>Prop5</item>
+    </string-array>
+
     <!-- Chips for common amenities -->
     <string name="chip_text_lift">Lift Service</string>
     <string name="chip_text_parking">Parking</string>

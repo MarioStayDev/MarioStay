@@ -20,7 +20,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements BrowseFragment.OnFragmentInteractionListener,AddPropFragment.OnFragmentInteractionListener,PropertyDescFragment.OnFragmentInteractionListener,PaymentsFragment.OnFragmentInteractionListener
+public class MainActivity extends AppCompatActivity implements BrowseFragment.OnFragmentInteractionListener,AddPropFragment.OnFragmentInteractionListener,PropertyDescFragment.OnFragmentInteractionListener,AllPaymentFragment.OnFragmentInteractionListener
 {
 	private boolean userIsLoggedIn;
 	//private Toolbar mToolbar;
@@ -75,6 +75,13 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 						if(userIsGuest)
 							loginPrompt();
 						return true;
+
+					case R.id.menu_payments:
+						mFragment = new AllPaymentFragment();
+						mFragmentManager.beginTransaction().replace(R.id.frame,mFragment).commit();
+						if(userIsGuest)
+							loginPrompt();
+						return true;
 				}
 				return false;
 			}
@@ -86,15 +93,19 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		pfm = getSharedPreferences(KEY_SHARED_PREFERENCE,MODE_PRIVATE);
 		userIsLoggedIn = pfm.getBoolean(KEY_LOGGED_IN,false); // Fetch and check login state here
 		
-		if(userIsLoggedIn) {
+		if(userIsLoggedIn)
+		{
 			setUserInfoInDrawer();
-			if(findViewById(R.id.frame) != null && savedInstanceState == null) {
+			if(findViewById(R.id.frame) != null && savedInstanceState == null)
+			{
 				mFragment = new BrowseFragment();
 				mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
 			}
-		} else {
-			Intent loginIntent = new Intent(this, LoginActivity.class);
-			startActivityForResult(loginIntent,REQUEST_LOGIN);
+		}
+		else
+			{
+			//Intent loginIntent = new Intent(this, LoginActivity.class);
+			//startActivityForResult(loginIntent,REQUEST_LOGIN);
 		}
 
 		mToast = Toast.makeText(this, "Init", Toast.LENGTH_LONG);
@@ -137,7 +148,8 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		EmailText.setText(Email);
 	}
 
-	private void loginPrompt() {
+	private void loginPrompt()
+	{
 		d("You are not logged in");
 	}
 

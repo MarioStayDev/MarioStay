@@ -21,7 +21,7 @@
             android:layout_height="@dimen/ui_elems_spacing" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/spinner_prop_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/property_types"

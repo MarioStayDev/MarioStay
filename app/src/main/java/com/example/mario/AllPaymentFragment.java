@@ -12,12 +12,13 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PaymentsFragment.OnFragmentInteractionListener} interface
+ * {@link AllPaymentFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PaymentsFragment#newInstance} factory method to
+ * Use the {@link AllPaymentFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PaymentsFragment extends Fragment {
+public class AllPaymentFragment extends Fragment
+{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +30,8 @@ public class PaymentsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PaymentsFragment() {
+    public AllPaymentFragment()
+    {
         // Required empty public constructor
     }
 
@@ -39,11 +41,12 @@ public class PaymentsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PaymentsFragment.
+     * @return A new instance of fragment AllPaymentFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PaymentsFragment newInstance(String param1, String param2) {
-        PaymentsFragment fragment = new PaymentsFragment();
+    public static AllPaymentFragment newInstance(String param1, String param2)
+    {
+        AllPaymentFragment fragment = new AllPaymentFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -52,7 +55,8 @@ public class PaymentsFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -62,31 +66,38 @@ public class PaymentsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_payments, container, false);
+        return inflater.inflate(R.layout.fragment_all_payment, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
+    public void onButtonPressed(Uri uri)
+    {
+        if (mListener != null)
+        {
             mListener.onFragmentInteraction(uri);
         }
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context)
+    {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
+        if (context instanceof OnFragmentInteractionListener)
+        {
             mListener = (OnFragmentInteractionListener) context;
-        } else {
+        } else
+            {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
 
     @Override
-    public void onDetach() {
+    public void onDetach()
+    {
         super.onDetach();
         mListener = null;
     }
@@ -101,7 +112,8 @@ public class PaymentsFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnFragmentInteractionListener
+    {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
