@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_inbox"
-        android:title="test"
+        android:title="@string/drawer_inbox"
         android:icon="@drawable/ic_inbox_black_24dp" />
     <item
         android:id="@+id/menu_bookings"
-        android:title="test2"
+        android:title="@string/drawer_bookings"
         android:icon="@drawable/ic_account_balance_wallet_black_24dp" />
     <item
         android:id="@+id/menu_refund"
-        android:title="test3"
+        android:title="@string/drawer_refund"
         android:icon="@drawable/ic_add_black_24" />
     <item
         android:id="@+id/menu_dashboard"

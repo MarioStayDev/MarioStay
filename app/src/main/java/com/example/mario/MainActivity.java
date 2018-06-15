@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		if(userIsLoggedIn) {
 			setUserInfoInDrawer();
 			if(findViewById(R.id.frame) != null && savedInstanceState == null) {
-				mFragment = new BrowseFragment();
+				mFragment = new InboxFragment();
 				mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
 			}
 		} else {
