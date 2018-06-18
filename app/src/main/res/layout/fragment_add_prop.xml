@@ -9,8 +9,15 @@
         android:orientation="vertical"
         android:padding="@dimen/ui_elems_spacing">
 
+        <!--
+        _____________________________________________________________________
+
+        ID naming scheme : @[+]id/<fragment>_<element>_<description>
+        _____________________________________________________________________
+        -->
+
         <EditText
-            android:id="@+id/prop_name"
+            android:id="@+id/prop_edit_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_property_name"
@@ -21,7 +28,7 @@
             android:layout_height="@dimen/ui_elems_spacing" />
 
         <Spinner
-            android:id="@+id/spinner_prop_type"
+            android:id="@+id/prop_spinner_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/property_types"
@@ -33,7 +40,7 @@
             android:layout_height="@dimen/ui_elems_spacing" />
 
         <EditText
-            android:id="@+id/prop_address"
+            android:id="@+id/prop_edit_address"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:ems="10"
@@ -46,7 +53,7 @@
             android:layout_height="@dimen/ui_elems_spacing" />
 
         <EditText
-            android:id="@+id/prop_landmark"
+            android:id="@+id/prop_edit_landmark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_landmark"
@@ -57,7 +64,7 @@
             android:layout_height="@dimen/ui_elems_spacing" />
 
         <EditText
-            android:id="@+id/prop_floors"
+            android:id="@+id/prop_edit_floors"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_floors"
@@ -67,13 +74,8 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/ui_elems_spacing" />
 
-        <!--
-        _________________________________________________
-
-        ADD IDS FROM HERE
-        _________________________________________________
-        -->
         <EditText
+            android:id="@+id/prop_edit_stay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_stay_time"
@@ -88,6 +90,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:id="@+id/prop_edit_intime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -95,6 +98,7 @@
                 android:inputType="time" />
 
             <EditText
+                android:id="@+id/prop_edit_outtime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -108,6 +112,7 @@
             android:layout_height="@dimen/ui_elems_spacing" />
 
         <EditText
+            android:id="@+id/prop_edit_securitydeposit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_security_deposit"
@@ -118,6 +123,7 @@
             android:layout_height="@dimen/ui_elems_spacing" />
 
         <EditText
+            android:id="@+id/prop_edit_noticeperiod"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_notice_period"

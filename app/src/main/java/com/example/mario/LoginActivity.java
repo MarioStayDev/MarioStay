@@ -111,7 +111,6 @@ public class LoginActivity extends AppCompatActivity
 		@Override
 		protected void onPreExecute()
 		{
-			// TODO: Implement this method
 			super.onPreExecute();
 			buttonLogin.setEnabled(false);
 			buttonSignup.setEnabled(false);
@@ -125,7 +124,6 @@ public class LoginActivity extends AppCompatActivity
 		@Override
 		protected void onPostExecute(Void result)
 		{
-			// TODO: Implement this method
 			super.onPostExecute(result);
 			buttonLogin.setEnabled(true);
 			buttonSignup.setEnabled(true);
@@ -154,11 +152,11 @@ public class LoginActivity extends AppCompatActivity
 		@Override
 		protected Void doInBackground(Void[] p1)
 		{
-			// TODO: Implement this method
 			try {
 				HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 				conn.setUseCaches(true);
 				conn.setRequestMethod("POST");
+				conn.setConnectTimeout(5000);
 				
 				//conn.setDoOutput(true); 
 				OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream()); 

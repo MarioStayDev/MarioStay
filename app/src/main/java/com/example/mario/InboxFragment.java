@@ -30,8 +30,8 @@ public class InboxFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_inbox, container, false);
-        TabLayout mTab = v.findViewById(R.id.tab_chat);
-        ViewPager mPager = v.findViewById(R.id.pager_chat);
+        TabLayout mTab = v.findViewById(R.id.inbox_tab);
+        ViewPager mPager = v.findViewById(R.id.inbox_pager);
         mPager.setAdapter(new ChatFragmentAdapter(getChildFragmentManager()));
         mTab.setupWithViewPager(mPager);
         return v;

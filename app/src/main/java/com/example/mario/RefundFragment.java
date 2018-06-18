@@ -41,10 +41,10 @@ public class RefundFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_refund, container, false);
-        propSpinner = v.findViewById(R.id.spinner_refund_props);
+        propSpinner = v.findViewById(R.id.refund_spinner_props);
         rView = v.findViewById(R.id.refund_view);
-        mProgressBar = v.findViewById(R.id.loading_refund);
-        mRecyclerView = v.findViewById(R.id.list_refund_rooms);
+        mProgressBar = v.findViewById(R.id.refund_progress);
+        mRecyclerView = v.findViewById(R.id.refund_list_rooms);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new RoomsAdapter();
         mRecyclerView.setAdapter(mAdapter);
@@ -129,7 +129,6 @@ public class RefundFragment extends Fragment {
         @Override
         public viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View h = LayoutInflater.from(getActivity()).inflate(R.layout.list_item_refund, parent, false);
-            //TextView tview= (TextView)h.findViewById(R.id.text_refund_room);
             return new viewholder(h);
         }
 
