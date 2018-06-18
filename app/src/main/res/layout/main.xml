@@ -20,6 +20,16 @@
 
 	</android.support.design.widget.AppBarLayout>
 
+		<Spinner
+			android:id="@+id/select_prop"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:entries="@array/property_names"
+			android:visibility="gone"
+			>
+
+		</Spinner>
+
 		<FrameLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"

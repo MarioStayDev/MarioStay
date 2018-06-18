@@ -88,7 +88,8 @@ public class LoginActivity extends AppCompatActivity
 		}
 	}
 	
-	private void d(String s) {
+	private void d(String s)
+	{
 		mToast.cancel();
 		mToast = Toast.makeText(LoginActivity.this,s,Toast.LENGTH_SHORT);
 		mToast.show();
@@ -99,9 +100,11 @@ public class LoginActivity extends AppCompatActivity
 		private String data,error, na, em = "dummy@email.com";
 		private URL url;
 		
-		public ValidateLogin(String n,String p) {
+		public ValidateLogin(String n,String p)
+		{
 			na = n;
-			try {
+			try
+			{
 				data = URLEncoder.encode("user", "UTF-8") + "=" + URLEncoder.encode(na, "UTF-8");
 				data += "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(p, "UTF-8");
 			}
@@ -115,7 +118,8 @@ public class LoginActivity extends AppCompatActivity
 			super.onPreExecute();
 			buttonLogin.setEnabled(false);
 			buttonSignup.setEnabled(false);
-			try {
+			try
+			{
 				//url = new URL("http://client.epizy.com/mario/login.php");
 				url = new URL("http://skhastagir98.000webhostapp.com/login.php");
 			}
@@ -131,22 +135,26 @@ public class LoginActivity extends AppCompatActivity
 			buttonSignup.setEnabled(true);
 			if(error == null) {
 				JSONObject jobj = null;
-				try {
+				try
+				{
 					jobj = new JSONObject(data);
-					if(jobj.getInt("success") == 1) {
+					if(jobj.getInt("success") == 1)
+					{
 						Intent data = new Intent();
 						data.putExtra("GUEST", false);
 						getSharedPreferences(MainActivity.KEY_SHARED_PREFERENCE,MODE_PRIVATE).edit().putString(MainActivity.KEY_USER_NAME, na).putString(MainActivity.KEY_EMAIL, em).apply();
 						setResult(RESULT_OK, data);
 						finish();
 					}
-					else {
+					else
+						{
 						d(jobj.getString("message"));
 					}
 				}
 				catch(JSONException e) {d(e.toString());}
 			}
-			else {
+			else
+				{
 				d(error);
 			}
 		}
@@ -155,7 +163,8 @@ public class LoginActivity extends AppCompatActivity
 		protected Void doInBackground(Void[] p1)
 		{
 			// TODO: Implement this method
-			try {
+			try
+			{
 				HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 				conn.setUseCaches(true);
 				conn.setRequestMethod("POST");

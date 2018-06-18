@@ -20,7 +20,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements BrowseFragment.OnFragmentInteractionListener,AddPropFragment.OnFragmentInteractionListener,PropertyDescFragment.OnFragmentInteractionListener,PaymentsFragment.OnFragmentInteractionListener,
+public class MainActivity extends AppCompatActivity implements BrowseFragment.OnFragmentInteractionListener,AddPropFragment.OnFragmentInteractionListener,PropertyDescFragment.OnFragmentInteractionListener,AllPaymentFragment.OnFragmentInteractionListener,
                                                                 RefundFragment.OnFragmentInteractionListener
 {
 	private boolean userIsLoggedIn;
@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 
 		mDrawerLayout = findViewById(R.id.drawer_layout);
 		NavigationView mNavView = findViewById(R.id.navigation_view);
+		mNavView.setItemIconTintList(null);
+
 		mFragmentManager = getSupportFragmentManager();
 
 		View header = mNavView.getHeaderView(0);
@@ -70,6 +72,10 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 						break;
 					case R.id.menu_refund:
 						mFragment = new RefundFragment();
+						break;
+
+					case R.id.menu_payments:
+						mFragment = new AllPaymentFragment();
 						break;
 				}
 				if(!userIsLoggedIn)
