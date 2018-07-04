@@ -1,6 +1,7 @@
 package com.example.mario;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,17 +29,17 @@ public class LoginActivity extends AppCompatActivity
 {
 	private EditText mEmail,mPassword;
 	private Button buttonLogin,buttonSignup;
+	private SharedPreferences pfm;
 	private final int REQUEST_SIGNUP=101;
 	private Toast mToast;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		// TODO: Implement this method
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 		
-		mToast=Toast.makeText(this,"",Toast.LENGTH_SHORT);
+		mToast=new Toast(this);
 		mEmail = findViewById(R.id.email);
 		mPassword = findViewById(R.id.password);
 		buttonLogin = findViewById(R.id.button_login);
@@ -63,21 +64,20 @@ public class LoginActivity extends AppCompatActivity
 					startActivityForResult(ri,REQUEST_SIGNUP);
 				}
 			});
-		
+
+		pfm = getSharedPreferences(MainActivity.KEY_SHARED_PREFERENCE,MODE_PRIVATE);
 		setResult(RESULT_CANCELED);
 	}
 
 	public void guest(View v) {
-		Intent data = new Intent();
-		data.putExtra("GUEST", true);
-		setResult(RESULT_OK, data);
+		pfm.edit().putBoolean(MainActivity.KEY_LOGGED_IN,true).apply();
+		setResult(RESULT_OK);
 		finish();
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		// TODO: Implement this method
 		super.onActivityResult(requestCode, resultCode, data);
 		switch(requestCode) {
 			case REQUEST_SIGNUP:
@@ -128,14 +128,12 @@ public class LoginActivity extends AppCompatActivity
 			buttonLogin.setEnabled(true);
 			buttonSignup.setEnabled(true);
 			if(error == null) {
-				JSONObject jobj = null;
+				JSONObject jobj;
 				try {
 					jobj = new JSONObject(data);
 					if(jobj.getInt("success") == 1) {
-						Intent data = new Intent();
-						data.putExtra("GUEST", false);
-						getSharedPreferences(MainActivity.KEY_SHARED_PREFERENCE,MODE_PRIVATE).edit().putString(MainActivity.KEY_USER_NAME, na).putString(MainActivity.KEY_EMAIL, em).apply();
-						setResult(RESULT_OK, data);
+						pfm.edit().putBoolean(MainActivity.KEY_LOGGED_IN,true).putString(MainActivity.KEY_USER_NAME, na).putString(MainActivity.KEY_EMAIL, em).apply();
+						setResult(RESULT_OK);
 						finish();
 					}
 					else {
@@ -166,10 +164,10 @@ public class LoginActivity extends AppCompatActivity
 				
 				BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 				StringBuilder sb = new StringBuilder();
-				String line = null;
+				String line;
 
 				while((line = reader.readLine()) != null)
-					sb.append(line + "\n");
+					sb.append(line).append("\n");
 				reader.close();
 
 				data = sb.toString();

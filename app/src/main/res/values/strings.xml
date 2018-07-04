@@ -88,5 +88,7 @@
     <string name="chip_text_sofa">Sofa</string>
     <string name="chip_text_table">Table</string>
     <string name="prompt_message">Enter message</string>
+    <string name="drawer_properties">Properties</string>
+    <string name="property_empty_message">No property yet!</string>
 
 </resources>

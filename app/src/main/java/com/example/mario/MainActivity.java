@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -21,7 +22,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements BrowseFragment.OnFragmentInteractionListener,AddPropFragment.OnFragmentInteractionListener,PropertyDescFragment.OnFragmentInteractionListener,AllPaymentFragment.OnFragmentInteractionListener,
+public class MainActivity extends AppCompatActivity implements PropertyFragment.OnFragmentInteractionListener, /*BrowseFragment.OnFragmentInteractionListener,*/ AddPropFragment.OnFragmentInteractionListener,PropertyDescFragment.OnFragmentInteractionListener,AllPaymentFragment.OnFragmentInteractionListener,
                                                                 RefundFragment.OnFragmentInteractionListener,InboxFragment.OnFragmentInteractionListener
 {
 	private boolean userIsLoggedIn;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 	private FragmentManager mFragmentManager;
 	private Fragment mFragment;
 	private TextView UserNameText, EmailText;
+	private MenuItem prevMenuItem;
 
 	//private String UserName, Email;
 
@@ -47,12 +49,20 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		Toolbar mToolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(mToolbar);
 
-		ActionBar actionbar = getSupportActionBar();
+        pfm = getSharedPreferences(KEY_SHARED_PREFERENCE,MODE_PRIVATE);
+        userIsLoggedIn = pfm.getBoolean(KEY_LOGGED_IN,false); // Fetch and check login state here
+
+        if(!userIsLoggedIn) {
+            Intent loginIntent = new Intent(this, LoginActivity.class);
+            startActivityForResult(loginIntent,REQUEST_LOGIN);
+        }
+
+		/*ActionBar actionbar = getSupportActionBar();
 		if (actionbar != null) actionbar.setDisplayHomeAsUpEnabled(true);
 
 		mDrawerLayout = findViewById(R.id.drawer_layout);
-		NavigationView mNavView = findViewById(R.id.navigation_view);
-		mFragmentManager = getSupportFragmentManager();
+		NavigationView mNavView = findViewById(R.id.navigation_view);*/
+		mFragmentManager = getSupportFragmentManager();/*
 
 		View header = mNavView.getHeaderView(0);
 		UserNameText = header.findViewById(R.id.username);
@@ -82,50 +92,74 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		});
 
 		ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,mToolbar ,  R.string.app_name, R.string.app_name);
-		mDrawerToggle.syncState();
+		mDrawerToggle.syncState();*/
 
-		BottomNavigationView bNavView = findViewById(R.id.bottom_navigation_view);
+		final ViewPager viewPager = findViewById(R.id.frame);
+		setupViewPager(viewPager);
+
+		final BottomNavigationView bNavView = findViewById(R.id.bottom_navigation_view);
 		bNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 			@Override
 			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-				switch(item.getItemId()) {
+				if(!userIsLoggedIn) loginPrompt();
+				else switch(item.getItemId()) {
+					case R.id.menu_properties:
+						viewPager.setCurrentItem(0);
 					case R.id.menu_inbox:
-						mFragment = new InboxFragment();
+						viewPager.setCurrentItem(1);
 						break;
 					case R.id.menu_bookings:
-						mFragment = new AllPaymentFragment();
+						viewPager.setCurrentItem(2);
 						break;
 					case R.id.menu_refund:
-						mFragment = new RefundFragment();
+						viewPager.setCurrentItem(3);
 						break;
 					case R.id.menu_dashboard:
-						d("Dashboard not yet implemented");
+						viewPager.setCurrentItem(4);
 						return true;
 				}
-				if(!userIsLoggedIn)
-					loginPrompt();
-				else
-					mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
-				return true;
+				return false;
 			}
 		});
 
-		pfm = getSharedPreferences(KEY_SHARED_PREFERENCE,MODE_PRIVATE);
-		userIsLoggedIn = pfm.getBoolean(KEY_LOGGED_IN,false); // Fetch and check login state here
-		
-		if(userIsLoggedIn) {
-			setUserInfoInDrawer();
-			if(findViewById(R.id.frame) != null && savedInstanceState == null) {
-				mFragment = new InboxFragment();
-				mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
-			}
-		} else {
-			Intent loginIntent = new Intent(this, LoginActivity.class);
-			startActivityForResult(loginIntent,REQUEST_LOGIN);
-		}
+		viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-		mToast = Toast.makeText(this, "Init", Toast.LENGTH_LONG);
+			}
+
+			@Override
+			public void onPageSelected(int position) {
+				if (prevMenuItem != null) {
+					prevMenuItem.setChecked(false);
+				}
+				else
+				{
+					bNavView.getMenu().getItem(0).setChecked(false);
+				}
+
+				bNavView.getMenu().getItem(position).setChecked(true);
+				prevMenuItem = bNavView.getMenu().getItem(position);
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int state) {
+
+			}
+		});
+
+		mToast = new Toast(this);
     }
+
+	private void setupViewPager(ViewPager v) {
+		ViewPagerAdapter adapter = new ViewPagerAdapter(mFragmentManager);
+		adapter.addFragment(new PropertyFragment());
+		adapter.addFragment(new InboxFragment());
+		adapter.addFragment(new AllPaymentFragment());
+		adapter.addFragment(new RefundFragment());
+		adapter.addFragment(new Fragment());
+		v.setAdapter(adapter);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -157,12 +191,12 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).addToBackStack(null).commit();
 	}
 
-	private void setUserInfoInDrawer() {
+	/*private void setUserInfoInDrawer() {
 		String UserName = pfm.getString(KEY_USER_NAME, "");
 		String Email = pfm.getString(KEY_EMAIL, "");
 		UserNameText.setText(UserName);
 		EmailText.setText(Email);
-	}
+	}*/
 
 	private void loginPrompt() {
 		d("You are not logged in");
@@ -181,23 +215,9 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		super.onActivityResult(requestCode, resultCode, data);
 		switch(requestCode) {
 			case REQUEST_LOGIN:
-				if(resultCode==RESULT_OK) {
-					pfm.edit().putBoolean(KEY_LOGGED_IN,true).apply();
-					userIsLoggedIn=true;
-					if(data !=null && data.getBooleanExtra("GUEST", false)) {
-						mFragment = new BrowseFragment();
-						mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
-					}
-					else {
-						setUserInfoInDrawer();
-						mFragment = new BrowseFragment();
-						mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
-						d("Logged in");
-					}
-					//Toast.makeText(this,"Logged in",Toast.LENGTH_SHORT).show();
-				}
-				else
-					finish();
+				if(resultCode == RESULT_OK) if(userIsLoggedIn = pfm.getBoolean(KEY_LOGGED_IN, false)) d("Logged in");
+				else finish();
+				break;
 		}
 	}
 
@@ -207,4 +227,9 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 	{
 
 	}
+
+    @Override
+    public void addNewProperty() {
+        d("method from MainActivity");
+    }
 }

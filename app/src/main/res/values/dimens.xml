@@ -5,4 +5,5 @@
     <dimen name="chip_padding">4dp</dimen>
     <dimen name="chip_padding_horizontal">8dp</dimen>
     <dimen name="chip_margin">1dp</dimen>
+    <dimen name="property_fab_margin">16dp</dimen>
 </resources>

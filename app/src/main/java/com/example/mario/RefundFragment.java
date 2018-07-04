@@ -38,7 +38,7 @@ public class RefundFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_refund, container, false);
         propSpinner = v.findViewById(R.id.refund_spinner_props);
@@ -115,7 +115,7 @@ public class RefundFragment extends Fragment {
                 super(tv);
 
 
-                mText = (TextView)tv.findViewById(R.id.text_refund_room);;
+                mText = tv.findViewById(R.id.text_refund_room);
             }
         }
 
