@@ -90,5 +90,7 @@
     <string name="prompt_message">Enter message</string>
     <string name="drawer_properties">Properties</string>
     <string name="property_empty_message">No property yet!</string>
+    <string name="title_activity_add_property">AddPropertyActivity</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

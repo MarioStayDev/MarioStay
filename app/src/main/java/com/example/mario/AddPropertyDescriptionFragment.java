@@ -4,33 +4,41 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class AddPropFragment extends Fragment
-{
+public class AddPropertyDescriptionFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public AddPropFragment() {}
+    public AddPropertyDescriptionFragment() { }
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.fragment_add_prop, container, false);
+        View v = inflater.inflate(R.layout.fragment_add_property_description, container, false);
+        Button b = v.findViewById(R.id.add_prop_next_2);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.nextFragment();
+            }
+        });
+        return v;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getActivity().setTitle(R.string.drawer_add_property);
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            //mListener.onFragmentInteraction(uri);
+        }
     }
 
     @Override
@@ -51,6 +59,6 @@ public class AddPropFragment extends Fragment
     }
 
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+        void nextFragment();
     }
 }

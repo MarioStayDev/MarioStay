@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity
 	}
 
 	public void guest(View v) {
-		pfm.edit().putBoolean(MainActivity.KEY_LOGGED_IN,true).apply();
+		pfm.edit().putBoolean(MainActivity.KEY_LOGGED_IN, false).apply();
 		setResult(RESULT_OK);
 		finish();
 	}

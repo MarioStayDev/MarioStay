@@ -1,36 +1,37 @@
 package com.example.mario;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class AddPropFragment extends Fragment
-{
+public class AddPropertyFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public AddPropFragment() {}
+    public AddPropertyFragment() { }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.fragment_add_prop, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        getActivity().setTitle(R.string.drawer_add_property);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_add_property, container, false);
+        Button b = v.findViewById(R.id.add_prop_next_1);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.nextFragment();
+            }
+        });
+        return v;
     }
 
     @Override
@@ -51,6 +52,6 @@ public class AddPropFragment extends Fragment
     }
 
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+        void nextFragment();
     }
 }
