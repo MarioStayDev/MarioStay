@@ -2,4 +2,5 @@
 <resources>
     <integer name="otp_length">4</integer>
     <integer name="number_of_chips" type="id">15</integer>
+    <integer name="inbox_fragments">2</integer>
 </resources>

@@ -7,7 +7,7 @@
     android:gravity="center" >
 
     <ProgressBar
-        android:id="@+id/loading_refund"
+        android:id="@+id/refund_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone" />
@@ -20,7 +20,7 @@
         android:gravity="center_horizontal" >
 
         <Spinner
-            android:id="@+id/spinner_refund_props"
+            android:id="@+id/refund_spinner_props"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/dummy_props"/>
@@ -69,7 +69,7 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/list_refund_rooms"
+            android:id="@+id/refund_list_rooms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical"

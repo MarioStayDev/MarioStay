@@ -1,6 +1,7 @@
 package com.example.mario;
 
 import android.net.Uri;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,7 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements BrowseFragment.OnFragmentInteractionListener,AddPropFragment.OnFragmentInteractionListener,PropertyDescFragment.OnFragmentInteractionListener,AllPaymentFragment.OnFragmentInteractionListener,
-                                                                RefundFragment.OnFragmentInteractionListener
+                                                                RefundFragment.OnFragmentInteractionListener,InboxFragment.OnFragmentInteractionListener
 {
 	private boolean userIsLoggedIn;
 	//private Toolbar mToolbar;
@@ -51,8 +52,6 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 
 		mDrawerLayout = findViewById(R.id.drawer_layout);
 		NavigationView mNavView = findViewById(R.id.navigation_view);
-		mNavView.setItemIconTintList(null);
-
 		mFragmentManager = getSupportFragmentManager();
 
 		View header = mNavView.getHeaderView(0);
@@ -73,10 +72,6 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 					case R.id.menu_refund:
 						mFragment = new RefundFragment();
 						break;
-
-					case R.id.menu_payments:
-						mFragment = new AllPaymentFragment();
-						break;
 				}
 				if(!userIsLoggedIn)
 					loginPrompt();
@@ -89,13 +84,39 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 		ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,mToolbar ,  R.string.app_name, R.string.app_name);
 		mDrawerToggle.syncState();
 
+		BottomNavigationView bNavView = findViewById(R.id.bottom_navigation_view);
+		bNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+			@Override
+			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+				switch(item.getItemId()) {
+					case R.id.menu_inbox:
+						mFragment = new InboxFragment();
+						break;
+					case R.id.menu_bookings:
+						mFragment = new AllPaymentFragment();
+						break;
+					case R.id.menu_refund:
+						mFragment = new RefundFragment();
+						break;
+					case R.id.menu_dashboard:
+						d("Dashboard not yet implemented");
+						return true;
+				}
+				if(!userIsLoggedIn)
+					loginPrompt();
+				else
+					mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
+				return true;
+			}
+		});
+
 		pfm = getSharedPreferences(KEY_SHARED_PREFERENCE,MODE_PRIVATE);
 		userIsLoggedIn = pfm.getBoolean(KEY_LOGGED_IN,false); // Fetch and check login state here
 		
 		if(userIsLoggedIn) {
 			setUserInfoInDrawer();
 			if(findViewById(R.id.frame) != null && savedInstanceState == null) {
-				mFragment = new BrowseFragment();
+				mFragment = new InboxFragment();
 				mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).commit();
 			}
 		} else {
