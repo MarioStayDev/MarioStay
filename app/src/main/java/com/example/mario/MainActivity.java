@@ -21,7 +21,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements BrowseFragment.OnFragmentInteractionListener,AddPropFragment.OnFragmentInteractionListener,PropertyDescFragment.OnFragmentInteractionListener,AllPaymentFragment.OnFragmentInteractionListener,
+public class MainActivity extends AppCompatActivity implements BrowseFragment.OnFragmentInteractionListener,PropertyDescFragment.OnFragmentInteractionListener,ManageBookingsFragment.OnFragmentInteractionListener,
                                                                 RefundFragment.OnFragmentInteractionListener,InboxFragment.OnFragmentInteractionListener
 {
 	private boolean userIsLoggedIn;
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 						mFragment = new InboxFragment();
 						break;
 					case R.id.menu_bookings:
-						mFragment = new AllPaymentFragment();
+						mFragment = new ManageBookingsFragment();
 						break;
 					case R.id.menu_refund:
 						mFragment = new RefundFragment();
@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements BrowseFragment.On
 	{
 		mFragment = new PropertyDescFragment();
 		mFragmentManager.beginTransaction().replace(R.id.frame, mFragment).addToBackStack(null).commit();
+
 	}
 
 	private void setUserInfoInDrawer() {

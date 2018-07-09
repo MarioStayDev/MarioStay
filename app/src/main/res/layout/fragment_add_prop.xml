@@ -10,7 +10,7 @@
         android:padding="@dimen/ui_elems_spacing">
 
         <!--
-        _____________________________________________________________________
+        _________________________________________________________________________
 
         ID naming scheme : @[+]id/<fragment>_<element>_<description>
         _____________________________________________________________________
@@ -136,7 +136,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="descPage"
+            android:id="@+id/prop_button_descPage"
             android:text="@string/prompt_next_button" />
 
     </LinearLayout>

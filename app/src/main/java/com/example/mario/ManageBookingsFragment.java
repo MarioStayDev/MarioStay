@@ -3,7 +3,12 @@ package com.example.mario;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,9 +67,45 @@ public class ManageBookingsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manage_bookings, container, false);
+                             Bundle savedInstanceState)
+    {
+        View v = inflater.inflate(R.layout.fragment_manage_bookings, container, false);
+        TabLayout mTab = v.findViewById(R.id.bookings_tab);
+        ViewPager mPager = v.findViewById(R.id.bookings_pager);
+        mPager.setAdapter(new BookingsFragmentAdapter(getChildFragmentManager()));
+        mTab.setupWithViewPager(mPager);
+
+        return v;
+    }
+
+    private class BookingsFragmentAdapter extends FragmentPagerAdapter {
+
+        BookingsFragmentAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public android.support.v4.app.Fragment getItem(int position) {
+            switch(position) {
+                case 0:
+                    return new bookingsTabFragment();
+                case 1:
+                    return new AllPaymentFragment();
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return getResources().getInteger(R.integer.inbox_fragments);
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return position == 0 ? "Bookings" : "All Payments";
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
