@@ -16,9 +16,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements PropertyFragment.OnFragmentInteractionListener,
-																AddPropFragment.OnFragmentInteractionListener,
 																PropertyDescFragment.OnFragmentInteractionListener,
-																AllPaymentFragment.OnFragmentInteractionListener,
                                                                 RefundFragment.OnFragmentInteractionListener,
 																com.example.mario.InboxFragment.OnFragmentInteractionListener
 {
