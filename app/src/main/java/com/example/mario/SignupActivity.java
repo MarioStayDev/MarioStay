@@ -9,10 +9,12 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -20,7 +22,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.content.ContentValues.TAG;
 
 public class SignupActivity extends AppCompatActivity
 {
@@ -29,6 +41,7 @@ public class SignupActivity extends AppCompatActivity
 	private Toast mToast;
 	private boolean male=true,stud=true;
 	private int OTG_LENGTH;
+	private FirebaseFirestore myDocRef = FirebaseFirestore.getInstance();
 
 	FloatingActionButton searchPic;
 	private CircleImageView profilePic;
@@ -92,20 +105,51 @@ public class SignupActivity extends AppCompatActivity
 		mOtp=findViewById(R.id.s_otp);
 		mBSignup=findViewById(R.id.s_otg);
 		mBOtp=findViewById(R.id.s_button_send);
-		mOtp.addTextChangedListener(new TextWatcher() {
+		mOtp.addTextChangedListener(new TextWatcher()
+		{
 			public void beforeTextChanged(CharSequence c,int i1,int i2,int i3) {}
 			public void onTextChanged(CharSequence c,int i1, int i2,int i3) {}
-			public void afterTextChanged(Editable e) {
+			public void afterTextChanged(Editable e)
+			{
 				if(e.length()==OTG_LENGTH)
 					mBSignup.setEnabled(true);
 				else
 					mBSignup.setEnabled(false);
 			}
 		});
-		mBSignup.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				//new Register(u,p,ph,male,stud).execute();
-				d("Not yet implemented");
+		mBSignup.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(View v)
+			{
+				Map<String,Object> dataSave = new HashMap<String, Object>() ;
+				dataSave.put("FullName",mUser.getText().toString());
+				dataSave.put("Email",mEmail.getText().toString());
+				dataSave.put("Password",mPass.getText().toString());
+				dataSave.put("Phone",mPhone.getText().toString());
+				if(male==true) 	dataSave.put("Gender","Male");
+				else dataSave.put("Gender","Male");
+				if(stud==true) 	dataSave.put("WorkCategory","Student");
+				else dataSave.put("WorkCategory","Professional");
+
+
+
+				myDocRef.collection("/users").add(dataSave).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
+				{
+					@Override
+					public void onSuccess(DocumentReference documentReference)
+					{
+						Log.d(TAG,"User Document Saved");
+					}
+				}).addOnFailureListener(new OnFailureListener()
+
+				{
+					@Override
+					public void onFailure(@NonNull Exception e)
+					{
+						Log.d(TAG,"User Document Failed to save.");
+
+					}
+				});
 			}
 		});
 	}
@@ -130,7 +174,8 @@ public class SignupActivity extends AppCompatActivity
 		}
 	}
 	
-	public void send_otp(View v) {
+	public void send_otp(View v)
+	{
 		String u=mUser.getText().toString(),
 			p=mPass.getText().toString(),
 			ph=mPhone.getText().toString()

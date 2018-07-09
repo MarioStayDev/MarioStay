@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:animateLayoutChanges="true">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/booking_text_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Member's Name" />
+
+
+
+
+
+
+            <TextView
+                android:id="@+id/booking_text_room"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Room No-1xx"
+                />
+
+            <TextView
+                android:id="@+id/booking_text_start_end"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+
+
+                android:text="dd/mm-dd/mm"
+                />
+
+
+
+            <TextView
+                android:id="@+id/booking_text_rent_amt"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="Rs- xyz"
+                />
+
+        <TextView
+            android:id="@+id/booking_text_release_notice"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notice Give Date: DD/MM/YY"
+            android:visibility="gone"
+
+            />
+
+
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+        <Button
+            android:id="@+id/booking_button_renew"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Renew Agreement"
+
+            />
+
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

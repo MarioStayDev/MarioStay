@@ -12,33 +12,31 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AllPaymentFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AllPaymentFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class AllPaymentFragment extends Fragment
+public class bookingsTabFragment extends Fragment
 {
-    private bookingsDataAdapter Adapter;
-
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {
+    private AllPaymentsDataAdapter Adapter;
 
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_chat, container, false);
         RecyclerView rcv = v.findViewById(R.id.chat_list_chatcontacts);
         rcv.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         rcv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        Adapter = new bookingsDataAdapter();
+        Adapter = new AllPaymentsDataAdapter();
         rcv.setAdapter(Adapter);
+
+
+
         return v;
 
+
+
     }
+
 
 }

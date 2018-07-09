@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/property_names"
-            android:prompt="@string/prompt_property_name"
-            android:spinnerMode="dialog"
+
+
             android:layout_margin="10dp">
 
         </Spinner>
@@ -29,52 +29,56 @@
             android:layout_height="wrap_content"
             >
 
-        <TableLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp">
 
 
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+
 
                     <TextView
                         android:id="@+id/AP_member_name_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="Member's Name" />
 
                     <TextView
                         android:id="@+id/AP_rent_period_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+
                         android:layout_height="wrap_content"
                         android:text="Rent Period" />
 
                     <TextView
                         android:id="@+id/AP_pay_type_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Payment Type(Rent/Deposit)" />
+                        android:text="Payment Type (Rent/Deposit)" />
 
                     <TextView
                         android:id="@+id/AP_amount_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="Amount" />
 
                     <TextView
                         android:id="@+id/AP_due_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="Due" />
-                </TableRow>
 
 
 
 
-        </TableLayout>
+
+        </LinearLayout>
 
         </ScrollView>
 
