@@ -9,40 +9,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class AddPropertyPhotoFragment extends Fragment {
+public class AddPropertyUploadFragment extends Fragment {
 
+    private Property property;
     private OnFragmentInteractionListener mListener;
-    //private Property property;
     private Unbinder unbinder;
-    @BindView(R.id.prop_photo_view) ImageView img;
+    @BindView(R.id.property_progress_upload) ProgressBar progress;
 
-    public AddPropertyPhotoFragment() { }
+    public AddPropertyUploadFragment() { }
 
-    public static AddPropertyPhotoFragment newInstance(Property p) {
-        AddPropertyPhotoFragment fragment = new AddPropertyPhotoFragment();
-        /*Bundle args = new Bundle();
+    public static AddPropertyUploadFragment newInstance(Property p) {
+        AddPropertyUploadFragment fragment = new AddPropertyUploadFragment();
+        Bundle args = new Bundle();
         args.putParcelable(AddPropertyActivity.KEY_PROPERTY, p);
-        fragment.setArguments(args);*/
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //if (getArguments() != null) property = getArguments().getParcelable(AddPropertyActivity.KEY_PROPERTY);
+        if (getArguments() != null) property = getArguments().getParcelable(AddPropertyActivity.KEY_PROPERTY);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_add_property_photo, container, false);
+        View v = inflater.inflate(R.layout.fragment_add_property_upload, container, false);
         unbinder = ButterKnife.bind(this, v);
         return v;
     }
@@ -70,17 +70,12 @@ public class AddPropertyPhotoFragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick(R.id.prop_photo_photo)
-    public void photo() {
-        img.setImageResource(R.drawable.camera);
-    }
-
-    @OnClick(R.id.add_prop_next_2)
-    public void gotoNext() {
-        mListener.nextFragment();
+    @OnClick(R.id.property_button_upload)
+    public void upload(Button b) {
+        mListener.lastFragment(progress, b);
     }
 
     public interface OnFragmentInteractionListener {
-        void nextFragment();
+        void lastFragment(ProgressBar progress, Button button);
     }
 }

@@ -16,28 +16,36 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 //import com.example.mario.
 import com.badoualy.stepperindicator.StepperIndicator;
-
-// import com.viewpagerindicator.LinePageIndicator;
-
-//import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AddPropertyActivity extends AppCompatActivity  implements AddPropertyFragment.OnFragmentInteractionListener,
                                                             AddPropertyDescriptionFragment.OnFragmentInteractionListener,
-                                                            AddPropertyPhotoFragment.OnFragmentInteractionListener {
+                                                            AddPropertyPhotoFragment.OnFragmentInteractionListener,
+                                                            AddPropertyUploadFragment.OnFragmentInteractionListener {
 
-    NonSwipeableViewPager mViewPager;
+    final static String KEY_PROPERTY = "com.example.mario.AddPropertyActivity.KEY_PROPERTY";
+    private NonSwipeableViewPager mViewPager;
     private Toast mToast;
+    private Property property;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_property);
 
+        property = new Property();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -46,14 +54,16 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
         setupViewPager(mViewPager);
         indicator.setViewPager(mViewPager, true);
 
+        db = FirebaseFirestore.getInstance();
         mToast = new Toast(this);
     }
 
     private void setupViewPager(ViewPager pager) {
         ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        pagerAdapter.addFragment(new AddPropertyFragment());
-        pagerAdapter.addFragment(new AddPropertyDescriptionFragment());
-        pagerAdapter.addFragment(new AddPropertyPhotoFragment());
+        pagerAdapter.addFragment(AddPropertyFragment.newInstance(property));
+        pagerAdapter.addFragment(AddPropertyDescriptionFragment.newInstance(property));
+        pagerAdapter.addFragment(AddPropertyPhotoFragment.newInstance(property));
+        pagerAdapter.addFragment(AddPropertyUploadFragment.newInstance(property));
         pager.setAdapter(pagerAdapter);
     }
 
@@ -83,7 +93,25 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
     }
 
     @Override
-    public void lastFragment() {
+    public void lastFragment(final ProgressBar p, final Button b) {
+        p.setVisibility(View.VISIBLE);
+        b.setVisibility(View.GONE);
+        db.collection("properties").add(property).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                b.setVisibility(View.VISIBLE);
+                p.setVisibility(View.GONE);
+                d("Success");
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                b.setVisibility(View.VISIBLE);
+                p.setVisibility(View.GONE);
+                d("Failed");
+            }
+        });
         d("Uploading...");
     }
 

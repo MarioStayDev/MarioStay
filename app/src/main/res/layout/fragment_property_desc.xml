@@ -34,7 +34,6 @@
                 android:layout_margin="@dimen/chip_margin"
                 android:id="@+id/chip1"
                 android:background="@drawable/chip_shape_deactivated"
-                android:text="@string/chip_text_lift"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -43,7 +42,6 @@
                 android:layout_margin="@dimen/chip_margin"
                 android:id="@+id/chip2"
                 android:background="@drawable/chip_shape_deactivated"
-                android:text="@string/chip_text_parking"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -52,7 +50,6 @@
                 android:layout_margin="@dimen/chip_margin"
                 android:id="@+id/chip3"
                 android:background="@drawable/chip_shape_deactivated"
-                android:text="@string/chip_text_cctv"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -61,7 +58,6 @@
                 android:layout_margin="@dimen/chip_margin"
                 android:id="@+id/chip4"
                 android:background="@drawable/chip_shape_deactivated"
-                android:text="@string/chip_text_power"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -70,7 +66,6 @@
                 android:layout_margin="@dimen/chip_margin"
                 android:id="@+id/chip5"
                 android:background="@drawable/chip_shape_deactivated"
-                android:text="@string/chip_text_playground"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -79,7 +74,6 @@
                 android:layout_margin="@dimen/chip_margin"
                 android:id="@+id/chip6"
                 android:background="@drawable/chip_shape_deactivated"
-                android:text="@string/chip_text_pool"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -88,7 +82,6 @@
                 android:layout_margin="@dimen/chip_margin"
                 android:id="@+id/chip7"
                 android:background="@drawable/chip_shape_deactivated"
-                android:text="@string/chip_text_garden"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -97,7 +90,6 @@
                 android:layout_margin="@dimen/chip_margin"
                 android:id="@+id/chip8"
                 android:background="@drawable/chip_shape_deactivated"
-                android:text="@string/chip_text_gym"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -106,7 +98,6 @@
                 android:layout_margin="@dimen/chip_margin"
                 android:id="@+id/chip9"
                 android:background="@drawable/chip_shape_deactivated"
-                android:text="@string/chip_text_tv"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -115,7 +106,6 @@
                 android:layout_margin="@dimen/chip_margin"
                 android:id="@+id/chip10"
                 android:background="@drawable/chip_shape_deactivated"
-                android:text="@string/chip_text_fridge"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -124,7 +114,6 @@
                 android:layout_margin="@dimen/chip_margin"
                 android:id="@+id/chip11"
                 android:background="@drawable/chip_shape_deactivated"
-                android:text="@string/chip_text_washing_machine"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -133,7 +122,6 @@
                 android:layout_margin="@dimen/chip_margin"
                 android:id="@+id/chip12"
                 android:background="@drawable/chip_shape_deactivated"
-                android:text="@string/chip_text_purifier"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -142,7 +130,6 @@
                 android:layout_margin="@dimen/chip_margin"
                 android:id="@+id/chip13"
                 android:background="@drawable/chip_shape_deactivated"
-                android:text="@string/chip_text_wifi"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -151,7 +138,6 @@
                 android:layout_margin="@dimen/chip_margin"
                 android:id="@+id/chip14"
                 android:background="@drawable/chip_shape_deactivated"
-                android:text="@string/chip_text_sofa"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -160,7 +146,6 @@
                 android:layout_margin="@dimen/chip_margin"
                 android:id="@+id/chip15"
                 android:background="@drawable/chip_shape_deactivated"
-                android:text="@string/chip_text_table"
                 android:textColor="@android:color/white" />
 
         </com.google.android.flexbox.FlexboxLayout>

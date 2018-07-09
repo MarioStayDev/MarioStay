@@ -1,12 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/ui_elems_spacing"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ui_elems_spacing" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prompt_amenities"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ui_elems_spacing" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:flexWrap="wrap" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip1"
+                android:background="@drawable/chip_shape_deactivated"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip2"
+                android:background="@drawable/chip_shape_deactivated"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip3"
+                android:background="@drawable/chip_shape_deactivated"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip4"
+                android:background="@drawable/chip_shape_deactivated"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip5"
+                android:background="@drawable/chip_shape_deactivated"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip6"
+                android:background="@drawable/chip_shape_deactivated"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip7"
+                android:background="@drawable/chip_shape_deactivated"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip8"
+                android:background="@drawable/chip_shape_deactivated"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip9"
+                android:background="@drawable/chip_shape_deactivated"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip10"
+                android:background="@drawable/chip_shape_deactivated"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip11"
+                android:background="@drawable/chip_shape_deactivated"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip12"
+                android:background="@drawable/chip_shape_deactivated"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip13"
+                android:background="@drawable/chip_shape_deactivated"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip14"
+                android:background="@drawable/chip_shape_deactivated"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/chip_margin"
+                android:id="@+id/chip15"
+                android:background="@drawable/chip_shape_deactivated"
+                android:textColor="@android:color/white" />
+
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ui_elems_spacing" />
+
+        <EditText
+            android:id="@+id/property_desc_edit_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:minLines="5"
+            android:hint="@string/prompt_desc_property"
+            android:inputType="textMultiLine" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ui_elems_spacing" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prompt_location"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ui_elems_spacing" />
+
+        <!--<com.google.android.gms.maps.MapView
+            android:id="@+id/property_desc_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/colorAccent"
+            android:text="MAP"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/prop_desc_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_add_photos"/>
+
+    </LinearLayout>
+
+</ScrollView>
+    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<TextView
+    <!-<TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />-->
+        android:text="@string/hello_blank_fragment" />->
 
     <Button
         android:id="@+id/add_prop_next_2"
@@ -15,4 +213,4 @@
         android:layout_centerInParent="true"
         android:text="Next" />
 
-</RelativeLayout>
+</RelativeLayout>-->

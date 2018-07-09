@@ -20,22 +20,19 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_weight="1"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
+            android:background="@color/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="@string/app_name" />
+        <!--app:layout_scrollFlags="scroll|enterAlways"-->
 
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
-
-    <com.example.mario.NonSwipeableViewPager
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical"
+        android:gravity="center_horizontal" >
 
     <com.badoualy.stepperindicator.StepperIndicator
         android:id="@+id/stepper_indicator"
@@ -46,6 +43,11 @@
         android:layout_marginTop="32dp"/>
     <!--app:stpi_labels="@array/stepLabels"-->
 
-    </RelativeLayout>
+        <com.example.mario.NonSwipeableViewPager
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
