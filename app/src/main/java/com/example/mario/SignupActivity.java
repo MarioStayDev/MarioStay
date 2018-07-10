@@ -26,7 +26,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +46,8 @@ public class SignupActivity extends AppCompatActivity
 	private boolean male=true,stud=true;
 	private int OTG_LENGTH;
 	private FirebaseFirestore myDocRef = FirebaseFirestore.getInstance();
+	private StorageReference myStorageRef;
+	private String picturePath,picUrl;
 
 	FloatingActionButton searchPic;
 	private CircleImageView profilePic;
@@ -117,15 +123,43 @@ public class SignupActivity extends AppCompatActivity
 					mBSignup.setEnabled(false);
 			}
 		});
+
+		myStorageRef= FirebaseStorage.getInstance().getReference();
+
+
+
+
 		mBSignup.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(View v)
 			{
+				Uri myPicUri = Uri.fromFile( new File(picturePath));
+				final StorageReference storageRef= myStorageRef.child("/users/ProfilePic/"+mEmail.getText().toString()+".jpg");
+				storageRef.putFile(myPicUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
+				{
+					@Override
+					public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
+					{
+						Log.d(TAG,"User ProfilePic Saved");
+						picUrl=storageRef.getDownloadUrl().toString();
+
+					}
+				}).addOnFailureListener(new OnFailureListener()
+
+				{
+					@Override
+					public void onFailure(@NonNull Exception e)
+					{
+						Log.d(TAG,"User Profile Failed to save.");
+
+					}
+				});
 				Map<String,Object> dataSave = new HashMap<String, Object>() ;
 				dataSave.put("FullName",mUser.getText().toString());
 				dataSave.put("Email",mEmail.getText().toString());
 				dataSave.put("Password",mPass.getText().toString());
 				dataSave.put("Phone",mPhone.getText().toString());
+				dataSave.put("PicUrl",picUrl);
 				if(male==true) 	dataSave.put("Gender","Male");
 				else dataSave.put("Gender","Male");
 				if(stud==true) 	dataSave.put("WorkCategory","Student");
@@ -240,7 +274,8 @@ public class SignupActivity extends AppCompatActivity
 
 		super.onActivityResult(requestCode, resultCode, data);
 
-		if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+		if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data)
+		{
 			Uri selectedImage = data.getData();
 			String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
@@ -249,13 +284,13 @@ public class SignupActivity extends AppCompatActivity
 			cursor.moveToFirst();
 
 			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-			String picturePath = cursor.getString(columnIndex);
+			picturePath = cursor.getString(columnIndex);			// String picturePath contains the path of selected Image
 			cursor.close();
 
 			CircleImageView imageView = (CircleImageView) findViewById(R.id.ProPic);
 			imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
 
-			// String picturePath contains the path of selected Image
+
 		}
 	}
 }
