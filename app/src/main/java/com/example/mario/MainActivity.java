@@ -1,5 +1,7 @@
 package com.example.mario;
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.net.Uri;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -132,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 		startActivityForResult(new Intent(this, LoginActivity.class), REQUEST_LOGIN);
 	}
 
-	private void d(String s) {
+	public void d(String s) {
     	mToast.cancel();
     	mToast = Toast.makeText(this, s, Toast.LENGTH_LONG);
     	mToast.show();
