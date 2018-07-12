@@ -47,7 +47,7 @@ public class SignupActivity extends AppCompatActivity
 	private int OTG_LENGTH;
 	private FirebaseFirestore myDocRef = FirebaseFirestore.getInstance();
 	private StorageReference myStorageRef;
-	private String picturePath,picUrl;
+	private String picturePath="no profile pic",picUrl;
 
 	FloatingActionButton searchPic;
 	private CircleImageView profilePic;
