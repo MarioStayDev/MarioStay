@@ -11,16 +11,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.Viewholder>
+public class DataAdapter extends RecyclerView.Adapter<DataAdapter.viewHolder>
 {
 	private List<Data> mData;
 	
-	class Viewholder extends RecyclerView.ViewHolder
+	class viewHolder extends RecyclerView.ViewHolder
 	{
 		private TextView mTextView;
 		private ImageView mImgView;
 		
-		Viewholder(LinearLayout t) {
+		viewHolder(LinearLayout t) {
 			super(t);
 			mTextView=t.findViewById(R.id.item_text);
 			mImgView=t.findViewById(R.id.item_image);
@@ -38,14 +38,14 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.Viewholder>
 
 	@NonNull
 	@Override
-	public Viewholder onCreateViewHolder(ViewGroup p1, int p2)
+	public viewHolder onCreateViewHolder(ViewGroup p1, int p2)
 	{
 		LinearLayout ll=(LinearLayout)LayoutInflater.from(p1.getContext()).inflate(R.layout.list_item,p1,false);
-		return new Viewholder(ll);
+		return new viewHolder(ll);
 	}
 
 	@Override
-	public void onBindViewHolder(Viewholder p1, int p2)
+	public void onBindViewHolder(viewHolder p1, int p2)
 	{
 		p1.mTextView.setText("Item "+p2);
 		p1.mImgView.setImageResource(R.mipmap.ic_launcher);

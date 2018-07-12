@@ -176,13 +176,20 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/ui_elems_spacing" />
 
-        <com.google.android.gms.maps.MapView
+        <!--<com.google.android.gms.maps.MapView
             android:id="@+id/property_desc_map"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content" />-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/colorAccent"
+            android:text="MAP"
+            android:gravity="center" />
 
         <Button
-            android:id="@+id/property_desc_button_addPhotos"
+            android:id="@+id/prop_desc_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/button_add_photos"/>
@@ -190,3 +197,20 @@
     </LinearLayout>
 
 </ScrollView>
+    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-<TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />->
+
+    <Button
+        android:id="@+id/add_prop_next_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Next" />
+
+</RelativeLayout>-->
