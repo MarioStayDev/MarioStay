@@ -23,11 +23,12 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 																com.example.mario.InboxFragment.OnFragmentInteractionListener
 {
 	private boolean userIsLoggedIn;
-	private final int REQUEST_LOGIN=101;
+	private final int REQUEST_LOGIN=101, REQUEST_ADD_PROPERTY = 102;
 	public final static String KEY_SHARED_PREFERENCE = "shared_pref_key", KEY_LOGGED_IN = "logged_in_key", KEY_USER_NAME = "user_name_key", KEY_EMAIL = "email_key";
 	private SharedPreferences pfm;
 	private Toast mToast;
 	private FragmentManager mFragmentManager;
+	private PropertyFragment mPropFragment;
 	private MenuItem prevMenuItem;
 
 	@Override
@@ -100,7 +101,8 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 
 	private void setupViewPager(ViewPager v) {
 		ViewPagerAdapter adapter = new ViewPagerAdapter(mFragmentManager);
-		adapter.addFragment(new PropertyFragment());
+		mPropFragment = new PropertyFragment();
+		adapter.addFragment(mPropFragment);
 		adapter.addFragment(new InboxFragment());
 		adapter.addFragment(new AllPaymentFragment());
 		adapter.addFragment(new RefundFragment());
@@ -134,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 		startActivityForResult(new Intent(this, LoginActivity.class), REQUEST_LOGIN);
 	}
 
-	public void d(String s) {
+	private void d(String s) {
     	mToast.cancel();
     	mToast = Toast.makeText(this, s, Toast.LENGTH_LONG);
     	mToast.show();
@@ -151,6 +153,24 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 				}
 				else finish();
 				break;
+			case REQUEST_ADD_PROPERTY:
+				if(data != null) {
+					IncompleteProperty prop = data.getParcelableExtra(AddPropertyActivity.KEY_PROPERTY);
+					if(prop != null) switch (resultCode) {
+						case RESULT_CANCELED:
+							mPropFragment.insert(prop);
+							break;
+						case RESULT_OK:
+							mPropFragment.delete(prop);
+							break;
+					}
+				}/*
+				if(resultCode == RESULT_OK) mPropFragment.delete(prop);
+				else if(resultCode == RESULT_CANCELED && data != null) {
+					System.out.println("Result is cancelled and data not null");
+					IncompleteProperty prop = data.getParcelableExtra(AddPropertyActivity.KEY_PROPERTY);
+					if(prop != null) { mPropFragment.insert(prop);System.out.println("Property not null too, insert called"); }
+				}*/
 		}
 	}
 
@@ -162,8 +182,11 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 	}
 
     @Override
-    public void addNewProperty() {
-        //d("method from MainActivity");
-		startActivity(new Intent(this, AddPropertyActivity.class));
-    }
+    public void addNewProperty() { startActivityForResult(new Intent(this, AddPropertyActivity.class), REQUEST_ADD_PROPERTY); }
+
+	@Override
+	public void addOldProperty(IncompleteProperty incompleteProperty) {
+		Intent intent = new Intent(this, AddPropertyActivity.class).putExtra(AddPropertyActivity.KEY_PROPERTY, incompleteProperty);
+		startActivity(intent);
+	}
 }

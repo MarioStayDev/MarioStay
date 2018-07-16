@@ -8,7 +8,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-@Database(entities = IncompleteProperty.class, version = 1)
+@Database(entities = IncompleteProperty.class, version = 2)
 public abstract class IncompletePropertiesRoom extends RoomDatabase {
 
     public abstract PropertyDAO getPropertyDAO();
@@ -18,13 +18,13 @@ public abstract class IncompletePropertiesRoom extends RoomDatabase {
     static IncompletePropertiesRoom getDatabase(Context context) {
         if (INSTANCE == null) {
             synchronized (IncompletePropertiesRoom.class) {
-                if(INSTANCE == null) INSTANCE = Room.databaseBuilder(context, IncompletePropertiesRoom.class, "properties").addCallback(sRoomDatabaseCallback).build();
+                if(INSTANCE == null) INSTANCE = Room.databaseBuilder(context, IncompletePropertiesRoom.class, "properties").fallbackToDestructiveMigration()/*.addCallback(sRoomDatabaseCallback)*/.build();
             }
         }
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback sRoomDatabaseCallback =
+    /*private static RoomDatabase.Callback sRoomDatabaseCallback =
         new RoomDatabase.Callback(){
 
             @Override
@@ -32,9 +32,9 @@ public abstract class IncompletePropertiesRoom extends RoomDatabase {
                 super.onOpen(db);
                 new PopulateDbAsync(INSTANCE).execute();
             }
-        };
+        };*/
 
-    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
+    /*private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final PropertyDAO mDao;
 
@@ -45,13 +45,13 @@ public abstract class IncompletePropertiesRoom extends RoomDatabase {
         @Override
         protected Void doInBackground(final Void... params) {
             mDao.deleteAll();
-            IncompleteProperty word = new IncompleteProperty();
+            /*IncompleteProperty word = new IncompleteProperty();
             word.setName("Test 1");
             mDao.insert(word);
             IncompleteProperty word2 = new IncompleteProperty();
             word2.setName("Test 2");
-            mDao.insert(word2);
+            mDao.insert(word2);**
             return null;
         }
-    }
+    }*/
 }

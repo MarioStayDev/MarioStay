@@ -1,6 +1,7 @@
 package com.example.mario;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AddPropertyActivity extends AppCompatActivity  implements AddPropertyFragment.OnFragmentInteractionListener,
                                                             AddPropertyDescriptionFragment.OnFragmentInteractionListener,
                                                             AddPropertyPhotoFragment.OnFragmentInteractionListener,
@@ -37,7 +41,7 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
     final static String KEY_PROPERTY = "com.example.mario.AddPropertyActivity.KEY_PROPERTY";
     private NonSwipeableViewPager mViewPager;
     private Toast mToast;
-    private Property property;
+    private IncompleteProperty property;
     private FirebaseFirestore db;
 
     @Override
@@ -45,7 +49,9 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_property);
 
-        property = new Property();
+        Intent intent = getIntent();
+        property = (intent.hasExtra(KEY_PROPERTY)) ? (IncompleteProperty)intent.getParcelableExtra(KEY_PROPERTY) : new IncompleteProperty();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -80,11 +86,30 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
-            case R.id.action_settings:
+            case R.id.menu_add_property_save:
+                int c = mViewPager.getCurrentItem();
+                Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + c);
+                if (page != null) switch(c) {
+                    case 0: ((AddPropertyFragment)page).gotoNext(null);
+                        break;
+                    case 1: ((AddPropertyDescriptionFragment)page).gotoNext(null);
+                        break;
+                    case 2: ((AddPropertyPhotoFragment)page).gotoNext(null);
+                        break;
+                }
+                Intent r = new Intent().putExtra(KEY_PROPERTY, property);
+                setResult(RESULT_CANCELED, r);
+                finish();
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 
     @Override
@@ -96,12 +121,34 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
     public void lastFragment(final ProgressBar p, final Button b) {
         p.setVisibility(View.VISIBLE);
         b.setVisibility(View.GONE);
-        db.collection("properties").add(property).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+
+        Map<String, Boolean> tempMap = new HashMap<>();
+        tempMap.put(getString(R.string.chip_text_lift), property.getLift());
+        tempMap.put(getString(R.string.chip_text_parking), property.getParking());
+        tempMap.put(getString(R.string.chip_text_cctv), property.getCctv());
+        tempMap.put(getString(R.string.chip_text_power), property.getPower());
+        tempMap.put(getString(R.string.chip_text_playground), property.getPlayground());
+        tempMap.put(getString(R.string.chip_text_pool), property.getPool());
+        tempMap.put(getString(R.string.chip_text_garden), property.getGarden());
+        tempMap.put(getString(R.string.chip_text_gym), property.getGym());
+        tempMap.put(getString(R.string.chip_text_tv), property.getTv());
+        tempMap.put(getString(R.string.chip_text_refridgerator), property.getFridge());
+        tempMap.put(getString(R.string.chip_text_washing_machine), property.getWashMac());
+        tempMap.put(getString(R.string.chip_text_water_purifier), property.getWater());
+        tempMap.put(getString(R.string.chip_text_wifi), property.getWifi());
+        tempMap.put(getString(R.string.chip_text_sofa), property.getSofa());
+        tempMap.put(getString(R.string.chip_text_table), property.getTtable());
+
+        Property property1 = new Property(property, tempMap);
+        db.collection("properties").add(property1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 b.setVisibility(View.VISIBLE);
                 p.setVisibility(View.GONE);
                 d("Success");
+                Intent r = new Intent().putExtra(KEY_PROPERTY, property);
+                setResult(RESULT_CANCELED, r);
+                setResult(RESULT_OK, r);
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {

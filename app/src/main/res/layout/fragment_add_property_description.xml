@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/ui_elems_spacing"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/ui_elems_spacing">
 
         <Space
             android:layout_width="wrap_content"
@@ -33,137 +33,151 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/prompt_amenities"/>
+            android:text="@string/prompt_amenities" />
 
         <Space
             android:layout_width="wrap_content"
             android:layout_height="@dimen/ui_elems_spacing" />
 
-        <com.google.android.flexbox.FlexboxLayout
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.google.android.flexbox.FlexboxLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:flexWrap="wrap" >
+            app:flexWrap="wrap">
 
             <TextView
+                android:id="@+id/chip_lift"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/chip_margin"
-                android:id="@+id/chip1"
                 android:background="@drawable/chip_shape_deactivated"
-                android:textColor="@android:color/white" />
+                android:text="@string/chip_text_lift"
+                android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/chip_parking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/chip_margin"
-                android:id="@+id/chip2"
                 android:background="@drawable/chip_shape_deactivated"
-                android:textColor="@android:color/white" />
+                android:text="@string/chip_text_parking"
+                android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/chip_cctv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/chip_margin"
-                android:id="@+id/chip3"
                 android:background="@drawable/chip_shape_deactivated"
-                android:textColor="@android:color/white" />
+                android:text="@string/chip_text_cctv"
+                android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/chip_power"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/chip_margin"
-                android:id="@+id/chip4"
                 android:background="@drawable/chip_shape_deactivated"
-                android:textColor="@android:color/white" />
+                android:text="@string/chip_text_power"
+                android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/chip_playground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/chip_margin"
-                android:id="@+id/chip5"
                 android:background="@drawable/chip_shape_deactivated"
-                android:textColor="@android:color/white" />
+                android:text="@string/chip_text_playground"
+                android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/chip_pool"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/chip_margin"
-                android:id="@+id/chip6"
                 android:background="@drawable/chip_shape_deactivated"
-                android:textColor="@android:color/white" />
+                android:text="@string/chip_text_pool"
+                android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/chip_garden"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/chip_margin"
-                android:id="@+id/chip7"
                 android:background="@drawable/chip_shape_deactivated"
-                android:textColor="@android:color/white" />
+                android:text="@string/chip_text_garden"
+                android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/chip_gym"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/chip_margin"
-                android:id="@+id/chip8"
                 android:background="@drawable/chip_shape_deactivated"
-                android:textColor="@android:color/white" />
+                android:text="@string/chip_text_gym"
+                android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/chip_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/chip_margin"
-                android:id="@+id/chip9"
                 android:background="@drawable/chip_shape_deactivated"
-                android:textColor="@android:color/white" />
+                android:text="@string/chip_text_tv"
+                android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/chip_refridgerator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/chip_margin"
-                android:id="@+id/chip10"
                 android:background="@drawable/chip_shape_deactivated"
-                android:textColor="@android:color/white" />
+                android:text="@string/chip_text_refridgerator"
+                android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/chip_washing_machine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/chip_margin"
-                android:id="@+id/chip11"
                 android:background="@drawable/chip_shape_deactivated"
-                android:textColor="@android:color/white" />
+                android:text="@string/chip_text_washing_machine"
+                android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/chip_water_purifier"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/chip_margin"
-                android:id="@+id/chip12"
                 android:background="@drawable/chip_shape_deactivated"
-                android:textColor="@android:color/white" />
+                android:text="@string/chip_text_water_purifier"
+                android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/chip_wifi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/chip_margin"
-                android:id="@+id/chip13"
                 android:background="@drawable/chip_shape_deactivated"
-                android:textColor="@android:color/white" />
+                android:text="@string/chip_text_wifi"
+                android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/chip_sofa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/chip_margin"
-                android:id="@+id/chip14"
                 android:background="@drawable/chip_shape_deactivated"
-                android:textColor="@android:color/white" />
+                android:text="@string/chip_text_sofa"
+                android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/chip_table"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/chip_margin"
-                android:id="@+id/chip15"
                 android:background="@drawable/chip_shape_deactivated"
-                android:textColor="@android:color/white" />
+                android:text="@string/chip_text_table"
+                android:textColor="@color/white" />
 
         </com.google.android.flexbox.FlexboxLayout>
 
@@ -174,7 +188,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/prompt_location"/>
+            android:text="@string/prompt_location" />
 
         <Space
             android:layout_width="wrap_content"
@@ -189,14 +203,14 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@color/colorAccent"
-            android:text="MAP"
-            android:gravity="center" />
+            android:gravity="center"
+            android:text="MAP" />
 
         <Button
             android:id="@+id/prop_desc_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/prompt_next_button"/>
+            android:text="@string/prompt_next_button" />
 
     </LinearLayout>
 

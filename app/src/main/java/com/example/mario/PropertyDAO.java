@@ -2,20 +2,28 @@ package com.example.mario;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import java.util.List;
 
 @Dao
 public interface PropertyDAO {
 
-    @Insert
-    void insert(IncompleteProperty prop);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    long insert(IncompleteProperty prop);
+
+    @Delete
+    void delete(IncompleteProperty prop);
 
     @Query("DELETE FROM properties")
     void deleteAll();
 
     @Query("SELECT * FROM properties")
     LiveData<List<IncompleteProperty>> getAllIncompleteProperties();
+
 }

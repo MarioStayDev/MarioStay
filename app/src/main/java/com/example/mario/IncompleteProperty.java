@@ -3,12 +3,14 @@ package com.example.mario;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Entity(tableName = "properties")
-public class IncompleteProperty {
+public class IncompleteProperty implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "pid") private int PID;
@@ -25,6 +27,8 @@ public class IncompleteProperty {
     @ColumnInfo(name = "landmark") private String Landmark;
     @ColumnInfo(name = "shortDescription") private String ShortDescription;
     @ColumnInfo(name = "rules") private String Rules;
+    @ColumnInfo(name = "inTime") private String InTime;
+    @ColumnInfo(name = "outTime") private String OutTime;
     //private GeoPoint Location;
 
     //@ColumnInfo(name = "amenities") private Map<String, Boolean> Amenities;
@@ -44,6 +48,42 @@ public class IncompleteProperty {
     @ColumnInfo(name = "amenitiesSofa") private boolean sofa;
     @ColumnInfo(name = "amenitiesTable") private boolean ttable;
 
+    IncompleteProperty() {}
+
+    IncompleteProperty(Parcel parcel) {
+        PID = parcel.readInt();
+        Floors = parcel.readInt();
+        MinStayTime = parcel.readInt();
+        SecurityMultiplier = parcel.readInt();
+        NoticePeriod = parcel.readInt();
+        Name = parcel.readString();
+        Type = parcel.readString();
+        Address = parcel.readString();
+        Landmark = parcel.readString();
+        ShortDescription = parcel.readString();
+        Rules = parcel.readString();
+        InTime = parcel.readString();
+        OutTime = parcel.readString();
+
+        boolean[] amenities = new boolean[15];
+        parcel.readBooleanArray(amenities);
+        lift = amenities[0];
+        parking = amenities[1];
+        cctv = amenities[2];
+        power = amenities[3];
+        playground = amenities[4];
+        pool = amenities[5];
+        garden = amenities[6];
+        gym = amenities[7];
+        tv = amenities[8];
+        fridge = amenities[9];
+        washMac = amenities[10];
+        water = amenities[11];
+        wifi = amenities[12];
+        sofa = amenities[13];
+        ttable = amenities[14];
+    }
+
     int getPID() { return PID; }
     //int getHID() { return HID; }
     int getFloors() { return Floors; }
@@ -56,6 +96,8 @@ public class IncompleteProperty {
     String getLandmark() { return Landmark; }
     String getShortDescription() { return ShortDescription; }
     String getRules() { return Rules; }
+    String getInTime() { return InTime; }
+    String getOutTime() { return OutTime; }
     //GeoPoint getLocation() {return Location; }
     /*Map getAmenities() {
         HashMap<String, Boolean> Amenities = new HashMap<>();
@@ -105,6 +147,8 @@ public class IncompleteProperty {
     void setLandmark(String landmark) { Landmark = landmark; }
     void setShortDescription(String desc) { ShortDescription = desc; }
     void setRules(String rules) { Rules = rules; }
+    void setInTime(String rules) { InTime = rules; }
+    void setOutTime(String rules) { OutTime = rules; }
     //void setLocation(GeoPoint location) {Location = location; }
     /*void setAmenities(Map<String, Boolean> amenities) {
         a = amenities.get("Lift Service");
@@ -139,4 +183,41 @@ public class IncompleteProperty {
     void setSofa(boolean a) { sofa = a; }
     void setTtable(boolean a) { ttable = a; }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(PID);
+        dest.writeInt(Floors);
+        dest.writeInt(MinStayTime);
+        dest.writeInt(SecurityMultiplier);
+        dest.writeInt(NoticePeriod);
+
+        dest.writeString(Name);
+        dest.writeString(Type);
+        dest.writeString(Address);
+        dest.writeString(Landmark);
+        dest.writeString(ShortDescription);
+        dest.writeString(Rules);
+        dest.writeString(InTime);
+        dest.writeString(OutTime);
+
+        dest.writeBooleanArray(new boolean[] {lift, parking, cctv, power, playground, pool, garden, gym, tv, fridge, washMac, water, wifi, sofa, ttable});
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Parcelable.Creator<IncompleteProperty> CREATOR = new Parcelable.Creator<IncompleteProperty>() {
+
+        @Override
+        public IncompleteProperty createFromParcel(Parcel source) {
+            return new IncompleteProperty(source);
+        }
+
+        @Override
+        public IncompleteProperty[] newArray(int size) {
+            return new IncompleteProperty[size];
+        }
+    };
 }
