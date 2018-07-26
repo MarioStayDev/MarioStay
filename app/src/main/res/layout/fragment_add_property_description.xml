@@ -13,6 +13,23 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/ui_elems_spacing" />
 
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/property_desc_edit_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_desc_property"
+                android:inputType="textMultiLine" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ui_elems_spacing" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -154,19 +171,6 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/ui_elems_spacing" />
 
-        <EditText
-            android:id="@+id/property_desc_edit_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:minLines="5"
-            android:hint="@string/prompt_desc_property"
-            android:inputType="textMultiLine" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/ui_elems_spacing" />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -192,7 +196,7 @@
             android:id="@+id/prop_desc_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/button_add_photos"/>
+            android:text="@string/prompt_next_button"/>
 
     </LinearLayout>
 

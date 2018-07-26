@@ -1,10 +1,14 @@
 package com.example.mario;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +23,11 @@ import butterknife.Unbinder;
 public class AddPropertyPhotoFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    private final int READ_REQUEST_CODE = 105;
     //private Property property;
     private Unbinder unbinder;
-    @BindView(R.id.prop_photo_view) ImageView img;
+    private DragNDropAdapter adapter;
+    @BindView(R.id.prop_photo_view) RecyclerView img;
 
     public AddPropertyPhotoFragment() { }
 
@@ -44,6 +50,9 @@ public class AddPropertyPhotoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_property_photo, container, false);
         unbinder = ButterKnife.bind(this, v);
+        adapter = new DragNDropAdapter(getActivity());
+        img.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        img.setAdapter(adapter);
         return v;
     }
 
@@ -72,7 +81,28 @@ public class AddPropertyPhotoFragment extends Fragment {
 
     @OnClick(R.id.prop_photo_photo)
     public void photo() {
-        img.setImageResource(R.drawable.camera);
+        //img.setImageResource(R.drawable.camera);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/*");
+        startActivityForResult(intent, READ_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case READ_REQUEST_CODE:
+                if(resultCode == Activity.RESULT_OK && data != null) {
+                    System.out.println("Photo received");
+                    int t = adapter.getItemCount();
+                    adapter.addPhoto(data.getData());
+                    adapter.notifyItemInserted(t);
+                    //adapter.notifyDataSetChanged();
+
+                }
+                break;
+        }
     }
 
     @OnClick(R.id.add_prop_next_2)

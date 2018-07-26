@@ -16,9 +16,10 @@
     <string name="prompt_landmark">Landmark</string>
     <string name="prompt_floors">No. of Floors</string>
     <string name="prompt_stay_time">Minimum Stay Time(In Months)</string>
-    <string name="prompt_in_time">In Time</string>
-    <string name="prompt_out_time">Out Time</string>
-    <string name="prompt_security_deposit">Security Multiplier w.r.t. Rent</string>
+    <string name="prompt_timings">*Leave them empty if timing is flexible</string>
+    <string name="prompt_in_time">Gate close time</string>
+    <string name="prompt_out_time">Gate open time</string>
+    <string name="prompt_security_deposit">Security advance (in months)</string>
     <string name="prompt_notice_period">Prior Notice Period(in Days)</string>
     <string name="prompt_next_button">Next</string>
     <string name="prompt_amenities">Select available amenities:</string>
