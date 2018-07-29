@@ -127,6 +127,7 @@ public class LoginActivity extends AppCompatActivity
 			super.onPostExecute(result);
 			buttonLogin.setEnabled(true);
 			buttonSignup.setEnabled(true);
+
 			if(error == null) {
 				JSONObject jobj;
 				try {

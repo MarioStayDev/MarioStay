@@ -17,6 +17,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
 public class MainActivity extends AppCompatActivity implements PropertyFragment.OnFragmentInteractionListener,
 																PropertyDescFragment.OnFragmentInteractionListener,
                                                                 RefundFragment.OnFragmentInteractionListener,
@@ -46,6 +49,11 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
             Intent loginIntent = new Intent(this, LoginActivity.class);
             startActivityForResult(loginIntent,REQUEST_LOGIN);
         }
+        else {
+			FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+			Query q = db.collection("properties").whereEqualTo("hid", 1);
+		}
 
 		mFragmentManager = getSupportFragmentManager();
 

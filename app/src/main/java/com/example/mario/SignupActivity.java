@@ -141,7 +141,43 @@ public class SignupActivity extends AppCompatActivity
 					public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
 					{
 						Log.d(TAG,"User ProfilePic Saved");
-						picUrl=storageRef.getDownloadUrl().toString();
+
+
+						picUrl=storageRef.getPath();
+						Map<String,Object> dataSave = new HashMap<String, Object>() ;
+						dataSave.put("FullName",mUser.getText().toString());
+						dataSave.put("Email",mEmail.getText().toString());
+						dataSave.put("Password",mPass.getText().toString());
+						dataSave.put("Phone",mPhone.getText().toString());
+						dataSave.put("PicUrl",picUrl);
+						if(male==true) 	dataSave.put("Gender","Male");
+						else dataSave.put("Gender","Male");
+						if(stud==true) 	dataSave.put("WorkCategory","Student");
+						else dataSave.put("WorkCategory","Professional");
+						myDocRef.collection("/users/").document(mPhone.getText().toString()).set(dataSave).addOnSuccessListener(new OnSuccessListener<Void>()
+						{
+							@Override
+							public void onSuccess(Void aVoid)
+							{
+
+
+								Log.d(TAG,"User Document Saved");
+								d("Registeration Successful! Please Login using given credentials.");
+								finish();
+
+							}
+						}).addOnFailureListener(new OnFailureListener()
+
+						{
+							@Override
+							public void onFailure(@NonNull Exception e)
+							{
+								Log.d(TAG,"User Document Failed to save.");
+
+							}
+						});
+						//Log.d("storage ref",storageRef.toString());
+						Log.d("pic Url",storageRef.getPath());
 
 					}
 				}).addOnFailureListener(new OnFailureListener()
@@ -154,36 +190,11 @@ public class SignupActivity extends AppCompatActivity
 
 					}
 				});
-				Map<String,Object> dataSave = new HashMap<String, Object>() ;
-				dataSave.put("FullName",mUser.getText().toString());
-				dataSave.put("Email",mEmail.getText().toString());
-				dataSave.put("Password",mPass.getText().toString());
-				dataSave.put("Phone",mPhone.getText().toString());
-				dataSave.put("PicUrl",picUrl);
-				if(male==true) 	dataSave.put("Gender","Male");
-				else dataSave.put("Gender","Male");
-				if(stud==true) 	dataSave.put("WorkCategory","Student");
-				else dataSave.put("WorkCategory","Professional");
 
 
 
-				myDocRef.collection("/users").add(dataSave).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
-				{
-					@Override
-					public void onSuccess(DocumentReference documentReference)
-					{
-						Log.d(TAG,"User Document Saved");
-					}
-				}).addOnFailureListener(new OnFailureListener()
 
-				{
-					@Override
-					public void onFailure(@NonNull Exception e)
-					{
-						Log.d(TAG,"User Document Failed to save.");
 
-					}
-				});
 			}
 		});
 	}

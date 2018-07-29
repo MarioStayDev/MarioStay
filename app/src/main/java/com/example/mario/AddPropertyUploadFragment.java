@@ -71,7 +71,8 @@ public class AddPropertyUploadFragment extends Fragment {
     }
 
     @OnClick(R.id.property_button_upload)
-    public void upload(Button b) {
+    public void upload(Button b)
+    {
         mListener.lastFragment(progress, b);
     }
 

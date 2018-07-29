@@ -96,12 +96,15 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
     public void lastFragment(final ProgressBar p, final Button b) {
         p.setVisibility(View.VISIBLE);
         b.setVisibility(View.GONE);
-        db.collection("properties").add(property).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        db.collection("properties").add(property).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
+        {
             @Override
-            public void onSuccess(DocumentReference documentReference) {
+            public void onSuccess(DocumentReference documentReference)
+            {
                 b.setVisibility(View.VISIBLE);
                 p.setVisibility(View.GONE);
                 d("Success");
+                //db.collection("user").document()
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -113,6 +116,7 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
             }
         });
         d("Uploading...");
+
     }
 
     @Override
