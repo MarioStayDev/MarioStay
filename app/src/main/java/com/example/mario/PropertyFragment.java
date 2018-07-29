@@ -45,13 +45,14 @@ public class PropertyFragment extends Fragment {
     private FirebaseFirestore db;
     private FirestoreRecyclerAdapter adapter;
     private IncompletePropertyAdapter mAdapter;
+    private PropertyViewModel mPropViewModel;
 
     public PropertyFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PropertyViewModel mPropViewModel = ViewModelProviders.of(this).get(PropertyViewModel.class);
+        mPropViewModel = ViewModelProviders.of(this).get(PropertyViewModel.class);
         mPropViewModel.getAllWords().observe(getActivity(), new Observer<List<IncompleteProperty>>() {
             @Override
             public void onChanged(@Nullable List<IncompleteProperty> incompleteProperties) {
@@ -102,6 +103,14 @@ public class PropertyFragment extends Fragment {
         mListener.addNewProperty();
     }
 
+    void insert(IncompleteProperty p) {
+        mPropViewModel.insert(p);
+    }
+
+    void delete(IncompleteProperty p) {
+        mPropViewModel.delete(p);
+    }
+
     private void setupAdapter() {
         Query q = db.collection("properties").whereEqualTo("hid", 1);
 
@@ -148,7 +157,7 @@ public class PropertyFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
         void addNewProperty();
-        void d(String s);
+        void addOldProperty(IncompleteProperty incompleteProperty);
     }
 
     class PropertyHolder extends RecyclerView.ViewHolder {
@@ -188,9 +197,8 @@ public class PropertyFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     int pos = incompleteList.getChildLayoutPosition(v);
-                    //IncompleteProperty p = props.get(pos);
-                    //Call addPropertyActivity with p
-                    mListener.d("Position " + pos);
+                    IncompleteProperty p = props.get(pos);
+                    mListener.addOldProperty(p);
                 }
             });
             return new PropertyHolder(v);

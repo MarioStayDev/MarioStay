@@ -18,14 +18,14 @@ import butterknife.Unbinder;
 
 public class AddPropertyUploadFragment extends Fragment {
 
-    private Property property;
+    private IncompleteProperty property;
     private OnFragmentInteractionListener mListener;
     private Unbinder unbinder;
     @BindView(R.id.property_progress_upload) ProgressBar progress;
 
     public AddPropertyUploadFragment() { }
 
-    public static AddPropertyUploadFragment newInstance(Property p) {
+    public static AddPropertyUploadFragment newInstance(IncompleteProperty p) {
         AddPropertyUploadFragment fragment = new AddPropertyUploadFragment();
         Bundle args = new Bundle();
         args.putParcelable(AddPropertyActivity.KEY_PROPERTY, p);

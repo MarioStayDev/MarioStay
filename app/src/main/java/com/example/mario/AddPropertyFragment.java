@@ -2,11 +2,13 @@ package com.example.mario;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -19,7 +21,7 @@ import butterknife.Unbinder;
 public class AddPropertyFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
-    private Property property;
+    private IncompleteProperty property;
     private Unbinder unbinder;
     @BindView(R.id.prop_edit_name) EditText name;
     @BindView(R.id.prop_spinner_type) Spinner type;
@@ -34,7 +36,7 @@ public class AddPropertyFragment extends Fragment {
 
     public AddPropertyFragment() { }
 
-    public static AddPropertyFragment newInstance(Property p) {
+    public static AddPropertyFragment newInstance(IncompleteProperty p) {
         AddPropertyFragment fragment = new AddPropertyFragment();
         Bundle args = new Bundle();
         args.putParcelable(AddPropertyActivity.KEY_PROPERTY, p);
@@ -53,6 +55,17 @@ public class AddPropertyFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_property, container, false);
         unbinder = ButterKnife.bind(this, v);
+
+        name.setText(property.getName());
+        type.setSelection(((ArrayAdapter)type.getAdapter()).getPosition(property.getType()));
+        address.setText(property.getAddress());
+        land.setText(property.getLandmark());
+        floors.setText(Integer.toString(property.getFloors()));
+        stayTime.setText(Integer.toString(property.getMinStayTime()));
+        inTime.setText(property.getInTime());
+        outTime.setText(property.getOutTime());
+        notice.setText(Integer.toString(property.getNoticePeriod()));
+
         return v;
     }
 
@@ -88,13 +101,15 @@ public class AddPropertyFragment extends Fragment {
         try {
             property.setFloors(Integer.parseInt(floors.getText().toString()));
             property.setMinStayTime(Integer.parseInt(stayTime.getText().toString()));
+            property.setInTime(inTime.getText().toString());
+            property.setOutTime(outTime.getText().toString());
 
-            /*inTime outTime deposit*/
+            /*deposit*/
 
             property.setNoticePeriod(Integer.parseInt(notice.getText().toString()));
         }
-        catch(NumberFormatException e) { }
-            mListener.nextFragment();
+        catch(NumberFormatException e) { System.out.println(e.toString()); }
+        if(button != null) mListener.nextFragment();
     }
 
     public interface OnFragmentInteractionListener {

@@ -27,19 +27,18 @@ public class AddPropertyDescriptionFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private Unbinder unbinder;
-    private int noOfChips;
-    private Map<String, Boolean> iMap;
-    //private boolean selectedChips[];
-    private String[] chipTexts;
-    private Property property;
-    @BindViews({ R.id.chip1, R.id.chip2, R.id.chip3, R.id.chip4, R.id.chip5, R.id.chip6, R.id.chip7, R.id.chip8, R.id.chip9, R.id.chip10, R.id.chip11, R.id.chip12, R.id.chip13, R.id.chip14, R.id.chip15 })
-    List<TextView> chips;
+    private IncompleteProperty property;
+    /*@BindViews({ R.id.chip_lift, R.id.chip_parking, R.id.chip_cctv, R.id.chip_power,
+            R.id.chip_playground, R.id.chip_pool, R.id.chip_garden, R.id.chip_gym,
+            R.id.chip_tv, R.id.chip_refridgerator, R.id.chip_washing_machine,
+            R.id.chip_water_purifier, R.id.chip_wifi, R.id.chip_sofa, R.id.chip_table})
+    List<TextView> chips;*/
     @BindView(R.id.property_desc_edit_description) EditText description;
     //@BindView(R.id.property_desc_map) Map...
 
     public AddPropertyDescriptionFragment() { }
 
-    public static AddPropertyDescriptionFragment newInstance(Property p) {
+    public static AddPropertyDescriptionFragment newInstance(IncompleteProperty p) {
         AddPropertyDescriptionFragment fragment = new AddPropertyDescriptionFragment();
         Bundle args = new Bundle();
         args.putParcelable(AddPropertyActivity.KEY_PROPERTY, p);
@@ -47,21 +46,10 @@ public class AddPropertyDescriptionFragment extends Fragment {
         return fragment;
     }
 
-    private final ButterKnife.Action<TextView> NAME = new ButterKnife.Action<TextView>() {
-        @Override public void apply(TextView view, int index) { view.setText(chipTexts[index]); }
-    };
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) property = getArguments().getParcelable(AddPropertyActivity.KEY_PROPERTY);
-        Resources resources = getResources();
-        noOfChips = resources.getInteger(R.integer.number_of_chips);
-        //selectedChips = new boolean[noOfChips];
-        chipTexts = resources.getStringArray(R.array.chip_texts);
-        iMap = new HashMap<>();
-        for(int i = 0; i < noOfChips; i++)
-            iMap.put(chipTexts[i], false);
     }
 
     @Override
@@ -69,42 +57,117 @@ public class AddPropertyDescriptionFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_property_description, container, false);
         unbinder = ButterKnife.bind(this, v);
-        ButterKnife.apply(chips, NAME);
+
+        description.setText(property.getShortDescription());
+        if(property.getLift()) v.findViewById(R.id.chip_lift).setBackgroundResource(R.drawable.chip_shape);
+        if(property.getParking()) v.findViewById(R.id.chip_parking).setBackgroundResource(R.drawable.chip_shape);
+        if(property.getCctv()) v.findViewById(R.id.chip_cctv).setBackgroundResource(R.drawable.chip_shape);
+        if(property.getPower()) v.findViewById(R.id.chip_power).setBackgroundResource(R.drawable.chip_shape);
+        if(property.getPlayground()) v.findViewById(R.id.chip_playground).setBackgroundResource(R.drawable.chip_shape);
+        if(property.getPool()) v.findViewById(R.id.chip_pool).setBackgroundResource(R.drawable.chip_shape);
+        if(property.getGarden()) v.findViewById(R.id.chip_garden).setBackgroundResource(R.drawable.chip_shape);
+        if(property.getGym()) v.findViewById(R.id.chip_gym).setBackgroundResource(R.drawable.chip_shape);
+        if(property.getTv()) v.findViewById(R.id.chip_tv).setBackgroundResource(R.drawable.chip_shape);
+        if(property.getFridge()) v.findViewById(R.id.chip_refridgerator).setBackgroundResource(R.drawable.chip_shape);
+        if(property.getWashMac()) v.findViewById(R.id.chip_washing_machine).setBackgroundResource(R.drawable.chip_shape);
+        if(property.getWater()) v.findViewById(R.id.chip_water_purifier).setBackgroundResource(R.drawable.chip_shape);
+        if(property.getWifi()) v.findViewById(R.id.chip_wifi).setBackgroundResource(R.drawable.chip_shape);
+        if(property.getSofa()) v.findViewById(R.id.chip_sofa).setBackgroundResource(R.drawable.chip_shape);
+        if(property.getTtable()) v.findViewById(R.id.chip_table).setBackgroundResource(R.drawable.chip_shape);
+
         return v;
     }
 
-    @OnClick({ R.id.chip1, R.id.chip2, R.id.chip3, R.id.chip4, R.id.chip5, R.id.chip6, R.id.chip7, R.id.chip8, R.id.chip9, R.id.chip10, R.id.chip11, R.id.chip12, R.id.chip13, R.id.chip14, R.id.chip15 })
+    @OnClick({ R.id.chip_lift, R.id.chip_parking, R.id.chip_cctv, R.id.chip_power,
+            R.id.chip_playground, R.id.chip_pool, R.id.chip_garden, R.id.chip_gym,
+            R.id.chip_tv, R.id.chip_refridgerator, R.id.chip_washing_machine,
+            R.id.chip_water_purifier, R.id.chip_wifi, R.id.chip_sofa, R.id.chip_table })
     public void onButtonPressed(View v) {
-        int i = 15;
+        boolean b;
         switch(v.getId()) {
-            case R.id.chip1: i --;
-            case R.id.chip2: i --;
-            case R.id.chip3: i --;
-            case R.id.chip4: i --;
-            case R.id.chip5: i --;
-            case R.id.chip6: i --;
-            case R.id.chip7: i --;
-            case R.id.chip8: i --;
-            case R.id.chip9: i --;
-            case R.id.chip10: i --;
-            case R.id.chip11: i --;
-            case R.id.chip12: i --;
-            case R.id.chip13: i --;
-            case R.id.chip14: i --;
-            case R.id.chip15: i --;
+            case R.id.chip_lift:
+                b = property.getLift();
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                property.setLift(!b);
+                break;
+            case R.id.chip_parking:
+                b = property.getParking();
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                property.setParking(!b);
+                break;
+            case R.id.chip_cctv:
+                b = property.getCctv();
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                property.setCctv(!b);
+                break;
+            case R.id.chip_power:
+                b = property.getPower();
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                property.setPower(!b);
+                break;
+            case R.id.chip_playground:
+                b = property.getPlayground();
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                property.setPlayground(!b);
+                break;
+            case R.id.chip_pool:
+                b = property.getPool();
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                property.setPool(!b);
+                break;
+            case R.id.chip_garden:
+                b = property.getGarden();
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                property.setGarden(!b);
+                break;
+            case R.id.chip_gym:
+                b = property.getGym();
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                property.setGym(!b);
+                break;
+            case R.id.chip_tv:
+                b = property.getTv();
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                property.setTv(!b);
+                break;
+            case R.id.chip_refridgerator:
+                b = property.getFridge();
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                property.setFridge(!b);
+                break;
+            case R.id.chip_washing_machine:
+                b = property.getWashMac();
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                property.setWashMac(!b);
+                break;
+            case R.id.chip_water_purifier:
+                b = property.getWater();
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                property.setWater(!b);
+                break;
+            case R.id.chip_wifi:
+                b = property.getWifi();
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                property.setWifi(!b);
+                break;
+            case R.id.chip_sofa:
+                b = property.getSofa();
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                property.setSofa(!b);
+                break;
+            case R.id.chip_table:
+                b = property.getTtable();
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                property.setTtable(!b);
+                break;
         }
-        String key = chipTexts[i];
-        boolean value = iMap.get(key);
-        v.setBackgroundResource(value/*selectedChips[i]*/?R.drawable.chip_shape_deactivated:R.drawable.chip_shape);
-        //selectedChips[i] = !selectedChips[i];
-        iMap.put(key, !value);
     }
 
     @OnClick(R.id.prop_desc_next)
-    public void gotoNext() {
+    public void gotoNext(Button button) {
         property.setShortDescription(description.getText().toString());
-        property.setAmenities(iMap);
-        mListener.nextFragment();
+        //map
+        if(button != null) mListener.nextFragment();
     }
 
     @Override

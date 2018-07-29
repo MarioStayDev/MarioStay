@@ -20,6 +20,5 @@ public class PropertyViewModel extends AndroidViewModel {
     LiveData<List<IncompleteProperty>> getAllWords() { return mAllWords; }
 
     public void insert(IncompleteProperty word) { repository.insert(word); }
-
-
+    public void delete(IncompleteProperty word) { repository.delete(word); }
 }

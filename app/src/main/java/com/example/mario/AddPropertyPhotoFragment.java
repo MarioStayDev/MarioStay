@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,25 +25,25 @@ public class AddPropertyPhotoFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private final int READ_REQUEST_CODE = 105;
-    //private Property property;
+    private IncompleteProperty property;
     private Unbinder unbinder;
     private DragNDropAdapter adapter;
     @BindView(R.id.prop_photo_view) RecyclerView img;
 
     public AddPropertyPhotoFragment() { }
 
-    public static AddPropertyPhotoFragment newInstance(Property p) {
+    public static AddPropertyPhotoFragment newInstance(IncompleteProperty p) {
         AddPropertyPhotoFragment fragment = new AddPropertyPhotoFragment();
-        /*Bundle args = new Bundle();
+        Bundle args = new Bundle();
         args.putParcelable(AddPropertyActivity.KEY_PROPERTY, p);
-        fragment.setArguments(args);*/
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //if (getArguments() != null) property = getArguments().getParcelable(AddPropertyActivity.KEY_PROPERTY);
+        if (getArguments() != null) property = getArguments().getParcelable(AddPropertyActivity.KEY_PROPERTY);
     }
 
     @Override
@@ -53,6 +54,24 @@ public class AddPropertyPhotoFragment extends Fragment {
         adapter = new DragNDropAdapter(getActivity());
         img.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         img.setAdapter(adapter);
+        ItemTouchHelper.Callback callback = new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                return makeFlag(ItemTouchHelper.ACTION_STATE_DRAG,ItemTouchHelper.DOWN | ItemTouchHelper.UP | ItemTouchHelper.START | ItemTouchHelper.END);
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                adapter.swap(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+                adapter.notifyItemMoved(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+                return true;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) { }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
+        itemTouchHelper.attachToRecyclerView(img);
         return v;
     }
 
@@ -106,7 +125,7 @@ public class AddPropertyPhotoFragment extends Fragment {
     }
 
     @OnClick(R.id.add_prop_next_2)
-    public void gotoNext() {
+    public void gotoNext(Button button) {
         mListener.nextFragment();
     }
 

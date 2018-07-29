@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DragNDropAdapter extends RecyclerView.Adapter<DragNDropAdapter.holder> {
@@ -36,6 +37,8 @@ public class DragNDropAdapter extends RecyclerView.Adapter<DragNDropAdapter.hold
     public int getItemCount() { return photos.size(); }
 
     public void addPhoto(Uri uri) { photos.add(uri); }
+
+    public void swap(int a, int b) { Collections.swap(photos, a, b); }
 
     static class holder extends RecyclerView.ViewHolder {
         SquareImageView squareImageView;

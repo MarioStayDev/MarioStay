@@ -73,23 +73,21 @@
     </string-array>
 
     <!-- Chips for common amenities -->
-    <string-array name="chip_texts">
-        <item>Lift Service</item>
-        <item>Parking</item>
-        <item>CCTV camera</item>
-        <item>Power backup</item>
-        <item>Playground</item>
-        <item>Swimming pool</item>
-        <item>Garden</item>
-        <item>Gym</item>
-        <item>Television</item>
-        <item>Refrigerator</item>
-        <item>Washing machine</item>
-        <item>Water purifier</item>
-        <item>Wifi</item>
-        <item>Sofa</item>
-        <item>Table</item>
-    </string-array>
+    <string name="chip_text_lift">Lift Service</string>
+    <string name="chip_text_parking">Parking</string>
+    <string name="chip_text_cctv">CCTV camera</string>
+    <string name="chip_text_power">Power backup</string>
+    <string name="chip_text_playground">Playground</string>
+    <string name="chip_text_pool">Swimming pool</string>
+    <string name="chip_text_garden">Garden</string>
+    <string name="chip_text_gym">Gym</string>
+    <string name="chip_text_tv">Television</string>
+    <string name="chip_text_refridgerator">Refrigerator</string>
+    <string name="chip_text_washing_machine">Washing machine</string>
+    <string name="chip_text_water_purifier">Water purifier</string>
+    <string name="chip_text_wifi">Wifi</string>
+    <string name="chip_text_sofa">Sofa</string>
+    <string name="chip_text_table">Table</string>
 
     <string name="prompt_message">Enter message</string>
     <string name="drawer_properties">Properties</string>
@@ -97,5 +95,6 @@
     <string name="title_activity_add_property">AddPropertyActivity</string>
     <string name="action_settings">Settings</string>
     <string name="property_item_image_description">Property Image</string>
+    <string name="menu_add_property_save_progress">Save progress</string>
 
 </resources>

@@ -22,9 +22,8 @@ public class PropertyRepository {
     }
 
 
-    public void insert (IncompleteProperty p) {
-        new insertAsyncTask(mpropertyDAO).execute(p);
-    }
+    public void insert (IncompleteProperty p) { new insertAsyncTask(mpropertyDAO).execute(p); }
+    public void delete (IncompleteProperty p) { new deleteAsyncTask(mpropertyDAO).execute(p); }
 
     private static class insertAsyncTask extends AsyncTask<IncompleteProperty, Void, Void> {
 
@@ -37,6 +36,21 @@ public class PropertyRepository {
         @Override
         protected Void doInBackground(final IncompleteProperty... params) {
             mAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
+    private static class deleteAsyncTask extends AsyncTask<IncompleteProperty, Void, Void> {
+
+        private PropertyDAO mAsyncTaskDao;
+
+        deleteAsyncTask(PropertyDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final IncompleteProperty... params) {
+            mAsyncTaskDao.delete(params[0]);
             return null;
         }
     }
