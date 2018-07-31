@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-		
+
 		Toolbar mToolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(mToolbar);
 
@@ -176,10 +177,7 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 
 
 	@Override
-	public void onFragmentInteraction(Uri uri)
-	{
-
-	}
+	public void onFragmentInteraction(Uri uri) { }
 
     @Override
     public void addNewProperty() { startActivityForResult(new Intent(this, AddPropertyActivity.class), REQUEST_ADD_PROPERTY); }
@@ -187,6 +185,13 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 	@Override
 	public void addOldProperty(IncompleteProperty incompleteProperty) {
 		Intent intent = new Intent(this, AddPropertyActivity.class).putExtra(AddPropertyActivity.KEY_PROPERTY, incompleteProperty);
+        startActivityForResult(intent, REQUEST_ADD_PROPERTY);
+	}
+
+	@Override
+	public void onPropertyClicked(Property property) {
+		Intent intent = new Intent(this, PropertyDetailsActivity.class);
+		intent.putExtra(AddPropertyActivity.KEY_PROPERTY, property);
 		startActivity(intent);
 	}
 }

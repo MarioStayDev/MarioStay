@@ -96,5 +96,16 @@
     <string name="action_settings">Settings</string>
     <string name="property_item_image_description">Property Image</string>
     <string name="menu_add_property_save_progress">Save progress</string>
+    <string name="image_description_property">Property image</string>
+    <string name="property_details_text_common_amenities">Common amenities :</string>
+    <string name="in_time_flexible">In Time : %1$s</string>
+    <string name="out_time_flexible">Out Time : %1$s</string>
+    <string name="property_details_reviews">Reviews : %1$d</string>
+    <string name="property_details_security_deposit">Security Deposit : %1$d Months</string>
+    <string name="property_details_house_rules">House Rules : Read</string>
+    <string name="property_details_contact_host">Contact Host : Chat</string>
+    <string name="property_details_notice_period">Notice Period : %1$d</string>
+    <string name="property_details_min_stay_time">Minimum stay time : %1$d</string>
+    <string name="button_manage_rooms">Manage Rooms</string>
 
 </resources>

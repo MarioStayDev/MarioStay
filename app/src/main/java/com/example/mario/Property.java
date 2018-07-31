@@ -39,6 +39,7 @@ class Property implements Parcelable {
 		this.inTime = parcel.readString();
 		this.outTime = parcel.readString();
 
+		Amenities = new HashMap<>();
 		parcel.readMap(this.Amenities, null);
 	}
 
@@ -97,7 +98,7 @@ class Property implements Parcelable {
 	public String getInTime() { return inTime; }
 	public String getOutTime() { return outTime; }
 	//GeoPoint getLocation() {return Location; }
-	public Map getAmenities() { return Amenities; }
+	public Map<String, Boolean> getAmenities() { return Amenities; }
 
 	public void setPID(int pID) { PID = pID; }
 	public void setHID(int hID) { HID = hID; }
