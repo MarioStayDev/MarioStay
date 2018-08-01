@@ -99,7 +99,8 @@ public class AddPropertyPhotoFragment extends Fragment {
     }
 
     @OnClick(R.id.prop_photo_photo)
-    public void photo() {
+    public void photo()
+    {
         //img.setImageResource(R.drawable.camera);
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);

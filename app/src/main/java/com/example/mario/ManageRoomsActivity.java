@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.badoualy.stepperindicator.StepperIndicator;
 
@@ -14,6 +15,7 @@ public class ManageRoomsActivity extends AppCompatActivity implements AddRoomsFr
 {
     private Button addRoom;
     private android.support.v4.app.Fragment roomFragment;
+    LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -24,6 +26,7 @@ public class ManageRoomsActivity extends AppCompatActivity implements AddRoomsFr
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         StepperIndicator indicator = findViewById(R.id.stepper_indicator);
         roomFragment = new AddRoomsFragment();
+        linearLayout=(LinearLayout)findViewById(R.id.layout_native_manage_rooms);
 
 
         addRoom= (Button)findViewById(R.id.button_add_rooms);
@@ -32,6 +35,8 @@ public class ManageRoomsActivity extends AppCompatActivity implements AddRoomsFr
             @Override
             public void onClick(View v)
             {
+                //linearLayout.setVisibility(View.GONE);
+
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_manage_rooms,roomFragment).addToBackStack("No rooms Added").commit();
 
             }

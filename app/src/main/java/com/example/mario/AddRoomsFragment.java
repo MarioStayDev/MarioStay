@@ -1,6 +1,8 @@
 package com.example.mario;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,8 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import java.util.Map;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 //import com.abhishek360.mario.R;
 
@@ -36,24 +44,27 @@ public class AddRoomsFragment extends Fragment
     private String mParam1;
     private String mParam2;
 
+    private final int READ_REQUEST_CODE=105;
+
     private OnFragmentInteractionListener mListener;
     private DragNDropAdapter adapter;
     private RecyclerView roomPhotos;
+    private Room room;
+    private Map<String,Boolean> roomAmmenities;
+
+    //Use integer array fro floor numbers not String array
+    private Button selectPhotos,saveRoom;
+    private EditText roomNo,noOfBeds,monRent;
+    private Spinner floorNo;
+
 
     public AddRoomsFragment()
     {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AddRoomsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
+
     public static AddRoomsFragment newInstance(String param1, String param2) {
         AddRoomsFragment fragment = new AddRoomsFragment();
         Bundle args = new Bundle();
@@ -74,8 +85,28 @@ public class AddRoomsFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         View v = inflater.inflate(R.layout.fragment_add_rooms, container, false);
+        roomNo= (EditText)v.findViewById(R.id.room_edit_no) ;
+        floorNo= (Spinner) v.findViewById(R.id.room_spinner_floorNo) ;
+        noOfBeds=(EditText)v.findViewById(R.id.room_edit_beds);
+        monRent=(EditText)v.findViewById(R.id.room_edit_rent);
+        selectPhotos=(Button)v.findViewById(R.id.room_button_selectPhotos);
+        saveRoom=(Button)v.findViewById(R.id.room_button_save);
+        roomAmmenities.put("AC",false);
+        roomAmmenities.put("TV",false);
+        roomAmmenities.put("Balcony",false);
+        roomAmmenities.put("Wardrobe",false);
+        roomAmmenities.put("Attached Washroom",false);
+        roomAmmenities.put("Gyser",false);
+        roomAmmenities.put("Sofa",false);
+        roomAmmenities.put("Table",false);
+
+
+
+
+
         roomPhotos = (RecyclerView)v.findViewById(R.id.room_photo_view);
         adapter = new DragNDropAdapter(getActivity());
         roomPhotos.setLayoutManager(new GridLayoutManager(getActivity(), 2));
@@ -98,8 +129,65 @@ public class AddRoomsFragment extends Fragment
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(roomPhotos);
+
+        saveRoom.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                room.setRoomId(roomNo.getText().toString());
+                room.setNoOfBeds(Integer.parseInt(noOfBeds.getText().toString()));
+                room.setNoOfFloors(Integer.parseInt(floorNo.getSelectedItem().toString()));
+                room.setMonRent(Integer.parseInt(monRent.getText().toString()));
+                room.setRoomAmmenities(roomAmmenities);
+                
+
+
+            }
+        });
         return v;
 
+    }
+    public void onButtonPressed(View v) {
+        boolean b;
+        switch(v.getId()) {
+            case R.id.chip_AC:
+                b = roomAmmenities.get("AC");
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                roomAmmenities.put("AC",!b);
+                break;
+            case R.id.chip_TV:
+                b = roomAmmenities.get("TV");
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                roomAmmenities.put("TV",!b);
+                break;
+            case R.id.chip_balcony:
+                b = roomAmmenities.get("Balcony");
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                roomAmmenities.put("Balcony",!b);
+                break;
+            case R.id.chip_washroom:
+                b = roomAmmenities.get("Attached Washroom");
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                roomAmmenities.put("Attached Washroom",!b);;
+                break;
+            case R.id.chip_Gyser:
+                b = roomAmmenities.get("Gyser");
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                roomAmmenities.put("Gyser",!b);
+                break;
+            case R.id.chip_sofa:
+                b = roomAmmenities.get("Sofa");
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                roomAmmenities.put("Sofa",!b);
+                break;
+            case R.id.chip_table:
+                b = roomAmmenities.get("Table");
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                roomAmmenities.put("Table",!b);
+                break;
+
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -117,6 +205,35 @@ public class AddRoomsFragment extends Fragment
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
+        }
+    }
+    @OnClick(R.id.room_button_selectPhotos)
+    public void roomPhoto()
+    {
+        //img.setImageResource(R.drawable.camera);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/*");
+        startActivityForResult(intent, READ_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode)
+        {
+            case READ_REQUEST_CODE:
+
+                if(resultCode == Activity.RESULT_OK && data != null)
+                {
+                    System.out.println("Photo received");
+                    int t = adapter.getItemCount();
+                    adapter.addPhoto(data.getData());
+                    adapter.notifyItemInserted(t);
+                    //adapter.notifyDataSetChanged();
+
+                }
+                break;
         }
     }
 

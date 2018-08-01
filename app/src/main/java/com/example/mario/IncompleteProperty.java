@@ -10,7 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Entity(tableName = "properties")
-public class IncompleteProperty implements Parcelable {
+public class IncompleteProperty implements Parcelable
+{
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "pid") private int PID;

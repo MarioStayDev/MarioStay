@@ -72,6 +72,14 @@
         <item>Prop5</item>
     </string-array>
 
+    <integer-array name="floor_no">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+
+    </integer-array>
+
     <!-- Chips for common amenities -->
     <string name="chip_text_lift">Lift Service</string>
     <string name="chip_text_parking">Parking</string>

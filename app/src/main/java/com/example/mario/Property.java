@@ -17,7 +17,8 @@ class Property implements Parcelable {
 	//private GeoPoint Location;
 	private Map<String, Boolean> Amenities;
 
-	Property() {
+	Property()
+	{
 		Amenities = new HashMap<>();
 	}
 
