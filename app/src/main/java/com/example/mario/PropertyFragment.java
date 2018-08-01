@@ -48,6 +48,8 @@ public class PropertyFragment extends Fragment {
     private IncompletePropertyAdapter mAdapter;
     private PropertyViewModel mPropViewModel;
 
+
+
     public PropertyFragment() {}
 
     @Override
@@ -71,12 +73,12 @@ public class PropertyFragment extends Fragment {
         unbinder = ButterKnife.bind(this, v);
         propertyList.setLayoutManager(new LinearLayoutManager(getActivity()));
         propertyList.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-        propertyList.addOnItemTouchListener(
+      /**  propertyList.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), propertyList ,new RecyclerItemClickListener.OnItemClickListener()
                 {
                     @Override public void onItemClick(View view, int position)
                     {
-                        Intent i = new Intent(getActivity(),PropertyDisplayActivity.class);
+                        Intent i = new Intent(getActivity(),PropertyDetailsActivity.class);
                         startActivity(i);
                     }
 
@@ -85,7 +87,7 @@ public class PropertyFragment extends Fragment {
 
                     }
                 })
-        );
+        ); */
 
         incompleteList.setLayoutManager(new LinearLayoutManager(getActivity()));
         incompleteList.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
@@ -182,30 +184,35 @@ public class PropertyFragment extends Fragment {
         incompleteList.setAdapter(mAdapter);
     }
 
-    public interface OnFragmentInteractionListener {
+    public interface OnFragmentInteractionListener
+    {
         void addNewProperty();
         void addOldProperty(IncompleteProperty incompleteProperty);
         void onPropertyClicked(Property property);
     }
 
-    class PropertyHolder extends RecyclerView.ViewHolder {
+    class PropertyHolder extends RecyclerView.ViewHolder
+    {
         @BindView(R.id.property_item_name) TextView propName;
         @BindView(R.id.property_item_image) ImageView img;
 
-        PropertyHolder(View v) {
+        PropertyHolder(View v)
+        {
             super(v);
             ButterKnife.bind(this,v);
         }
     }
 
     @Override
-    public void onStart() {
+    public void onStart()
+    {
         super.onStart();
         adapter.startListening();
     }
 
     @Override
-    public void onStop() {
+    public void onStop()
+    {
         super.onStop();
         adapter.stopListening();
     }
@@ -237,18 +244,21 @@ public class PropertyFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull PropertyHolder holder, int position) {
+        public void onBindViewHolder(@NonNull PropertyHolder holder, int position)
+        {
             holder.propName.setText(props.get(position).getName());
             holder.img.setImageResource(R.drawable.camera);
         }
 
-        public void setProps(List<IncompleteProperty> a) {
+        public void setProps(List<IncompleteProperty> a)
+        {
             props = a;
             notifyDataSetChanged();
         }
 
         @Override
-        public int getItemCount() {
+        public int getItemCount()
+        {
             return props == null ? 0 : props.size();
         }
     }

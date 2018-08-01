@@ -200,7 +200,8 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 	}
 
 	@Override
-	public void onPropertyClicked(Property property) {
+	public void onPropertyClicked(Property property)
+	{
 		Intent intent = new Intent(this, PropertyDetailsActivity.class);
 		intent.putExtra(AddPropertyActivity.KEY_PROPERTY, property);
 		startActivity(intent);

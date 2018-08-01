@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,11 +18,21 @@ import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.app.Activity.RESULT_OK;
+import static com.example.mario.AddPropertyActivity.KEY_PROPERTY;
 
 //import com.abhishek360.mario.R;
 
@@ -50,12 +61,16 @@ public class AddRoomsFragment extends Fragment
     private DragNDropAdapter adapter;
     private RecyclerView roomPhotos;
     private Room room;
-    private Map<String,Boolean> roomAmmenities;
+    private RoomsFragment roomsFragment = new RoomsFragment();
+    private Map<String,Boolean> roomAmmenities= new HashMap<>();
+    private String propertyDoc="BJaAzEDJXgrbGhIiVEcf";
 
     //Use integer array fro floor numbers not String array
     private Button selectPhotos,saveRoom;
     private EditText roomNo,noOfBeds,monRent;
     private Spinner floorNo;
+    private Toast mToast;
+    private FirebaseFirestore roomdb;
 
 
     public AddRoomsFragment()
@@ -94,6 +109,17 @@ public class AddRoomsFragment extends Fragment
         monRent=(EditText)v.findViewById(R.id.room_edit_rent);
         selectPhotos=(Button)v.findViewById(R.id.room_button_selectPhotos);
         saveRoom=(Button)v.findViewById(R.id.room_button_save);
+        roomdb= FirebaseFirestore.getInstance();
+
+
+
+
+
+
+
+
+
+
         roomAmmenities.put("AC",false);
         roomAmmenities.put("TV",false);
         roomAmmenities.put("Balcony",false);
@@ -135,11 +161,35 @@ public class AddRoomsFragment extends Fragment
             @Override
             public void onClick(View v)
             {
+                room= new Room();
                 room.setRoomId(roomNo.getText().toString());
                 room.setNoOfBeds(Integer.parseInt(noOfBeds.getText().toString()));
                 room.setNoOfFloors(Integer.parseInt(floorNo.getSelectedItem().toString()));
                 room.setMonRent(Integer.parseInt(monRent.getText().toString()));
                 room.setRoomAmmenities(roomAmmenities);
+                roomdb.collection("properties/"+propertyDoc+"/rooms").add(room).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
+                {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference)
+                    {
+
+                        d("Success");
+
+                        //setResult(RESULT_CANCELED, r);
+                        //setResult(RESULT_OK, r);
+                        //finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener()
+                {
+                    @Override
+                    public void onFailure(@NonNull Exception e)
+                    {
+
+                        d("Failed");
+                    }
+                });
+                d("Uploading...");
+
                 
 
 
@@ -224,7 +274,7 @@ public class AddRoomsFragment extends Fragment
         {
             case READ_REQUEST_CODE:
 
-                if(resultCode == Activity.RESULT_OK && data != null)
+                if(resultCode == RESULT_OK && data != null)
                 {
                     System.out.println("Photo received");
                     int t = adapter.getItemCount();
@@ -256,5 +306,12 @@ public class AddRoomsFragment extends Fragment
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void d(String s)
+    {
+        mToast.cancel();
+        mToast = Toast.makeText(getActivity(), s, Toast.LENGTH_LONG);
+        mToast.show();
     }
 }

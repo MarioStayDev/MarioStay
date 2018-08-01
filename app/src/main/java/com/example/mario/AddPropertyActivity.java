@@ -121,7 +121,8 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
     }
 
     @Override
-    public void lastFragment(final ProgressBar p, final Button b) {
+    public void lastFragment(final ProgressBar p, final Button b)
+    {
         p.setVisibility(View.VISIBLE);
         b.setVisibility(View.GONE);
 
@@ -174,7 +175,8 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
             mViewPager.setCurrentItem(currentItem - 1);
     }
 
-    private void d(String s) {
+    private void d(String s)
+    {
         mToast.cancel();
         mToast = Toast.makeText(this, s, Toast.LENGTH_LONG);
         mToast.show();
