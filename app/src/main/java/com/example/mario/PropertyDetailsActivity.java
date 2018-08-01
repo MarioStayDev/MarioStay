@@ -91,6 +91,7 @@ public class PropertyDetailsActivity extends AppCompatActivity {
     @OnClick(R.id.property_details_button_rooms)
     void click() {
         Intent intent = new Intent(this, AddRoomsActivity.class);
+        intent.putExtra(AddPropertyActivity.KEY_PROPERTY, property);
         startActivity(intent);
     }
 

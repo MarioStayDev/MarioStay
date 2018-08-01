@@ -1,52 +1,48 @@
 package com.example.mario;
 
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AddRoomsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AddRoomsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class AddRoomsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private int floors;
+    //private Room room;
+    private Map<String, Boolean> imap;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @BindView(R.id.room_spinner_floorNo) Spinner floorSp;
+    @BindView(R.id.add_room_edit_no) EditText rNo;
+    @BindView(R.id.room_edit_beds) EditText beds;
+    @BindView(R.id.room_edit_rent) EditText rent;
 
     private OnFragmentInteractionListener mListener;
 
-    public AddRoomsFragment() {
-        // Required empty public constructor
-    }
+    public AddRoomsFragment() { }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AddRoomsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AddRoomsFragment newInstance(String param1, String param2) {
+    public static AddRoomsFragment newInstance(int param1) {
         AddRoomsFragment fragment = new AddRoomsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_PARAM1, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,23 +51,24 @@ public class AddRoomsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            floors = getArguments().getInt(ARG_PARAM1);
         }
+        imap = new HashMap<>();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_rooms, container, false);
-    }
+        View v = inflater.inflate(R.layout.fragment_add_rooms, container, false);
+        ButterKnife.bind(this, v);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        Integer[] floorList = new Integer[floors];
+        for(int i = 0; i < floors;) floorList[i++] = i;
+        ArrayAdapter<Integer> spinnerArrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, floorList);
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        floorSp.setAdapter(spinnerArrayAdapter);
+
+        return v;
     }
 
     @Override
@@ -91,18 +88,17 @@ public class AddRoomsFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @OnClick(R.id.room_button_save)
+    void saveRoom() {
+        /*room = new Room();
+        room.setRoomNo(Integer.parseInt(rNo.getText().toString()));
+        room.setFloor((Integer)floorSp.getSelectedItem());
+        room.setBeds(Integer.parseInt(beds.getText().toString()));
+        room.setRent(Integer.parseInt(rent.getText().toString()));*/
+        mListener.saveRoom(Integer.parseInt(rNo.getText().toString()), (Integer)floorSp.getSelectedItem(), Integer.parseInt(beds.getText().toString()), Integer.parseInt(rent.getText().toString()), imap);
+    }
+
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void saveRoom(int rNo, int f, int b, int r, Map<String, Boolean> m);
     }
 }
