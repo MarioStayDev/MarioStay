@@ -60,6 +60,7 @@ public class PropertyRepository
         protected Void doInBackground(final IncompleteProperty... params)
         {
             mAsyncTaskDao.delete(params[0]);
+            System.out.println("deleting from thread");
             return null;
         }
     }

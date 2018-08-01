@@ -31,8 +31,10 @@
         <activity
             android:name=".AddPropertyActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".PropertyDisplayActivity" />
-        <activity android:name=".ManageRoomsActivity"></activity>
+        <activity
+            android:name=".PropertyDetailsActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".AddRoomsActivity" />
     </application>
 
 </manifest>

@@ -150,7 +150,7 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
                 p.setVisibility(View.GONE);
                 d("Success");
                 Intent r = new Intent().putExtra(KEY_PROPERTY, property);
-                setResult(RESULT_CANCELED, r);
+                //setResult(RESULT_CANCELED, r);
                 setResult(RESULT_OK, r);
                 finish();
             }

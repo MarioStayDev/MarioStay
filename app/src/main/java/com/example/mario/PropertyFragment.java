@@ -149,14 +149,14 @@ public class PropertyFragment extends Fragment {
                 holder.propName.setText(model.getName());
                 holder.img.setImageResource(R.drawable.camera);
                 //Glide.with(getActivity()).load(model.image).into(holder.imgview);
-                /*holder.itemView.setOnClickListener(new View.OnClickListener() {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable(KEY_PROPERTY, model);
-                        mListener.onPropertyClicked(bundle);
+                        //Bundle bundle = new Bundle();
+                        //.putParcelable(KEY_PROPERTY, model);
+                        mListener.onPropertyClicked(model);
                     }
-                });*/
+                });
             }
 
             @NonNull
@@ -185,6 +185,7 @@ public class PropertyFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void addNewProperty();
         void addOldProperty(IncompleteProperty incompleteProperty);
+        void onPropertyClicked(Property property);
     }
 
     class PropertyHolder extends RecyclerView.ViewHolder {
