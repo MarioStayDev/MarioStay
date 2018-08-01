@@ -6,6 +6,9 @@
     android:orientation="vertical"
     tools:context=".AddRoomsActivity">
 
-
+    <com.example.mario.NonSwipeableViewPager
+        android:id="@+id/add_rooms_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
