@@ -27,7 +27,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.viewHolder>
 		}
 	}
 	
-	DataAdapter() {
+	DataAdapter()
+	{
 		mData=new ArrayList<Data>();
 	}
 	

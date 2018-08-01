@@ -3,6 +3,7 @@ package com.example.mario;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -53,7 +54,8 @@ public class PropertyFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPropViewModel = ViewModelProviders.of(this).get(PropertyViewModel.class);
-        mPropViewModel.getAllWords().observe(getActivity(), new Observer<List<IncompleteProperty>>() {
+        mPropViewModel.getAllWords().observe(getActivity(), new Observer<List<IncompleteProperty>>()
+        {
             @Override
             public void onChanged(@Nullable List<IncompleteProperty> incompleteProperties) {
                 mAdapter.setProps(incompleteProperties);
@@ -69,11 +71,28 @@ public class PropertyFragment extends Fragment {
         unbinder = ButterKnife.bind(this, v);
         propertyList.setLayoutManager(new LinearLayoutManager(getActivity()));
         propertyList.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        propertyList.addOnItemTouchListener(
+                new RecyclerItemClickListener(getActivity(), propertyList ,new RecyclerItemClickListener.OnItemClickListener()
+                {
+                    @Override public void onItemClick(View view, int position)
+                    {
+                        Intent i = new Intent(getActivity(),PropertyDisplayActivity.class);
+                        startActivity(i);
+                    }
+
+                    @Override public void onLongItemClick(View view, int position)
+                    {
+
+                    }
+                })
+        );
+
         incompleteList.setLayoutManager(new LinearLayoutManager(getActivity()));
         incompleteList.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         setupAdapter();
         return v;
     }
+
 
     @Override
     public void onAttach(Context context) {
@@ -99,28 +118,34 @@ public class PropertyFragment extends Fragment {
     }
 
     @OnClick(R.id.property_fab)
-    public void addNewProperty() {
+    public void addNewProperty()
+    {
         mListener.addNewProperty();
     }
 
-    void insert(IncompleteProperty p) {
+    void insert(IncompleteProperty p)
+    {
         mPropViewModel.insert(p);
     }
 
-    void delete(IncompleteProperty p) {
+    void delete(IncompleteProperty p)
+    {
         mPropViewModel.delete(p);
     }
 
-    private void setupAdapter() {
+    private void setupAdapter()
+    {
         Query q = db.collection("properties").whereEqualTo("hid", 1);
 
         FirestoreRecyclerOptions<Property> res = new FirestoreRecyclerOptions.Builder<Property>()
                 .setQuery(q, Property.class).build();
 
-        adapter = new FirestoreRecyclerAdapter<Property, PropertyHolder>(res) {
+        adapter = new FirestoreRecyclerAdapter<Property, PropertyHolder>(res)
+        {
 
             @Override
-            protected void onBindViewHolder(@NonNull PropertyHolder holder, int position, @NonNull final Property model) {
+            protected void onBindViewHolder(@NonNull PropertyHolder holder, int position, @NonNull final Property model)
+            {
                 holder.propName.setText(model.getName());
                 holder.img.setImageResource(R.drawable.camera);
                 //Glide.with(getActivity()).load(model.image).into(holder.imgview);
@@ -136,13 +161,15 @@ public class PropertyFragment extends Fragment {
 
             @NonNull
             @Override
-            public PropertyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public PropertyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+            {
                 if(emptyText.getVisibility() == View.VISIBLE) emptyText.setVisibility(View.GONE);
                 return new PropertyHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.property_item, parent, false));
             }
 
             @Override
-            public void onError(@NonNull FirebaseFirestoreException e) {
+            public void onError(@NonNull FirebaseFirestoreException e)
+            {
                 super.onError(e);
                 Log.e("error", e.getMessage());
             }
@@ -182,7 +209,8 @@ public class PropertyFragment extends Fragment {
         adapter.stopListening();
     }
 
-    private class IncompletePropertyAdapter extends RecyclerView.Adapter<PropertyHolder> {
+    private class IncompletePropertyAdapter extends RecyclerView.Adapter<PropertyHolder>
+    {
 
         private Context context;
         private List<IncompleteProperty> props;
@@ -191,11 +219,14 @@ public class PropertyFragment extends Fragment {
 
         @NonNull
         @Override
-        public PropertyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public PropertyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+        {
             View v = LayoutInflater.from(context).inflate(R.layout.incomplete_property_item, parent, false);
-            v.setOnClickListener(new View.OnClickListener() {
+            v.setOnClickListener(new View.OnClickListener()
+            {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v)
+                {
                     int pos = incompleteList.getChildLayoutPosition(v);
                     IncompleteProperty p = props.get(pos);
                     mListener.addOldProperty(p);

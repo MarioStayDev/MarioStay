@@ -58,8 +58,10 @@ public class LoginActivity extends AppCompatActivity
 					new ValidateLogin(n,p).execute();
 			}
 		});
-		buttonSignup.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
+		buttonSignup.setOnClickListener(new OnClickListener()
+		{
+				public void onClick(View v)
+				{
 					Intent ri = new Intent(LoginActivity.this,SignupActivity.class);
 					startActivityForResult(ri,REQUEST_SIGNUP);
 				}

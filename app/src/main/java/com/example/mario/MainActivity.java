@@ -92,7 +92,8 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
 
 			@Override
-			public void onPageSelected(int position) {
+			public void onPageSelected(int position)
+			{
 				if (prevMenuItem != null) prevMenuItem.setChecked(false);
 				else bNavView.getMenu().getItem(0).setChecked(false);
 
@@ -106,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 
 		mToast = new Toast(this);
     }
+
+
 
 	private void setupViewPager(ViewPager v) {
 		ViewPagerAdapter adapter = new ViewPagerAdapter(mFragmentManager);

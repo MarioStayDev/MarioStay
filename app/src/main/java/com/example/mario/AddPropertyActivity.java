@@ -64,7 +64,8 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
         mToast = new Toast(this);
     }
 
-    private void setupViewPager(ViewPager pager) {
+    private void setupViewPager(ViewPager pager)
+    {
         ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(AddPropertyFragment.newInstance(property));
         pagerAdapter.addFragment(AddPropertyDescriptionFragment.newInstance(property));
@@ -75,7 +76,8 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.menu_add_property, menu);
         return true;
     }
@@ -113,7 +115,8 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
     }
 
     @Override
-    public void nextFragment() {
+    public void nextFragment()
+    {
         mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
     }
 
