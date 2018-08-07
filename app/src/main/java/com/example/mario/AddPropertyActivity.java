@@ -140,7 +140,28 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
         tempMap.put(getString(R.string.chip_text_table), property.getTtable());
 
         Property property1 = new Property(property, tempMap);
-        db.collection("properties").add(property1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        DocumentReference dref = db.collection("properties").document();
+        property1.setPID(dref.getId());
+        dref.set(property1).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void avoid) {
+                b.setVisibility(View.VISIBLE);
+                p.setVisibility(View.GONE);
+                d("Success");
+                Intent r = new Intent().putExtra(KEY_PROPERTY, property);
+                //setResult(RESULT_CANCELED, r);
+                setResult(RESULT_OK, r);
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                b.setVisibility(View.VISIBLE);
+                p.setVisibility(View.GONE);
+                d("Failed");
+            }
+        });
+        /*db.collection("properties").add(property1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 b.setVisibility(View.VISIBLE);
@@ -158,7 +179,7 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
                 p.setVisibility(View.GONE);
                 d("Failed");
             }
-        });
+        });*/
         d("Uploading...");
     }
 

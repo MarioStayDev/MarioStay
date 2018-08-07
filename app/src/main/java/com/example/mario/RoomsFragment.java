@@ -3,6 +3,7 @@ package com.example.mario;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,12 +25,10 @@ import butterknife.OnClick;
  */
 public class RoomsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -39,15 +38,6 @@ public class RoomsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RoomsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static RoomsFragment newInstance(String param1, String param2) {
         RoomsFragment fragment = new RoomsFragment();
         Bundle args = new Bundle();
@@ -67,7 +57,7 @@ public class RoomsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_rooms, container, false);;
@@ -75,7 +65,6 @@ public class RoomsFragment extends Fragment {
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -99,18 +88,7 @@ public class RoomsFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
         void AddRoom();
     }
@@ -119,4 +97,33 @@ public class RoomsFragment extends Fragment {
     void addroom() {
         mListener.AddRoom();
     }
+
+    /*
+
+        USE THIS CODE SNIPPET TO GET ALL ROOM DATA
+
+        db.collection("properties").document(property.getPid()).collection("rooms").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+
+                    ALL THE ROOM DATA IS OBTAINED
+                    SEPARATE FLOOR WISE ROOMS IN FOR LOOP
+
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Log.d(TAG, document.getId() + " => " + document.getData());
+
+                        DOCUMENT.GETDATA() GIVES THE ROOM OBJECT
+                    }
+
+                    REMOVE PROGRESSBAR AND SHOW THE ROOMS
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+
+                    REMOVE PROGRESS BAR AND SHOW ERROR MESSAGE
+                }
+            }
+        });
+
+     */
 }

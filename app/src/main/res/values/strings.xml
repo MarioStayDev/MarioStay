@@ -107,5 +107,10 @@
     <string name="property_details_notice_period">Notice Period : %1$d</string>
     <string name="property_details_min_stay_time">Minimum stay time : %1$d</string>
     <string name="button_manage_rooms">Manage Rooms</string>
+    <string name="chip_text_gyser">Gyser</string>
+    <string name="chip_text_attached_washroom">Attached Washroom</string>
+    <string name="chip_text_wardrobe">Wardrobe</string>
+    <string name="chip_text_balcony">Balcony</string>
+    <string name="chip_text_ac">AC</string>
 
 </resources>

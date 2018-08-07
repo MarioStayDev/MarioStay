@@ -23,11 +23,13 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class AddRoomsFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private int floors;
     //private Room room;
+    private Unbinder unbinder;
     private Map<String, Boolean> imap;
 
     @BindView(R.id.room_spinner_floorNo) Spinner floorSp;
@@ -54,21 +56,39 @@ public class AddRoomsFragment extends Fragment {
             floors = getArguments().getInt(ARG_PARAM1);
         }
         imap = new HashMap<>();
+        imap.put(getString(R.string.chip_text_ac), false);
+        imap.put(getString(R.string.chip_text_tv), false);
+        imap.put(getString(R.string.chip_text_balcony), false);
+        imap.put(getString(R.string.chip_text_wardrobe), false);
+        imap.put(getString(R.string.chip_text_attached_washroom), false);
+        imap.put(getString(R.string.chip_text_gyser), false);
+        imap.put(getString(R.string.chip_text_sofa), false);
+        imap.put(getString(R.string.chip_text_table), false);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_rooms, container, false);
-        ButterKnife.bind(this, v);
+        unbinder = ButterKnife.bind(this, v);
 
         Integer[] floorList = new Integer[floors];
-        for(int i = 0; i < floors;) floorList[i++] = i;
+        if(floors == 1) {
+            floorList[0] = 1;
+            floorSp.setEnabled(false);
+        }
+        else for(int i = 0; i < floors;) floorList[i++] = i;
         ArrayAdapter<Integer> spinnerArrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, floorList);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         floorSp.setAdapter(spinnerArrayAdapter);
 
         return v;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override
@@ -86,6 +106,53 @@ public class AddRoomsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @OnClick({ R.id.chip_AC, R.id.chip_TV, R.id.chip_balcony, R.id.chip_wardrobe, R.id.chip_washroom, R.id.chip_Gyser, R.id.chip_sofa, R.id.chip_table })
+    public void onButtonPressed(View v) {
+        boolean b;
+        switch(v.getId()) {
+            case R.id.chip_AC:
+                b = imap.get(getString(R.string.chip_text_ac));
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                imap.put(getString(R.string.chip_text_ac), !b);
+                break;
+            case R.id.chip_TV:
+                b = imap.get(getString(R.string.chip_text_tv));
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                imap.put(getString(R.string.chip_text_tv), !b);
+                break;
+            case R.id.chip_balcony:
+                b = imap.get(getString(R.string.chip_text_balcony));
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                imap.put(getString(R.string.chip_text_balcony), !b);
+                break;
+            case R.id.chip_wardrobe:
+                b = imap.get(getString(R.string.chip_text_wardrobe));
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                imap.put(getString(R.string.chip_text_wardrobe), !b);
+                break;
+            case R.id.chip_washroom:
+                b = imap.get(getString(R.string.chip_text_attached_washroom));
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                imap.put(getString(R.string.chip_text_attached_washroom), !b);
+                break;
+            case R.id.chip_Gyser:
+                b = imap.get(getString(R.string.chip_text_gyser));
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                imap.put(getString(R.string.chip_text_gyser), !b);
+                break;
+            case R.id.chip_sofa:
+                b = imap.get(getString(R.string.chip_text_sofa));
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                imap.put(getString(R.string.chip_text_sofa), !b);
+                break;
+            case R.id.chip_table:
+                b = imap.get(getString(R.string.chip_text_table));
+                v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
+                imap.put(getString(R.string.chip_text_table), !b);
+                break;
+        }
     }
 
     @OnClick(R.id.room_button_save)
