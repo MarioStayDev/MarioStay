@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".RoomsFragment">
 
-    <android.support.v7.widget.CardView
+    <!--<android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/ui_elems_spacing" >
@@ -160,7 +160,18 @@
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>-->
+
+    <ProgressBar
+        android:id="@+id/room_view_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/room_view_rec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/rooms_add_rooms"

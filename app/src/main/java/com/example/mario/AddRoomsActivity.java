@@ -31,7 +31,7 @@ public class AddRoomsActivity extends AppCompatActivity implements AddRoomsFragm
 
     private void setUpViewPager() {
         ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        pagerAdapter.addFragment(new RoomsFragment());
+        pagerAdapter.addFragment(/*new RoomsFragment()*/RoomsFragment.newInstance(property.getPID()));
         pagerAdapter.addFragment(AddRoomsFragment.newInstance(property.getFloors()));
         vPager.setAdapter(pagerAdapter);
     }
