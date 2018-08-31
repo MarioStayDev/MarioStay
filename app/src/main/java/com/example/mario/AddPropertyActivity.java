@@ -27,6 +27,8 @@ import com.badoualy.stepperindicator.StepperIndicator;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -36,21 +38,29 @@ import java.util.Map;
 public class AddPropertyActivity extends AppCompatActivity  implements AddPropertyFragment.OnFragmentInteractionListener,
                                                             AddPropertyDescriptionFragment.OnFragmentInteractionListener,
                                                             AddPropertyPhotoFragment.OnFragmentInteractionListener,
-                                                            AddPropertyUploadFragment.OnFragmentInteractionListener {
+                                                            AddPropertyUploadFragment.OnFragmentInteractionListener
+{
 
     final static String KEY_PROPERTY = "com.example.mario.AddPropertyActivity.KEY_PROPERTY";
     private NonSwipeableViewPager mViewPager;
     private Toast mToast;
     private IncompleteProperty property;
     private FirebaseFirestore db;
+    private FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+    private FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
+    private String hid_string;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_property);
 
         Intent intent = getIntent();
         property = (intent.hasExtra(KEY_PROPERTY)) ? (IncompleteProperty)intent.getParcelableExtra(KEY_PROPERTY) : new IncompleteProperty();
+
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -83,22 +93,33 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+
+        switch(item.getItemId())
+        {
+
             case android.R.id.home:
+
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
+
             case R.id.menu_add_property_save:
+
                 int c = mViewPager.getCurrentItem();
                 Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + c);
-                if (page != null) switch(c) {
-                    case 0: ((AddPropertyFragment)page).gotoNext(null);
-                        break;
-                    case 1: ((AddPropertyDescriptionFragment)page).gotoNext(null);
-                        break;
-                    case 2: ((AddPropertyPhotoFragment)page).gotoNext(null);
-                        break;
-                }
+
+                if (page != null)
+
+                    switch(c)
+                    {
+                        case 0: ((AddPropertyFragment)page).gotoNext(null);
+                            break;
+                        case 1: ((AddPropertyDescriptionFragment)page).gotoNext(null);
+                            break;
+                        case 2: ((AddPropertyPhotoFragment)page).gotoNext(null);
+                            break;
+                    }
                 Intent r = new Intent().putExtra(KEY_PROPERTY, property);
                 setResult(RESULT_CANCELED, r);
                 finish();
@@ -109,7 +130,8 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy()
+    {
         super.onDestroy();
 
     }
@@ -143,10 +165,20 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
         tempMap.put(getString(R.string.chip_text_sofa), property.getSofa());
         tempMap.put(getString(R.string.chip_text_table), property.getTtable());
 
-        Property property1 = new Property(property, tempMap);
-        db.collection("properties").add(property1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        hid_string=firebaseUser.getUid();
+
+        Property property1 = new Property(property,tempMap);
+        property1.setHID(hid_string);
+
+
+        db.collection("properties").add(property1).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
+        {
+
+
             @Override
-            public void onSuccess(DocumentReference documentReference) {
+            public void onSuccess(DocumentReference documentReference)
+            {
+
                 b.setVisibility(View.VISIBLE);
                 p.setVisibility(View.GONE);
                 d("Success");
@@ -155,19 +187,25 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
                 setResult(RESULT_OK, r);
                 finish();
             }
-        }).addOnFailureListener(new OnFailureListener() {
+        }).addOnFailureListener(new OnFailureListener()
+        {
+
             @Override
-            public void onFailure(@NonNull Exception e) {
+            public void onFailure(@NonNull Exception e)
+            {
+
                 b.setVisibility(View.VISIBLE);
                 p.setVisibility(View.GONE);
                 d("Failed");
+
             }
         });
         d("Uploading...");
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         int currentItem = mViewPager.getCurrentItem();
         if(currentItem == 0)
             super.onBackPressed();

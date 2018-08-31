@@ -16,7 +16,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class AddPropertyUploadFragment extends Fragment {
+public class AddPropertyUploadFragment extends Fragment
+{
 
     private IncompleteProperty property;
     private OnFragmentInteractionListener mListener;
@@ -25,7 +26,8 @@ public class AddPropertyUploadFragment extends Fragment {
 
     public AddPropertyUploadFragment() { }
 
-    public static AddPropertyUploadFragment newInstance(IncompleteProperty p) {
+    public static AddPropertyUploadFragment newInstance(IncompleteProperty p)
+    {
         AddPropertyUploadFragment fragment = new AddPropertyUploadFragment();
         Bundle args = new Bundle();
         args.putParcelable(AddPropertyActivity.KEY_PROPERTY, p);
@@ -34,38 +36,45 @@ public class AddPropertyUploadFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) property = getArguments().getParcelable(AddPropertyActivity.KEY_PROPERTY);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         View v = inflater.inflate(R.layout.fragment_add_property_upload, container, false);
         unbinder = ButterKnife.bind(this, v);
         return v;
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context)
+    {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
+        if (context instanceof OnFragmentInteractionListener)
+        {
             mListener = (OnFragmentInteractionListener) context;
-        } else {
+        }
+        else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
 
     @Override
-    public void onDetach() {
+    public void onDetach()
+    {
         super.onDetach();
         mListener = null;
     }
 
     @Override
-    public void onDestroyView() {
+    public void onDestroyView()
+    {
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -76,7 +85,8 @@ public class AddPropertyUploadFragment extends Fragment {
         mListener.lastFragment(progress, b);
     }
 
-    public interface OnFragmentInteractionListener {
+    public interface OnFragmentInteractionListener
+    {
         void lastFragment(ProgressBar progress, Button button);
     }
 }

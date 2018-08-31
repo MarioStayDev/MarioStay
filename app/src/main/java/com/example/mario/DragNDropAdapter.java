@@ -16,12 +16,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class DragNDropAdapter extends RecyclerView.Adapter<DragNDropAdapter.holder> {
+public class DragNDropAdapter extends RecyclerView.Adapter<DragNDropAdapter.holder>
+{
 
     private Context context;
     private List<Uri> photos;
 
-    DragNDropAdapter(Context c) {
+    DragNDropAdapter(Context c)
+    {
         context = c;
         photos = new ArrayList<>();
     }
@@ -40,9 +42,11 @@ public class DragNDropAdapter extends RecyclerView.Adapter<DragNDropAdapter.hold
 
     public void swap(int a, int b) { Collections.swap(photos, a, b); }
 
-    static class holder extends RecyclerView.ViewHolder {
+    static class holder extends RecyclerView.ViewHolder
+    {
         SquareImageView squareImageView;
-        holder(View v) {
+        holder(View v)
+        {
             super(v);
             squareImageView = v.findViewById(R.id.add_property_photo_holder);
         }

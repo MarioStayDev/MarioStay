@@ -18,17 +18,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 public class MainActivity extends AppCompatActivity implements PropertyFragment.OnFragmentInteractionListener,
-																PropertyDescFragment.OnFragmentInteractionListener,
                                                                 RefundFragment.OnFragmentInteractionListener,
+																DashboardFragment.OnFragmentInteractionListener,
 																com.example.mario.InboxFragment.OnFragmentInteractionListener
 {
 	private boolean userIsLoggedIn;
 	private final int REQUEST_LOGIN=101, REQUEST_ADD_PROPERTY = 102;
-	public final static String KEY_SHARED_PREFERENCE = "shared_pref_key", KEY_LOGGED_IN = "logged_in_key", KEY_USER_NAME = "user_name_key", KEY_EMAIL = "email_key";
+	public final static String KEY_SHARED_PREFERENCE = "shared_pref_key", KEY_LOGGED_IN = "IS_USER_LOGGED_IN",KEY_UID="UID", KEY_USER_NAME = "FULL_NAME", KEY_EMAIL = "EMAIL",KEY_IMAG_URL="IMG_URL";
 	private SharedPreferences pfm;
 	private Toast mToast;
 	private FragmentManager mFragmentManager;
@@ -47,14 +48,17 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
         pfm = getSharedPreferences(KEY_SHARED_PREFERENCE,MODE_PRIVATE);
         userIsLoggedIn = pfm.getBoolean(KEY_LOGGED_IN,false); // Fetch and check login state here
 
-        if(!userIsLoggedIn) {
+        if(!userIsLoggedIn)
+        {
             Intent loginIntent = new Intent(this, LoginActivity.class);
             startActivityForResult(loginIntent,REQUEST_LOGIN);
         }
-        else {
-			FirebaseFirestore db = FirebaseFirestore.getInstance();
+        else
+        	{
 
-			Query q = db.collection("properties").whereEqualTo("hid", 1);
+        		FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+				//Query q = db.collection("properties").whereEqualTo("hid", 1);
 		}
 
 		mFragmentManager = getSupportFragmentManager();
@@ -63,11 +67,15 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 		setupViewPager(viewPager);
 
 		final BottomNavigationView bNavView = findViewById(R.id.bottom_navigation_view);
-		bNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+		bNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
+		{
 			@Override
-			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+			public boolean onNavigationItemSelected(@NonNull MenuItem item)
+
+			{
 				if(!userIsLoggedIn) loginPrompt();
-				else switch(item.getItemId()) {
+				else switch(item.getItemId())
+				{
 					case R.id.menu_properties:
 						viewPager.setCurrentItem(0);
 						break;
@@ -88,7 +96,8 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 			}
 		});
 
-		viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+		viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
+		{
 			@Override
 			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
 
@@ -111,14 +120,15 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 
 
 
-	private void setupViewPager(ViewPager v) {
+	private void setupViewPager(ViewPager v)
+	{
 		ViewPagerAdapter adapter = new ViewPagerAdapter(mFragmentManager);
 		mPropFragment = new PropertyFragment();
 		adapter.addFragment(mPropFragment);
 		adapter.addFragment(new InboxFragment());
 		adapter.addFragment(new AllPaymentFragment());
 		adapter.addFragment(new RefundFragment());
-		adapter.addFragment(new Fragment());
+		adapter.addFragment(new DashboardFragment());
 		v.setAdapter(adapter);
 	}
 
@@ -132,10 +142,13 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		switch(item.getItemId()) {
+		switch(item.getItemId())
+		{
 			case R.id.menu_logout:
-				pfm.edit().putBoolean(KEY_LOGGED_IN,false).remove(KEY_USER_NAME).remove(KEY_EMAIL).apply();
+				pfm.edit().clear().apply();
 				userIsLoggedIn = false;
+				FirebaseAuth.getInstance().signOut();
+
 				Intent loginIntent = new Intent(this, LoginActivity.class);
 				startActivityForResult(loginIntent,REQUEST_LOGIN);
 				return true;
@@ -143,12 +156,14 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void loginPrompt() {
+	private void loginPrompt()
+	{
 		d("You are not logged in");
 		startActivityForResult(new Intent(this, LoginActivity.class), REQUEST_LOGIN);
 	}
 
-	private void d(String s) {
+	private void d(String s)
+	{
     	mToast.cancel();
     	mToast = Toast.makeText(this, s, Toast.LENGTH_LONG);
     	mToast.show();
@@ -158,17 +173,25 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
-		switch(requestCode) {
+
+		switch(requestCode)
+		{
 			case REQUEST_LOGIN:
-				if (resultCode == RESULT_OK) {
+
+				if (resultCode == RESULT_OK)
+				{
 					if (userIsLoggedIn = pfm.getBoolean(KEY_LOGGED_IN, false)) d("Logged in");
 				}
 				else finish();
 				break;
+
 			case REQUEST_ADD_PROPERTY:
-				if(data != null) {
+
+				if(data != null)
+				{
 					IncompleteProperty prop = data.getParcelableExtra(AddPropertyActivity.KEY_PROPERTY);
-					if(prop != null) switch (resultCode) {
+					if(prop != null) switch (resultCode)
+					{
 						case RESULT_CANCELED:
 							mPropFragment.insert(prop);
 							break;
@@ -194,7 +217,8 @@ public class MainActivity extends AppCompatActivity implements PropertyFragment.
     public void addNewProperty() { startActivityForResult(new Intent(this, AddPropertyActivity.class), REQUEST_ADD_PROPERTY); }
 
 	@Override
-	public void addOldProperty(IncompleteProperty incompleteProperty) {
+	public void addOldProperty(IncompleteProperty incompleteProperty)
+	{
 		Intent intent = new Intent(this, AddPropertyActivity.class).putExtra(AddPropertyActivity.KEY_PROPERTY, incompleteProperty);
         startActivityForResult(intent, REQUEST_ADD_PROPERTY);
 	}

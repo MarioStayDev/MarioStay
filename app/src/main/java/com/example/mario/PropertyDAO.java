@@ -12,7 +12,9 @@ import android.arch.persistence.room.Update;
 import java.util.List;
 
 @Dao
-public interface PropertyDAO {
+
+public interface PropertyDAO
+{
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(IncompleteProperty prop);

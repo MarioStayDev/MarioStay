@@ -33,6 +33,14 @@
 					app:civ_border_color="@color/colorAccent"
 					app:civ_border_width="3dp" />
 
+				<ProgressBar
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:visibility="gone"
+					android:layout_centerVertical="true"
+					android:layout_centerHorizontal="true"
+					android:id="@+id/reg_image_progressbar"/>
+
 
 				<android.support.design.widget.FloatingActionButton
 					android:id="@+id/SearchPic"
@@ -55,7 +63,7 @@
 				android:background="@drawable/edittext_bg"
 				android:drawableLeft="@drawable/ic_person_white_24dp"
 				android:drawableStart="@drawable/ic_person_white_24dp"
-				android:hint="@string/prompt_name"
+				android:hint="@string/prompt_full_name"
 				android:inputType="textPersonName"
 				android:maxLines="1" />
 
@@ -78,16 +86,13 @@
 				android:layout_width="wrap_content"
 				android:layout_height="@dimen/ui_elems_spacing" />
 
-			<EditText
-				android:id="@+id/s_pass"
-				android:layout_width="match_parent"
+			<ProgressBar
+				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:background="@drawable/edittext_bg"
-				android:drawableLeft="@drawable/ic_lock_white_24dp"
-				android:drawableStart="@drawable/ic_lock_white_24dp"
-				android:hint="@string/prompt_password"
-				android:inputType="textPassword"
-				android:maxLines="1" />
+				android:visibility="gone"
+				android:id="@+id/reg_details_progressbar"/>
+
+
 
 			<Space
 				android:layout_width="wrap_content"
@@ -188,6 +193,34 @@
 				android:hint="@string/prompt_otp"
 				android:inputType="number"
 				android:maxLength="@integer/otp_length"
+				android:maxLines="1" />
+			<Space
+				android:layout_width="wrap_content"
+				android:layout_height="5dp" />
+
+			<EditText
+				android:id="@+id/s_pass"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/edittext_bg"
+				android:drawableLeft="@drawable/ic_lock_white_24dp"
+				android:drawableStart="@drawable/ic_lock_white_24dp"
+				android:hint="@string/prompt_password"
+				android:inputType="textPassword"
+				android:maxLines="1" />
+			<Space
+				android:layout_width="wrap_content"
+				android:layout_height="4dp" />
+
+			<EditText
+				android:id="@+id/s_cofpass_edittext"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/edittext_bg"
+				android:drawableLeft="@drawable/ic_lock_white_24dp"
+				android:drawableStart="@drawable/ic_lock_white_24dp"
+				android:hint="@string/prompt_confirm_password"
+				android:inputType="textPassword"
 				android:maxLines="1" />
 
 			<Space

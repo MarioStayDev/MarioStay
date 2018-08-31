@@ -10,8 +10,10 @@ import java.util.Map;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
 
-class Property implements Parcelable {
-	private int PID, HID, Floors;
+class Property implements Parcelable
+{
+	private String PID,HID;
+	private int  Floors;
 	private int /* float */ MinStayTime, SecurityMultiplier, NoticePeriod;
 	private String Name, Type, Address, Landmark, ShortDescription, Rules, inTime, outTime;
 	//private GeoPoint Location;
@@ -22,9 +24,10 @@ class Property implements Parcelable {
 		Amenities = new HashMap<>();
 	}
 
-	private Property(Parcel parcel) {
-		this.PID = parcel.readInt();
-		this.HID = parcel.readInt();
+	private Property(Parcel parcel)
+	{
+		this.PID = parcel.readString();
+		//this.HID = parcel.readInt();
 		this.Floors = parcel.readInt();
 
 		this.MinStayTime = parcel.readInt();
@@ -39,9 +42,30 @@ class Property implements Parcelable {
 		this.Rules = parcel.readString();
 		this.inTime = parcel.readString();
 		this.outTime = parcel.readString();
-
 		Amenities = new HashMap<>();
 		parcel.readMap(this.Amenities, null);
+	}
+
+	Property(IncompleteProperty property, Map<String, Boolean> map)
+	{
+		//PID = property.getPID();
+		//HID = property.getHID();
+		Floors = property.getFloors();
+		MinStayTime = property.getMinStayTime();
+		SecurityMultiplier = property.getSecurityMultiplier();
+		NoticePeriod = property.getNoticePeriod();
+		Name = property.getName();
+		Type = property.getType();
+		Address = property.getAddress();
+		Landmark = property.getLandmark();
+		ShortDescription = property.getShortDescription();
+		Rules = property.getRules();
+		inTime=property.getInTime();
+		outTime=property.getOutTime();
+
+		//Location = loc;
+		Amenities = new HashMap<>();
+		Amenities.putAll(map);
 	}
 
 	/*Property(int propertyID, int hostID, int floors,
@@ -59,74 +83,58 @@ class Property implements Parcelable {
 		Landmark = land;
 		ShortDescription = desc;
 		Rules = rules;
-		//Location = loc;
+		Location = loc;
 		Amenities = new HashMap<>();
 		Amenities.putAll(map);
 	}*/
 
-	Property(IncompleteProperty p, Map<String, Boolean> map) {
-		PID = p.getPID();
-		HID = 1;
-		Floors = p.getFloors();
-		MinStayTime = p.getMinStayTime();
-		SecurityMultiplier = p.getSecurityMultiplier();
-		NoticePeriod = p.getNoticePeriod();
-		Name = p.getName();
-		Type = p.getType();
-		Address = p.getAddress();
-		Landmark = p.getLandmark();
-		ShortDescription = p.getShortDescription();
-		Rules = p.getRules();
-		inTime = p.getInTime();
-		outTime = p.getOutTime();
-
-		//Location = loc;
-		Amenities = map;
-	}
-
-	public int getPID() { return PID; }
-	public int getHID() { return HID; }
-	public int getFloors() { return Floors; }
-	public int getMinStayTime() { return MinStayTime; }
-	public int getSecurityMultiplier() { return SecurityMultiplier; }
-	public int getNoticePeriod() { return NoticePeriod; }
-	public String getName() { return Name; }
-	public String getType() { return Type; }
-	public String getAddress() { return Address; }
-	public String getLandmark() { return Landmark; }
-	public String getShortDescription() { return ShortDescription; }
-	public String getRules() { return Rules; }
+	String getPID() { return PID; }
+	String getHID() { return HID; }
+	int getFloors() { return Floors; }
+	int getMinStayTime() { return MinStayTime; }
+	int getSecurityMultiplier() { return SecurityMultiplier; }
+	int getNoticePeriod() { return NoticePeriod; }
+	String getName() { return Name; }
+	String getType() { return Type; }
+	String getAddress() { return Address; }
+	String getLandmark() { return Landmark; }
+	String getShortDescription() { return ShortDescription; }
+	String getRules() { return Rules; }
 	public String getInTime() { return inTime; }
 	public String getOutTime() { return outTime; }
 	//GeoPoint getLocation() {return Location; }
-	public Map<String, Boolean> getAmenities() { return Amenities; }
+	Map<String, Boolean> getAmenities() { return Amenities; }
+	//public List<Room> getRooms() { return rooms; }
 
-	public void setPID(int pID) { PID = pID; }
-	public void setHID(int hID) { HID = hID; }
-	public void setFloors(int floors) { Floors = floors; }
-	public void setMinStayTime(int minStayTime) { MinStayTime = minStayTime; }
-	public void setSecurityMultiplier(int securityMultiplier) { SecurityMultiplier = securityMultiplier; }
-	public void setNoticePeriod(int noticePeriod) { NoticePeriod = noticePeriod; }
-	public void setName(String name) { Name = name; }
-	public void setType(String type) { Type = type; }
-	public void setAddress(String address) { Address = address; }
-	public void setLandmark(String landmark) { Landmark = landmark; }
-	public void setShortDescription(String desc) { ShortDescription = desc; }
-	public void setRules(String rules) { Rules = rules; }
+	void setPID(String pID) { PID = pID; }
+	void setHID(String hID) { HID = hID; }
+	void setFloors(int floors) { Floors = floors; }
+	void setMinStayTime(int minStayTime) { MinStayTime = minStayTime; }
+	void setSecurityMultiplier(int securityMultiplier) { SecurityMultiplier = securityMultiplier; }
+	void setNoticePeriod(int noticePeriod) { NoticePeriod = noticePeriod; }
+	void setName(String name) { Name = name; }
+	void setType(String type) { Type = type; }
+	void setAddress(String address) { Address = address; }
+	void setLandmark(String landmark) { Landmark = landmark; }
+	void setShortDescription(String desc) { ShortDescription = desc; }
+	void setRules(String rules) { Rules = rules; }
 	public void setInTime(String in) { inTime = in; }
 	public void setOutTime(String in) { outTime = in; }
 	//void setLocation(GeoPoint location) {Location = location; }
-	public void setAmenities(Map<String, Boolean> amenities) { Amenities.clear();Amenities.putAll(amenities); }
+	void setAmenities(Map<String, Boolean> amenities) { Amenities.clear();Amenities.putAll(amenities); }
+	//public void setRooms(List<Room> r) { rooms.clear();if(r!=null)rooms.addAll(r); }
 
 	@Override
-	public int describeContents() {
+	public int describeContents()
+	{
 		return 0;
 	}
 
 	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(this.PID);
-		dest.writeInt(this.HID);
+	public void writeToParcel(Parcel dest, int flags)
+	{
+		dest.writeString(this.PID);
+		//dest.writeInt(this.HID);
 		dest.writeInt(this.Floors);
 
 		dest.writeInt(this.MinStayTime);
@@ -146,15 +154,18 @@ class Property implements Parcelable {
 
 	}
 
-	public static final Parcelable.Creator<Property> CREATOR = new Parcelable.Creator<Property>() {
+	public static final Parcelable.Creator<Property> CREATOR = new Parcelable.Creator<Property>()
+	{
 
 		@Override
-		public Property createFromParcel(Parcel source) {
+		public Property createFromParcel(Parcel source)
+		{
 			return new Property(source);
 		}
 
 		@Override
-		public Property[] newArray(int size) {
+		public Property[] newArray(int size)
+		{
 			return new Property[size];
 		}
 	};

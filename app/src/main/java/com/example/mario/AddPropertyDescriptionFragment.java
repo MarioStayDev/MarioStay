@@ -23,7 +23,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class AddPropertyDescriptionFragment extends Fragment {
+public class AddPropertyDescriptionFragment extends Fragment
+{
 
     private OnFragmentInteractionListener mListener;
     private Unbinder unbinder;
@@ -38,7 +39,8 @@ public class AddPropertyDescriptionFragment extends Fragment {
 
     public AddPropertyDescriptionFragment() { }
 
-    public static AddPropertyDescriptionFragment newInstance(IncompleteProperty p) {
+    public static AddPropertyDescriptionFragment newInstance(IncompleteProperty p)
+    {
         AddPropertyDescriptionFragment fragment = new AddPropertyDescriptionFragment();
         Bundle args = new Bundle();
         args.putParcelable(AddPropertyActivity.KEY_PROPERTY, p);
@@ -47,14 +49,18 @@ public class AddPropertyDescriptionFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) property = getArguments().getParcelable(AddPropertyActivity.KEY_PROPERTY);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
+
+
         View v = inflater.inflate(R.layout.fragment_add_property_description, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -82,9 +88,11 @@ public class AddPropertyDescriptionFragment extends Fragment {
             R.id.chip_playground, R.id.chip_pool, R.id.chip_garden, R.id.chip_gym,
             R.id.chip_tv, R.id.chip_refridgerator, R.id.chip_washing_machine,
             R.id.chip_water_purifier, R.id.chip_wifi, R.id.chip_sofa, R.id.chip_table })
-    public void onButtonPressed(View v) {
+    public void onButtonPressed(View v)
+    {
         boolean b;
-        switch(v.getId()) {
+        switch(v.getId())
+        {
             case R.id.chip_lift:
                 b = property.getLift();
                 v.setBackgroundResource(b ? R.drawable.chip_shape_deactivated : R.drawable.chip_shape);
@@ -164,36 +172,45 @@ public class AddPropertyDescriptionFragment extends Fragment {
     }
 
     @OnClick(R.id.prop_desc_next)
-    public void gotoNext(Button button) {
+    public void gotoNext(Button button)
+    {
         property.setShortDescription(description.getText().toString());
         //map
         if(button != null) mListener.nextFragment();
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context)
+    {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
+        if (context instanceof OnFragmentInteractionListener)
+        {
             mListener = (OnFragmentInteractionListener) context;
-        } else {
+        }
+        else
+            {
+
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
 
     @Override
-    public void onDetach() {
+    public void onDetach()
+    {
         super.onDetach();
         mListener = null;
     }
 
     @Override
-    public void onDestroyView() {
+    public void onDestroyView()
+    {
         super.onDestroyView();
         unbinder.unbind();
     }
 
-    public interface OnFragmentInteractionListener {
+    public interface OnFragmentInteractionListener
+    {
         void nextFragment();
     }
 }

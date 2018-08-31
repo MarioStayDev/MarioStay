@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -36,7 +37,8 @@ import butterknife.Unbinder;
 
 import static com.example.mario.AddPropertyActivity.KEY_PROPERTY;
 
-public class PropertyFragment extends Fragment {
+public class PropertyFragment extends Fragment
+{
 
     private OnFragmentInteractionListener mListener;
     @BindView(R.id.property_empty_message) TextView emptyText;
@@ -47,19 +49,23 @@ public class PropertyFragment extends Fragment {
     private FirestoreRecyclerAdapter adapter;
     private IncompletePropertyAdapter mAdapter;
     private PropertyViewModel mPropViewModel;
+    private SharedPreferences sharedPreferences;
 
 
 
     public PropertyFragment() {}
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+
         mPropViewModel = ViewModelProviders.of(this).get(PropertyViewModel.class);
         mPropViewModel.getAllWords().observe(getActivity(), new Observer<List<IncompleteProperty>>()
         {
             @Override
-            public void onChanged(@Nullable List<IncompleteProperty> incompleteProperties) {
+            public void onChanged(@Nullable List<IncompleteProperty> incompleteProperties)
+            {
                 mAdapter.setProps(incompleteProperties);
             }
         });
@@ -67,12 +73,19 @@ public class PropertyFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         db = FirebaseFirestore.getInstance();
+
         View v =  inflater.inflate(R.layout.fragment_property, container, false);
+
+        sharedPreferences=this.getActivity().getSharedPreferences(MainActivity.KEY_SHARED_PREFERENCE,Context.MODE_PRIVATE);
+
         unbinder = ButterKnife.bind(this, v);
         propertyList.setLayoutManager(new LinearLayoutManager(getActivity()));
         propertyList.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+
+
       /**  propertyList.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), propertyList ,new RecyclerItemClickListener.OnItemClickListener()
                 {
@@ -97,24 +110,31 @@ public class PropertyFragment extends Fragment {
 
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context)
+    {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
+        if (context instanceof OnFragmentInteractionListener)
+        {
             mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
+        }
+        else
+            {
+
+                throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
 
     @Override
-    public void onDetach() {
+    public void onDetach()
+    {
         super.onDetach();
         mListener = null;
     }
 
     @Override
-    public void onDestroyView() {
+    public void onDestroyView()
+    {
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -137,7 +157,8 @@ public class PropertyFragment extends Fragment {
 
     private void setupAdapter()
     {
-        Query q = db.collection("properties").whereEqualTo("hid", 1);
+        String hid = sharedPreferences.getString(MainActivity.KEY_UID,"P1");
+        Query q = db.collection("properties").whereEqualTo("hid", hid);
 
         FirestoreRecyclerOptions<Property> res = new FirestoreRecyclerOptions.Builder<Property>()
                 .setQuery(q, Property.class).build();
@@ -151,9 +172,11 @@ public class PropertyFragment extends Fragment {
                 holder.propName.setText(model.getName());
                 holder.img.setImageResource(R.drawable.camera);
                 //Glide.with(getActivity()).load(model.image).into(holder.imgview);
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                holder.itemView.setOnClickListener(new View.OnClickListener()
+                {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View v)
+                    {
                         //Bundle bundle = new Bundle();
                         //.putParcelable(KEY_PROPERTY, model);
                         mListener.onPropertyClicked(model);
@@ -230,6 +253,7 @@ public class PropertyFragment extends Fragment {
         public PropertyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
         {
             View v = LayoutInflater.from(context).inflate(R.layout.incomplete_property_item, parent, false);
+
             v.setOnClickListener(new View.OnClickListener()
             {
                 @Override

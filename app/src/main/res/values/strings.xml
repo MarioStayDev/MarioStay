@@ -115,5 +115,9 @@
     <string name="property_details_notice_period">Notice Period : %1$d</string>
     <string name="property_details_min_stay_time">Minimum stay time : %1$d</string>
     <string name="button_manage_rooms">Manage Rooms</string>
+    <string name="prompt_confirm_password">Confirm Password</string>
+    <string name="prompt_full_name">Full Name</string>
+    <string name="hello_user">Hello, User</string>
+    <string name="your_registerd_email">Your Registerd Email</string>
 
 </resources>

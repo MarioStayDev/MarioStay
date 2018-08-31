@@ -5,13 +5,22 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
@@ -32,6 +41,10 @@ public class LoginActivity extends AppCompatActivity
 	private SharedPreferences pfm;
 	private final int REQUEST_SIGNUP=101;
 	private Toast mToast;
+	private ProgressBar progressBar;
+	private String name_string,email_string,uid_string;
+	private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+	private FirebaseUser firebaseUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -44,9 +57,12 @@ public class LoginActivity extends AppCompatActivity
 		mPassword = findViewById(R.id.password);
 		buttonLogin = findViewById(R.id.button_login);
 		buttonSignup = findViewById(R.id.button_signup);
+		progressBar=(ProgressBar)findViewById(R.id.login_progressbar);
 		
-		buttonLogin.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
+		buttonLogin.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(View v)
+			{
 				String n,p;
 				n = mEmail.getText().toString();
 				p = mPassword.getText().toString();
@@ -58,11 +74,14 @@ public class LoginActivity extends AppCompatActivity
 					new ValidateLogin(n,p).execute();
 			}
 		});
+
+
 		buttonSignup.setOnClickListener(new OnClickListener()
 		{
 				public void onClick(View v)
 				{
 					Intent ri = new Intent(LoginActivity.this,SignupActivity.class);
+					//startActivity(ri);
 					startActivityForResult(ri,REQUEST_SIGNUP);
 				}
 			});
@@ -71,116 +90,124 @@ public class LoginActivity extends AppCompatActivity
 		setResult(RESULT_CANCELED);
 	}
 
-	public void guest(View v) {
+
+
+	public void guest(View v)
+	{
 		pfm.edit().putBoolean(MainActivity.KEY_LOGGED_IN, false).apply();
 		setResult(RESULT_OK);
 		finish();
 	}
 
-	@Override
+
+
+
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
-		switch(requestCode) {
+		switch(requestCode)
+		{
 			case REQUEST_SIGNUP:
-				if(resultCode == RESULT_OK) {
+
+			    if(resultCode == RESULT_OK)
+				{
 					setResult(RESULT_OK);
 					finish();
 				}
 		}
 	}
+
 	
-	private void d(String s) {
-		mToast.cancel();
-		mToast = Toast.makeText(LoginActivity.this,s,Toast.LENGTH_SHORT);
-		mToast.show();
-	}
+
 	
 	private class ValidateLogin extends AsyncTask<Void,Void,Void>
 	{
-		private String data,error, na, em = "dummy@email.com";
+		private String data,error, email,password;
 		private URL url;
 		
-		public ValidateLogin(String n,String p) {
-			na = n;
-			try {
-				data = URLEncoder.encode("user", "UTF-8") + "=" + URLEncoder.encode(na, "UTF-8");
-				data += "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(p, "UTF-8");
-			}
-			catch(UnsupportedEncodingException e) {error = e.toString();}
+		public ValidateLogin(String n,String p)
+		{
+			email = n;
+			password=p;
+
+
 		}
 
 		@Override
 		protected void onPreExecute()
 		{
 			super.onPreExecute();
+			progressBar.setVisibility(View.VISIBLE);
 			buttonLogin.setEnabled(false);
 			buttonSignup.setEnabled(false);
-			try {
-				//url = new URL("http://client.epizy.com/mario/login.php");
-				url = new URL("http://skhastagir98.000webhostapp.com/login.php");
-			}
-			catch(MalformedURLException e) {error = e.toString();}
+
+
 		}
 
 		@Override
 		protected void onPostExecute(Void result)
 		{
+
 			super.onPostExecute(result);
 			buttonLogin.setEnabled(true);
 			buttonSignup.setEnabled(true);
+			progressBar.setVisibility(View.GONE);
 
-			if(error == null) {
-				JSONObject jobj;
-				try {
-					jobj = new JSONObject(data);
-					if(jobj.getInt("success") == 1) {
-						pfm.edit().putBoolean(MainActivity.KEY_LOGGED_IN,true).putString(MainActivity.KEY_USER_NAME, na).putString(MainActivity.KEY_EMAIL, em).apply();
-						setResult(RESULT_OK);
-						finish();
-					}
-					else {
-						d(jobj.getString("message"));
-					}
-				}
-				catch(JSONException e) {d(e.toString());}
-			}
-			else {
-				d(error);
-			}
+
+
+
+
 		}
 
 		@Override
 		protected Void doInBackground(Void[] p1)
 		{
-			try {
-				HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-				conn.setUseCaches(true);
-				conn.setRequestMethod("POST");
-				conn.setConnectTimeout(5000);
-				
-				//conn.setDoOutput(true); 
-				OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream()); 
-				wr.write(data); 
-				wr.flush();
-				wr.close();
-				
-				BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-				StringBuilder sb = new StringBuilder();
-				String line;
+			firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>()
+            {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task)
+                {
 
-				while((line = reader.readLine()) != null)
-					sb.append(line).append("\n");
-				reader.close();
+                	if(task.isSuccessful())
+                    {
+                        firebaseUser=firebaseAuth.getCurrentUser();
+                        name_string=firebaseUser.getDisplayName();
+                        email_string=firebaseUser.getEmail();
+                        uid_string= firebaseUser.getUid();
 
-				data = sb.toString();
-			}
-			catch(UnknownHostException e) {error = "No internet connection";}
-			catch(IOException e) {error = e.toString();}
-			//catch(InterruptedException e) {error = e.toString();}
+                        SharedPreferences.Editor editor = pfm.edit();
+                        editor.putString("FULL_NAME",name_string);
+                        editor.putString("EMAIL",email_string);
+                        editor.putString("UID",uid_string);
+                        editor.putBoolean("IS_USER_LOGGED_IN",true);
+                        editor.apply();
+
+                        /*Intent i = new Intent(LoginActivity.this,MainActivity.class);
+						i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(i);*/
+
+                        setResult(RESULT_OK);
+                        finish();
+
+
+                    }
+                    else
+                    {
+                        mPassword.requestFocus();
+                        d("Login Failed: "+ task.getException().getMessage());
+                    }
+                }
+            });
 			return null;
 		}
 
+	}
+
+	private void d(String s)
+	{
+		mToast.cancel();
+		mToast = Toast.makeText(LoginActivity.this,s,Toast.LENGTH_SHORT);
+		mToast.show();
 	}
 	
 }

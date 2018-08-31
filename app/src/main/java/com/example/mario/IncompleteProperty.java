@@ -14,8 +14,11 @@ public class IncompleteProperty implements Parcelable
 {
 
     @PrimaryKey(autoGenerate = true)
+
+
     @ColumnInfo(name = "pid") private int PID;
-    //@ColumnInfo(name = "hid") private int HID;
+    //@ColumnInfo(name = "hid") private String HID;
+
     @ColumnInfo(name = "floors") private int Floors;
 
     @ColumnInfo(name = "minStayTime") private int MinStayTime;
@@ -51,7 +54,8 @@ public class IncompleteProperty implements Parcelable
 
     IncompleteProperty() {}
 
-    IncompleteProperty(Parcel parcel) {
+    IncompleteProperty(Parcel parcel)
+    {
         PID = parcel.readInt();
         Floors = parcel.readInt();
         MinStayTime = parcel.readInt();
@@ -185,8 +189,10 @@ public class IncompleteProperty implements Parcelable
     void setTtable(boolean a) { ttable = a; }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(Parcel dest, int flags)
+    {
         dest.writeInt(PID);
+        //dest.writeInt(HID);
         dest.writeInt(Floors);
         dest.writeInt(MinStayTime);
         dest.writeInt(SecurityMultiplier);
@@ -209,10 +215,12 @@ public class IncompleteProperty implements Parcelable
         return 0;
     }
 
-    public static final Parcelable.Creator<IncompleteProperty> CREATOR = new Parcelable.Creator<IncompleteProperty>() {
+    public static final Parcelable.Creator<IncompleteProperty> CREATOR = new Parcelable.Creator<IncompleteProperty>()
+    {
 
         @Override
-        public IncompleteProperty createFromParcel(Parcel source) {
+        public IncompleteProperty createFromParcel(Parcel source)
+        {
             return new IncompleteProperty(source);
         }
 

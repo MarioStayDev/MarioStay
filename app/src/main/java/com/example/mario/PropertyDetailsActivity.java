@@ -1,7 +1,9 @@
 package com.example.mario;
 
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.NavUtils;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,13 +12,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.badoualy.stepperindicator.StepperIndicator;
+
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PropertyDetailsActivity extends AppCompatActivity {
+public class PropertyDetailsActivity extends AppCompatActivity
+{
 
     Property property;
 
@@ -44,11 +49,18 @@ public class PropertyDetailsActivity extends AppCompatActivity {
     @BindView(R.id.property_details_security_deposit) TextView securityDeposit;
     @BindView(R.id.property_details_notice_period) TextView noticePeriod;
     @BindView(R.id.property_details_min_stay) TextView minTime;
+    @BindView(R.id.propdetails_image_tablayout) TabLayout tabLayout;
+    @BindView(R.id.prodetails_propimage_viewpager) ViewPager viewPager;
+
+    private SwipeImageViewAdapter swipeImageViewAdapter;
 
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_property_details);
 
@@ -57,9 +69,15 @@ public class PropertyDetailsActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        swipeImageViewAdapter=new SwipeImageViewAdapter(this);
+        viewPager.setAdapter(swipeImageViewAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+
         property = getIntent().getParcelableExtra(AddPropertyActivity.KEY_PROPERTY);
         if(property == null) finish();
 
+
+        getSupportActionBar().setTitle(property.getName());
         desc.setText(property.getShortDescription());
 
         Map<String, Boolean> imap = property.getAmenities();
@@ -86,17 +104,25 @@ public class PropertyDetailsActivity extends AppCompatActivity {
         securityDeposit.setText(getString(R.string.property_details_security_deposit, property.getSecurityMultiplier()));
         noticePeriod.setText(getString(R.string.property_details_notice_period, property.getNoticePeriod()));
         minTime.setText(getString(R.string.property_details_min_stay_time, property.getMinStayTime()));
+
+
     }
 
     @OnClick(R.id.property_details_button_rooms)
-    void click() {
+    void click()
+    {
+
         Intent intent = new Intent(this, AddRoomsActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+
+        switch(item.getItemId())
+        {
+
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;

@@ -18,7 +18,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class AddPropertyFragment extends Fragment {
+public class AddPropertyFragment extends Fragment
+{
 
     private OnFragmentInteractionListener mListener;
     private IncompleteProperty property;
@@ -36,7 +37,8 @@ public class AddPropertyFragment extends Fragment {
 
     public AddPropertyFragment() { }
 
-    public static AddPropertyFragment newInstance(IncompleteProperty p) {
+    public static AddPropertyFragment newInstance(IncompleteProperty p)
+    {
         AddPropertyFragment fragment = new AddPropertyFragment();
         Bundle args = new Bundle();
         args.putParcelable(AddPropertyActivity.KEY_PROPERTY, p);
@@ -45,14 +47,16 @@ public class AddPropertyFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) property = getArguments().getParcelable(AddPropertyActivity.KEY_PROPERTY);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         View v = inflater.inflate(R.layout.fragment_add_property, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -70,35 +74,44 @@ public class AddPropertyFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
+    public void onDestroyView()
+    {
         super.onDestroyView();
         unbinder.unbind();
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context)
+    {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
+        if (context instanceof OnFragmentInteractionListener)
+        {
             mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
+        }
+        else
+            {
+
+                throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
 
     @Override
-    public void onDetach() {
+    public void onDetach()
+    {
         super.onDetach();
         mListener = null;
     }
 
     @OnClick(R.id.prop_button_next)
-    public void gotoNext(Button button) {
+    public void gotoNext(Button button)
+    {
         property.setName(name.getText().toString());
         property.setType(type.getSelectedItem().toString());
         property.setAddress(address.getText().toString());
         property.setLandmark(land.getText().toString());
-        try {
+        try
+        {
             property.setFloors(Integer.parseInt(floors.getText().toString()));
             property.setMinStayTime(Integer.parseInt(stayTime.getText().toString()));
             property.setInTime(inTime.getText().toString());
@@ -112,7 +125,8 @@ public class AddPropertyFragment extends Fragment {
         if(button != null) mListener.nextFragment();
     }
 
-    public interface OnFragmentInteractionListener {
+    public interface OnFragmentInteractionListener
+    {
         void nextFragment();
     }
 }
