@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,8 +94,18 @@ public class AddPropertyUploadFragment extends Fragment
     {
         View v = inflater.inflate(R.layout.fragment_add_property_upload, container, false);
         unbinder = ButterKnife.bind(this, v);
+        int i=0;
+        if(property.getPhotosUri().size()>0)
+        {
+            for(i = 0; i < property.getPhotosUri().size(); i++)
+            {
+                Log.d("Property Pics Uri:", "" + property.getPhotosUri().get(i));
 
+               // Log.d("Property Pics Uri:", "" + imageUri.get(i));
 
+            }
+
+        }
 
         mToolbar.setTitle(property.getName());
         swipeImageViewAdapter=new SwipeImageViewAdapter(this.getContext(),property.getPhotosUri());

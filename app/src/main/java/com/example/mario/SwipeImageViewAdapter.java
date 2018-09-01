@@ -37,6 +37,7 @@ public class SwipeImageViewAdapter extends PagerAdapter
        // imageUri=new ArrayList<>();
         this.imageUri=uri;
         notifyDataSetChanged();
+
         if(uri.size()>0)
         {
             for(i = 0; i < uri.size(); i++)
