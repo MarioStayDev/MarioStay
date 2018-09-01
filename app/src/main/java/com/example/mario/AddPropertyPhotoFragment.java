@@ -56,6 +56,7 @@ public class AddPropertyPhotoFragment extends Fragment
         View v = inflater.inflate(R.layout.fragment_add_property_photo, container, false);
         unbinder = ButterKnife.bind(this, v);
         adapter = new DragNDropAdapter(getActivity());
+        adapter.setPhotos(property.getPhotosUri());
         img.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         img.setAdapter(adapter);
 
@@ -142,7 +143,7 @@ public class AddPropertyPhotoFragment extends Fragment
                     int t = adapter.getItemCount();
                     adapter.addPhoto(data.getData());
                     adapter.notifyItemInserted(t);
-                    //adapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged();
 
                 }
                 break;
@@ -152,6 +153,7 @@ public class AddPropertyPhotoFragment extends Fragment
     @OnClick(R.id.add_prop_next_2)
     public void gotoNext(Button button)
     {
+        property.setPhotosUri(adapter.getPhotos());
         mListener.nextFragment();
     }
 

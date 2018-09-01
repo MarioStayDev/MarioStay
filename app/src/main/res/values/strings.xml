@@ -119,5 +119,6 @@
     <string name="prompt_full_name">Full Name</string>
     <string name="hello_user">Hello, User</string>
     <string name="your_registerd_email">Your Registerd Email</string>
+    <string name="upload_property_button">Upload Property</string>
 
 </resources>

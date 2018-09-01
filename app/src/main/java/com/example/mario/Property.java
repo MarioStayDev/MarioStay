@@ -1,10 +1,13 @@
 package com.example.mario;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.firebase.Timestamp;
@@ -18,10 +21,12 @@ class Property implements Parcelable
 	private String Name, Type, Address, Landmark, ShortDescription, Rules, inTime, outTime;
 	//private GeoPoint Location;
 	private Map<String, Boolean> Amenities;
+	private List<Uri> propPicUri;
 
 	Property()
 	{
 		Amenities = new HashMap<>();
+		propPicUri=new ArrayList<>();
 	}
 
 	private Property(Parcel parcel)
@@ -44,6 +49,9 @@ class Property implements Parcelable
 		this.outTime = parcel.readString();
 		Amenities = new HashMap<>();
 		parcel.readMap(this.Amenities, null);
+		propPicUri= new ArrayList<>();
+		propPicUri=parcel.readArrayList(Uri.class.getClassLoader());
+
 	}
 
 	Property(IncompleteProperty property, Map<String, Boolean> map)
@@ -87,6 +95,17 @@ class Property implements Parcelable
 		Amenities = new HashMap<>();
 		Amenities.putAll(map);
 	}*/
+
+	public List<Uri> getPropPicUri()
+	{
+		return propPicUri;
+	}
+
+	public void setPropPicUri(List<Uri> propPicUri)
+	{
+		this.propPicUri = propPicUri;
+
+	}
 
 	String getPID() { return PID; }
 	String getHID() { return HID; }
@@ -149,6 +168,7 @@ class Property implements Parcelable
 		dest.writeString(this.Rules);
 		dest.writeString(this.inTime);
 		dest.writeString(this.outTime);
+		dest.writeList(propPicUri);
 
 		dest.writeMap(Amenities);
 

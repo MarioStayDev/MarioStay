@@ -2,15 +2,26 @@ package com.example.mario;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.v4.view.PagerAdapter;
+import android.util.Log;
+import android.widget.Adapter;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 @Entity(tableName = "properties")
-public class IncompleteProperty implements Parcelable
+public class IncompleteProperty  implements Parcelable
 {
 
     @PrimaryKey(autoGenerate = true)
@@ -52,7 +63,9 @@ public class IncompleteProperty implements Parcelable
     @ColumnInfo(name = "amenitiesSofa") private boolean sofa;
     @ColumnInfo(name = "amenitiesTable") private boolean ttable;
 
-    IncompleteProperty() {}
+    @Ignore private List<Uri>  photosUri;
+
+    IncompleteProperty() { photosUri=new ArrayList<>();}
 
     IncompleteProperty(Parcel parcel)
     {
@@ -69,6 +82,10 @@ public class IncompleteProperty implements Parcelable
         Rules = parcel.readString();
         InTime = parcel.readString();
         OutTime = parcel.readString();
+        photosUri=new ArrayList<>();
+        photosUri=parcel.readArrayList(Uri.class.getClassLoader());
+
+
 
         boolean[] amenities = new boolean[15];
         parcel.readBooleanArray(amenities);
@@ -103,6 +120,21 @@ public class IncompleteProperty implements Parcelable
     String getRules() { return Rules; }
     String getInTime() { return InTime; }
     String getOutTime() { return OutTime; }
+
+    public List<Uri> getPhotosUri()
+    {
+        return photosUri;
+    }
+
+    public void setPhotosUri(List<Uri> photosUri)
+    {
+        int i=0;
+        this.photosUri = photosUri;
+
+
+
+    }
+
     //GeoPoint getLocation() {return Location; }
     /*Map getAmenities() {
         HashMap<String, Boolean> Amenities = new HashMap<>();
@@ -206,6 +238,7 @@ public class IncompleteProperty implements Parcelable
         dest.writeString(Rules);
         dest.writeString(InTime);
         dest.writeString(OutTime);
+        dest.writeList(photosUri);
 
         dest.writeBooleanArray(new boolean[] {lift, parking, cctv, power, playground, pool, garden, gym, tv, fridge, washMac, water, wifi, sofa, ttable});
     }

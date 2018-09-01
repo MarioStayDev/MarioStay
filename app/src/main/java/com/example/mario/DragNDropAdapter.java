@@ -1,6 +1,7 @@
 package com.example.mario;
 
 import android.content.Context;
+import android.media.Image;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
@@ -38,9 +39,23 @@ public class DragNDropAdapter extends RecyclerView.Adapter<DragNDropAdapter.hold
     @Override
     public int getItemCount() { return photos.size(); }
 
-    public void addPhoto(Uri uri) { photos.add(uri); }
+    public void addPhoto(Uri uri)
+    {
+        photos.add(uri);
+
+    }
 
     public void swap(int a, int b) { Collections.swap(photos, a, b); }
+
+    public List<Uri> getPhotos()
+    {
+        return photos;
+    }
+
+    public void setPhotos(List<Uri> photos)
+    {
+        this.photos = photos;
+    }
 
     static class holder extends RecyclerView.ViewHolder
     {

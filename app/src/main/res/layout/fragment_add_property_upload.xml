@@ -1,21 +1,318 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context=".AddPropertyUploadFragment">
+    android:fitsSystemWindows="true">
 
-    <ProgressBar
-        android:id="@+id/property_progress_upload"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/prop_profimage_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                </android.support.v4.view.ViewPager>
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/prop_image_tablayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:layout_constraintBottom_toTopOf="@+id/prop_profimage_viewpager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/prop_profimage_viewpager"
+                    app:tabBackground="@drawable/tab_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp">
+
+                </android.support.design.widget.TabLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/property_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/property_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/ui_elems_spacing" />
+
+            <TextView
+                android:id="@+id/property_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/ui_elems_spacing"
+                android:paddingRight="@dimen/ui_elems_spacing"
+                android:textColor="#000000"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/ui_elems_spacing" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/property_details_text_common_amenities"
+                android:paddingLeft="@dimen/ui_elems_spacing"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:paddingRight="@dimen/ui_elems_spacing" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:flexWrap="wrap"
+
+                android:paddingLeft="@dimen/ui_elems_spacing"
+                android:paddingRight="@dimen/ui_elems_spacing" >
+
+                <ImageView
+                    android:id="@+id/chip_lift"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/lift" />
+
+                <ImageView
+                    android:id="@+id/chip_parking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/parking" />
+
+                <ImageView
+                    android:id="@+id/chip_cctv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/cctv" />
+
+                <ImageView
+                    android:id="@+id/chip_power"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/power" />
+
+                <ImageView
+                    android:id="@+id/chip_playground"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/playground" />
+
+                <ImageView
+                    android:id="@+id/chip_pool"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/pool" />
+
+                <ImageView
+                    android:id="@+id/chip_garden"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/garden" />
+
+                <ImageView
+                    android:id="@+id/chip_gym"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/gym" />
+
+                <ImageView
+                    android:id="@+id/chip_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/television" />
+
+                <ImageView
+                    android:id="@+id/chip_refridgerator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/refridgerator" />
+
+                <ImageView
+                    android:id="@+id/chip_washing_machine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/washingmachine" />
+
+                <ImageView
+                    android:id="@+id/chip_water_purifier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/water_purifier" />
+
+                <ImageView
+                    android:id="@+id/chip_wifi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/wifi" />
+
+                <ImageView
+                    android:id="@+id/chip_sofa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/sofa" />
+
+                <ImageView
+                    android:id="@+id/chip_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/table" />
+
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/property_progress_upload"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/ui_elems_spacing" />
+
+            <TextView
+                android:text="MAP"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                android:background="@color/colorAccent" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/ui_elems_spacing" />
+
+            <TextView
+                android:id="@+id/property_in_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/ui_elems_spacing"
+                android:paddingRight="@dimen/ui_elems_spacing"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/property_out_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/ui_elems_spacing"
+                android:paddingRight="@dimen/ui_elems_spacing"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <!--<TextView
+                android:id="@+id/property_details_reviews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/ui_elems_spacing"
+                android:paddingRight="@dimen/ui_elems_spacing"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />-->
+
+            <TextView
+                android:id="@+id/property_security_deposit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/ui_elems_spacing"
+                android:paddingRight="@dimen/ui_elems_spacing"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/property_notice_period"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/ui_elems_spacing"
+                android:paddingRight="@dimen/ui_elems_spacing"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/property_min_stay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/ui_elems_spacing"
+                android:paddingRight="@dimen/ui_elems_spacing"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <!--<TextView
+                android:text="Cancellation : Moderate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/ui_elems_spacing"
+                android:paddingRight="@dimen/ui_elems_spacing"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />-->
+
+            <TextView
+                android:text="@string/property_details_house_rules"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/ui_elems_spacing"
+                android:paddingRight="@dimen/ui_elems_spacing"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:text="@string/property_details_contact_host"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/ui_elems_spacing"
+                android:paddingRight="@dimen/ui_elems_spacing"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <!-- Rooms -->
+
+            <Button
+                android:id="@+id/property_button_upload"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/upload_property_button" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <!--<android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        app:srcCompat="@drawable/ic_add_black_24dp"
+        app:layout_anchor="@id/app_bar_layout"
+        app:layout_anchorGravity="bottom|right|end" />-->
 
-    <Button
-        android:id="@+id/property_button_upload"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Upload" />
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

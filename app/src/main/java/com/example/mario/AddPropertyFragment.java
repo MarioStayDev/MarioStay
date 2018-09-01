@@ -110,6 +110,7 @@ public class AddPropertyFragment extends Fragment
         property.setType(type.getSelectedItem().toString());
         property.setAddress(address.getText().toString());
         property.setLandmark(land.getText().toString());
+
         try
         {
             property.setFloors(Integer.parseInt(floors.getText().toString()));
@@ -118,6 +119,7 @@ public class AddPropertyFragment extends Fragment
             property.setOutTime(outTime.getText().toString());
 
             /*deposit*/
+            property.setSecurityMultiplier(Integer.parseInt(deposit.getText().toString()));
 
             property.setNoticePeriod(Integer.parseInt(notice.getText().toString()));
         }

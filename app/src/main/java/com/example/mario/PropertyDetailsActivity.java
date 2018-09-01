@@ -69,7 +69,7 @@ public class PropertyDetailsActivity extends AppCompatActivity
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        swipeImageViewAdapter=new SwipeImageViewAdapter(this);
+        swipeImageViewAdapter=new SwipeImageViewAdapter(this,property.getPropPicUri());
         viewPager.setAdapter(swipeImageViewAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
