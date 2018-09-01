@@ -37,7 +37,6 @@ public class RoomsFragment extends Fragment {
     @BindView(R.id.room_view_progress) ProgressBar progressBar;
     @BindView(R.id.room_view_rec) RecyclerView rv;
     private FirebaseFirestore db;
-    private FirestoreRecyclerAdapter adapter;
     private Unbinder unbinder;
 
     private OnFragmentInteractionListener mListener;
@@ -61,8 +60,7 @@ public class RoomsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_rooms, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -88,7 +86,7 @@ public class RoomsFragment extends Fragment {
         FirestoreRecyclerOptions<Room> res = new FirestoreRecyclerOptions.Builder<Room>()
                 .setQuery(q, Room.class).build();
 
-        adapter = new FirestoreRecyclerAdapter<Room, RoomHolder>(res) {
+        FirestoreRecyclerAdapter adapter = new FirestoreRecyclerAdapter<Room, RoomHolder>(res) {
 
             @Override
             protected void onBindViewHolder(@NonNull RoomHolder holder, int position, @NonNull final Room model) {
