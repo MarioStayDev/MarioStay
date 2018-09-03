@@ -31,10 +31,10 @@ public class SwipeImageViewAdapter extends PagerAdapter
         return imageUri.size();
     }
 
-    public SwipeImageViewAdapter(Context context,List<Uri> uri)
+    SwipeImageViewAdapter(Context context, List<Uri> uri)
     {
         int i=0;
-       // imageUri=new ArrayList<>();
+        imageUri=new ArrayList<>();
         this.imageUri=uri;
         notifyDataSetChanged();
 

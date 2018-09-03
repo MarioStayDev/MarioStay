@@ -42,7 +42,7 @@ public class DragNDropAdapter extends RecyclerView.Adapter<DragNDropAdapter.hold
     public void addPhoto(Uri uri)
     {
         photos.add(uri);
-
+        notifyDataSetChanged();
     }
 
     public void swap(int a, int b) { Collections.swap(photos, a, b); }
@@ -55,6 +55,7 @@ public class DragNDropAdapter extends RecyclerView.Adapter<DragNDropAdapter.hold
     public void setPhotos(List<Uri> photos)
     {
         this.photos = photos;
+        notifyDataSetChanged();
     }
 
     static class holder extends RecyclerView.ViewHolder

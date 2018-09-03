@@ -1,19 +1,29 @@
 package com.example.mario;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.badoualy.stepperindicator.StepperIndicator;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -53,6 +63,9 @@ public class PropertyDetailsActivity extends AppCompatActivity
     @BindView(R.id.prodetails_propimage_viewpager) ViewPager viewPager;
 
     private SwipeImageViewAdapter swipeImageViewAdapter;
+    private List<Uri> picPathuri=new ArrayList<>();
+    private FirebaseStorage firebaseStorage=FirebaseStorage.getInstance();
+    private StorageReference storageReference;
 
 
 
@@ -68,13 +81,34 @@ public class PropertyDetailsActivity extends AppCompatActivity
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        property = getIntent().getParcelableExtra(AddPropertyActivity.KEY_PROPERTY);
+        if(property == null) finish();
 
-        swipeImageViewAdapter=new SwipeImageViewAdapter(this,property.getPropPicUri());
+        storageReference=firebaseStorage.getReference().child("/users/PropertyPic/" + property.getHID() + "/" +property.getPID()+"/0.jpg");
+
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+        {
+            @Override
+            public void onSuccess(Uri uri)
+            {
+                picPathuri.add(uri);
+                swipeImageViewAdapter=new SwipeImageViewAdapter(getBaseContext(),picPathuri);
+
+            }
+        }).addOnFailureListener(new OnFailureListener()
+        {
+            @Override
+            public void onFailure(@NonNull Exception e)
+            {
+                Log.d("Download Prop Pics : ",e.getMessage());
+
+            }
+        });
+
         viewPager.setAdapter(swipeImageViewAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        property = getIntent().getParcelableExtra(AddPropertyActivity.KEY_PROPERTY);
-        if(property == null) finish();
+
 
 
         getSupportActionBar().setTitle(property.getName());

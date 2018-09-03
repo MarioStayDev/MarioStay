@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,8 @@ public class AddPropertyDescriptionFragment extends Fragment
 
         View v = inflater.inflate(R.layout.fragment_add_property_description, container, false);
         unbinder = ButterKnife.bind(this, v);
+
+        Log.d("Property desc Fragment:","Run");
 
         description.setText(property.getShortDescription());
         if(property.getLift()) v.findViewById(R.id.chip_lift).setBackgroundResource(R.drawable.chip_shape);

@@ -21,11 +21,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +55,10 @@ public class PropertyFragment extends Fragment
     private IncompletePropertyAdapter mAdapter;
     private PropertyViewModel mPropViewModel;
     private SharedPreferences sharedPreferences;
+    private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+    private StorageReference storageReference;
+    private String hid;
+    private PropertyHolder propertyHolder;
 
 
 
@@ -157,7 +166,7 @@ public class PropertyFragment extends Fragment
 
     private void setupAdapter()
     {
-        String hid = sharedPreferences.getString(MainActivity.KEY_UID,"P1");
+         hid = sharedPreferences.getString(MainActivity.KEY_UID,"P1");
         Query q = db.collection("properties").whereEqualTo("hid", hid);
 
         FirestoreRecyclerOptions<Property> res = new FirestoreRecyclerOptions.Builder<Property>()
@@ -169,8 +178,26 @@ public class PropertyFragment extends Fragment
             @Override
             protected void onBindViewHolder(@NonNull PropertyHolder holder, int position, @NonNull final Property model)
             {
+                propertyHolder=holder;
                 holder.propName.setText(model.getName());
-                holder.img.setImageResource(R.drawable.camera);
+                storageReference=firebaseStorage.getReference().child("/users/PropertyPic/" + hid +"/"+model.getPID()+"/0.jpg");
+
+                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+                {
+                    @Override
+                    public void onSuccess(Uri uri)
+                    {
+                        Glide.with(getActivity()).load(uri.toString()).into(propertyHolder.img);
+                    }
+                }).addOnFailureListener(new OnFailureListener()
+                {
+                    @Override
+                    public void onFailure(@NonNull Exception e)
+                    {
+                        propertyHolder.img.setImageResource(R.drawable.camera);
+                    }
+                });
+
                 //Glide.with(getActivity()).load(model.image).into(holder.imgview);
                 holder.itemView.setOnClickListener(new View.OnClickListener()
                 {
