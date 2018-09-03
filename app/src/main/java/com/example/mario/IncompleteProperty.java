@@ -83,8 +83,8 @@ public class IncompleteProperty  implements Parcelable
         InTime = parcel.readString();
         OutTime = parcel.readString();
         photosUri=new ArrayList<>();
-        photosUri=parcel.readArrayList(Uri.class.getClassLoader());
-
+        //photosUri=parcel.readArrayList(Uri.class.getClassLoader());
+        parcel.readList(photosUri, Uri.class.getClassLoader());
 
 
         boolean[] amenities = new boolean[15];

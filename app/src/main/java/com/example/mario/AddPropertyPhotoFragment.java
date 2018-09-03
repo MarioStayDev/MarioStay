@@ -34,13 +34,13 @@ public class AddPropertyPhotoFragment extends Fragment
     public AddPropertyPhotoFragment() { }
 
     public static AddPropertyPhotoFragment newInstance(IncompleteProperty p)
-    {
-        AddPropertyPhotoFragment fragment = new AddPropertyPhotoFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(AddPropertyActivity.KEY_PROPERTY, p);
-        fragment.setArguments(args);
-        return fragment;
-    }
+        {
+            AddPropertyPhotoFragment fragment = new AddPropertyPhotoFragment();
+            Bundle args = new Bundle();
+            args.putParcelable(AddPropertyActivity.KEY_PROPERTY, p);
+            fragment.setArguments(args);
+            return fragment;
+        }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -141,9 +141,9 @@ public class AddPropertyPhotoFragment extends Fragment
 
                     System.out.println("Photo received");
                     int t = adapter.getItemCount();
+                    adapter.notifyDataSetChanged();
                     adapter.addPhoto(data.getData());
                     adapter.notifyItemInserted(t);
-                    adapter.notifyDataSetChanged();
 
                 }
                 break;
