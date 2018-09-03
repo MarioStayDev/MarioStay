@@ -63,9 +63,18 @@ public class IncompleteProperty  implements Parcelable
     @ColumnInfo(name = "amenitiesSofa") private boolean sofa;
     @ColumnInfo(name = "amenitiesTable") private boolean ttable;
 
-    @Ignore private List<Uri>  photosUri;
+    @ColumnInfo(name = "pic1") private String picUri_1;
+    @ColumnInfo(name = "pic2") private String picUri_2;
 
-    IncompleteProperty() { photosUri=new ArrayList<>();}
+    @ColumnInfo(name = "pic3") private String picUri_3;
+    @ColumnInfo(name = "pic4") private String picUri_4;
+
+
+
+
+    @Ignore private int i=0;
+
+    IncompleteProperty() { }
 
     IncompleteProperty(Parcel parcel)
     {
@@ -82,8 +91,12 @@ public class IncompleteProperty  implements Parcelable
         Rules = parcel.readString();
         InTime = parcel.readString();
         OutTime = parcel.readString();
-        photosUri=new ArrayList<>();
-        photosUri=parcel.readArrayList(Uri.class.getClassLoader());
+        //photosUri=new ArrayList<>();
+        //parcel.readStringArray(picUri_1);
+        picUri_1=parcel.readString();
+        picUri_2=parcel.readString();
+        picUri_3=parcel.readString();
+        picUri_4=parcel.readString();
 
 
 
@@ -105,6 +118,32 @@ public class IncompleteProperty  implements Parcelable
         sofa = amenities[13];
         ttable = amenities[14];
     }
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+        dest.writeInt(PID);
+        //dest.writeInt(HID);
+        dest.writeInt(Floors);
+        dest.writeInt(MinStayTime);
+        dest.writeInt(SecurityMultiplier);
+        dest.writeInt(NoticePeriod);
+
+        dest.writeString(Name);
+        dest.writeString(Type);
+        dest.writeString(Address);
+        dest.writeString(Landmark);
+        dest.writeString(ShortDescription);
+        dest.writeString(Rules);
+        dest.writeString(InTime);
+        dest.writeString(OutTime);
+        dest.writeString(picUri_1);
+        dest.writeString(picUri_2);
+        dest.writeString(picUri_3);
+        dest.writeString(picUri_4);
+
+
+        dest.writeBooleanArray(new boolean[] {lift, parking, cctv, power, playground, pool, garden, gym, tv, fridge, washMac, water, wifi, sofa, ttable});
+    }
 
     int getPID() { return PID; }
     //int getHID() { return HID; }
@@ -121,18 +160,45 @@ public class IncompleteProperty  implements Parcelable
     String getInTime() { return InTime; }
     String getOutTime() { return OutTime; }
 
-    public List<Uri> getPhotosUri()
+    public String getPicUri_1()
     {
-        return photosUri;
+        return picUri_1;
     }
 
-    public void setPhotosUri(List<Uri> photosUri)
+    public void setPicUri_1(String picUri_1)
     {
-        int i=0;
-        this.photosUri = photosUri;
+        this.picUri_1 = picUri_1;
+    }
+
+    public String getPicUri_2()
+    {
+        return picUri_2;
+    }
+
+    public void setPicUri_2(String picUri_2)
+    {
+        this.picUri_2 = picUri_2;
+    }
 
 
+    public String getPicUri_3()
+    {
+        return picUri_3;
+    }
 
+    public void setPicUri_3(String picUri_3)
+    {
+        this.picUri_3 = picUri_3;
+    }
+
+    public String getPicUri_4()
+    {
+        return picUri_4;
+    }
+
+    public void setPicUri_4(String picUri_4)
+    {
+        this.picUri_4 = picUri_4;
     }
 
     //GeoPoint getLocation() {return Location; }
@@ -220,28 +286,7 @@ public class IncompleteProperty  implements Parcelable
     void setSofa(boolean a) { sofa = a; }
     void setTtable(boolean a) { ttable = a; }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
-        dest.writeInt(PID);
-        //dest.writeInt(HID);
-        dest.writeInt(Floors);
-        dest.writeInt(MinStayTime);
-        dest.writeInt(SecurityMultiplier);
-        dest.writeInt(NoticePeriod);
 
-        dest.writeString(Name);
-        dest.writeString(Type);
-        dest.writeString(Address);
-        dest.writeString(Landmark);
-        dest.writeString(ShortDescription);
-        dest.writeString(Rules);
-        dest.writeString(InTime);
-        dest.writeString(OutTime);
-        dest.writeList(photosUri);
-
-        dest.writeBooleanArray(new boolean[] {lift, parking, cctv, power, playground, pool, garden, gym, tv, fridge, washMac, water, wifi, sofa, ttable});
-    }
 
     @Override
     public int describeContents() {

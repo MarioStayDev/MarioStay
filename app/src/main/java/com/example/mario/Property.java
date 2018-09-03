@@ -32,7 +32,7 @@ class Property implements Parcelable
 	private Property(Parcel parcel)
 	{
 		this.PID = parcel.readString();
-		//this.HID = parcel.readInt();
+		this.HID = parcel.readString();
 		this.Floors = parcel.readInt();
 
 		this.MinStayTime = parcel.readInt();
@@ -50,9 +50,35 @@ class Property implements Parcelable
 		Amenities = new HashMap<>();
 		parcel.readMap(this.Amenities, null);
 		propPicUri= new ArrayList<>();
-		propPicUri=parcel.readArrayList(Uri.class.getClassLoader());
+		parcel.readList(propPicUri,Uri.class.getClassLoader());
 
 	}
+
+	public void writeToParcel(Parcel dest, int flags)
+	{
+		dest.writeString(this.PID);
+		dest.writeString(this.HID);
+		dest.writeInt(this.Floors);
+
+		dest.writeInt(this.MinStayTime);
+		dest.writeInt(this.SecurityMultiplier);
+		dest.writeInt(this.NoticePeriod);
+
+		dest.writeString(this.Name);
+		dest.writeString(this.Type);
+		dest.writeString(this.Address);
+		dest.writeString(this.Landmark);
+		dest.writeString(this.ShortDescription);
+		dest.writeString(this.Rules);
+		dest.writeString(this.inTime);
+		dest.writeString(this.outTime);
+		dest.writeMap(Amenities);
+		dest.writeList(propPicUri);
+
+
+
+	}
+
 
 	Property(IncompleteProperty property, Map<String, Boolean> map)
 	{
@@ -149,30 +175,8 @@ class Property implements Parcelable
 		return 0;
 	}
 
-	@Override
-	public void writeToParcel(Parcel dest, int flags)
-	{
-		dest.writeString(this.PID);
-		//dest.writeInt(this.HID);
-		dest.writeInt(this.Floors);
 
-		dest.writeInt(this.MinStayTime);
-		dest.writeInt(this.SecurityMultiplier);
-		dest.writeInt(this.NoticePeriod);
 
-		dest.writeString(this.Name);
-		dest.writeString(this.Type);
-		dest.writeString(this.Address);
-		dest.writeString(this.Landmark);
-		dest.writeString(this.ShortDescription);
-		dest.writeString(this.Rules);
-		dest.writeString(this.inTime);
-		dest.writeString(this.outTime);
-		dest.writeList(propPicUri);
-
-		dest.writeMap(Amenities);
-
-	}
 
 	public static final Parcelable.Creator<Property> CREATOR = new Parcelable.Creator<Property>()
 	{

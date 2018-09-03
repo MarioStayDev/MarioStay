@@ -2,7 +2,10 @@ package com.example.mario;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +14,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,9 +35,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 public class AddPropertyActivity extends AppCompatActivity  implements AddPropertyFragment.OnFragmentInteractionListener,
                                                             AddPropertyDescriptionFragment.OnFragmentInteractionListener,
@@ -49,6 +63,11 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
     private FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
     private FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
     private String hid_string;
+    private String pid_string;
+    private Uri picUploadUri;
+    private StorageReference myStorageRef = FirebaseStorage.getInstance().getReference();
+    private List<Uri> downloadurl;
+    private Property property1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,7 +78,7 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
 
         Intent intent = getIntent();
         property = (intent.hasExtra(KEY_PROPERTY)) ? (IncompleteProperty)intent.getParcelableExtra(KEY_PROPERTY) : new IncompleteProperty();
-
+        downloadurl= new ArrayList<>();
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -120,7 +139,8 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
                         case 2: ((AddPropertyPhotoFragment)page).gotoNext(null);
                             break;
                     }
-                Intent r = new Intent().putExtra(KEY_PROPERTY, property);
+
+                    Intent r = new Intent().putExtra(KEY_PROPERTY, property);
                 setResult(RESULT_CANCELED, r);
                 finish();
                 return true;
@@ -167,8 +187,11 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
 
         hid_string=firebaseUser.getUid();
 
-        Property property1 = new Property(property,tempMap);
+
+        property1 = new Property(property,tempMap);
         property1.setHID(hid_string);
+
+
 
 
         db.collection("properties").add(property1).addOnSuccessListener(new OnSuccessListener<DocumentReference>()
@@ -181,7 +204,99 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
 
                 b.setVisibility(View.VISIBLE);
                 p.setVisibility(View.GONE);
-                d("Success");
+
+                pid_string=documentReference.getId();
+                Map<String,String> pid_update =new HashMap<>();
+                pid_update.put("pid",pid_string);
+
+                db.document(documentReference.getPath()).set(pid_update, SetOptions.merge());
+
+
+                d("Success"+documentReference.getId());
+
+                for(int i=0;i<4;i++)
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            if(property.getPicUri_1()!=null)
+                                picUploadUri = Uri.parse(property.getPicUri_1());
+                            break;
+
+                        case 1:
+                            if(property.getPicUri_2()!=null)
+                                picUploadUri = Uri.parse(property.getPicUri_2());
+                            break;
+
+                        case 2:
+                            if(property.getPicUri_3()!=null)
+                                picUploadUri = Uri.parse(property.getPicUri_3());
+                            break;
+
+                        case 3:
+                            if(property.getPicUri_4()!=null)
+                                picUploadUri = Uri.parse(property.getPicUri_4());
+                            break;
+
+                    }
+
+
+                    if (picUploadUri != null)
+                    {
+                        final StorageReference storageRef = myStorageRef.child("/users/PropertyPic/" + hid_string + "/" +pid_string+"/"+i+".jpg");
+
+                /*Bitmap bitmap = null;
+                try
+                {
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), picUploadUri);
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 25, bytes);
+                String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, picUploadUri.getPath(), null);
+                picUploadUri = Uri.parse(path);*/
+
+                        storageRef.putFile(picUploadUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
+                        {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
+                            {
+                                Log.d(TAG, "User Property Pic Saved : pic ");
+                                d("pic uploaded :");
+
+                                //downloadurl.add(Uri.parse(taskSnapshot.getMetadata().getReference().getDownloadUrl().toString()));
+
+
+
+                                //imageProgressbar.setVisibility(View.GONE);
+
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener()
+                        {
+                            @Override
+                            public void onFailure(@NonNull Exception e)
+                            {
+                                Log.d(TAG, "User Profile Failed to save.");
+                                d("Profile Pic:" + e.getMessage());
+
+
+                            }
+                        });
+
+                    }
+
+                    picUploadUri=null;
+                }
+
+
+
+
+
+
+
                 Intent r = new Intent().putExtra(KEY_PROPERTY, property);
                 //setResult(RESULT_CANCELED, r);
                 setResult(RESULT_OK, r);
@@ -201,6 +316,14 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
             }
         });
         d("Uploading...");
+
+
+
+
+
+
+
+
     }
 
     @Override

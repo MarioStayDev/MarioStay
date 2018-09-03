@@ -4,17 +4,23 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,9 +60,49 @@ public class AddPropertyPhotoFragment extends Fragment
                              Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.fragment_add_property_photo, container, false);
+
+
         unbinder = ButterKnife.bind(this, v);
+
+        int i=0;
+        List<Uri> imgUri = new ArrayList<>();
+
+
+
+
+            /*for(i = 0; i < property.getPicUri().size(); i++)
+            {
+
+                Log.d("Property Pics Uri:", "" + property.getPicUri().get(i));
+
+                if((property.getPicUri().get(i))!=null)
+                imgUri.add((property.getPicUri().get(i)));
+                imgUri.add((property.getPicUri().get(i)));
+
+                // Log.d("Property Pics Uri:", "" + imageUri.get(i));
+
+            }*/
+
+
+
+        if((property.getPicUri_1())!=null)
+        imgUri.add(Uri.parse(property.getPicUri_1()));
+
+        if((property.getPicUri_2())!=null)
+            imgUri.add(Uri.parse(property.getPicUri_2()));
+
+        if((property.getPicUri_3())!=null)
+            imgUri.add(Uri.parse(property.getPicUri_3()));
+
+        if((property.getPicUri_4())!=null)
+            imgUri.add(Uri.parse(property.getPicUri_4()));
+
         adapter = new DragNDropAdapter(getActivity());
-        adapter.setPhotos(property.getPhotosUri());
+        adapter.setPhotos(imgUri);
+        Log.d("Property desc Fragment:","Run");
+
+
+
         img.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         img.setAdapter(adapter);
 
@@ -75,6 +121,7 @@ public class AddPropertyPhotoFragment extends Fragment
                 adapter.notifyItemMoved(viewHolder.getAdapterPosition(), target.getAdapterPosition());
                 return true;
             }
+
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) { }
@@ -120,10 +167,18 @@ public class AddPropertyPhotoFragment extends Fragment
     public void photo()
     {
         //img.setImageResource(R.drawable.camera);
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("image/*");
-        startActivityForResult(intent, READ_REQUEST_CODE);
+        if(adapter.getItemCount()<4)
+        {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            intent.setType("image/*");
+            startActivityForResult(intent, READ_REQUEST_CODE);
+
+        }
+        else d("Only 4 photos can be uploaded!");
     }
 
     @Override
@@ -131,6 +186,7 @@ public class AddPropertyPhotoFragment extends Fragment
     {
 
         super.onActivityResult(requestCode, resultCode, data);
+
         switch(requestCode)
         {
 
@@ -140,25 +196,60 @@ public class AddPropertyPhotoFragment extends Fragment
                 {
 
                     System.out.println("Photo received");
+                    Uri imageuri= data.getData();
+
+
+
+
+
                     int t = adapter.getItemCount();
-                    adapter.addPhoto(data.getData());
+                    adapter.addPhoto(imageuri);
                     adapter.notifyItemInserted(t);
                     adapter.notifyDataSetChanged();
+
+                    switch (t)
+                    {
+                        case 0 : property.setPicUri_1(imageuri.toString());
+                                    break;
+
+                        case 1 : property.setPicUri_2(imageuri.toString());
+                                    break;
+
+                        case 2 : property.setPicUri_3(imageuri.toString());
+                            break;
+
+                        case 3 : property.setPicUri_4(imageuri.toString());
+                            break;
+
+                            default: d("Only 4 photos can be uploaded!");
+                    }
+
+
+
 
                 }
                 break;
         }
+
     }
 
     @OnClick(R.id.add_prop_next_2)
     public void gotoNext(Button button)
     {
-        property.setPhotosUri(adapter.getPhotos());
+        d("COUNT IN BUTTON: "+property.getPicUri_4());
         mListener.nextFragment();
     }
 
     public interface OnFragmentInteractionListener
     {
         void nextFragment();
+    }
+
+    private void d(String s)
+    {
+        Toast mToast;
+
+        mToast = Toast.makeText(this.getActivity(), s, Toast.LENGTH_LONG);
+        mToast.show();
     }
 }

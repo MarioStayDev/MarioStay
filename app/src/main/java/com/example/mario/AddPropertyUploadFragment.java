@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -94,24 +96,44 @@ public class AddPropertyUploadFragment extends Fragment
     {
         View v = inflater.inflate(R.layout.fragment_add_property_upload, container, false);
         unbinder = ButterKnife.bind(this, v);
+
         int i=0;
-        if(property.getPhotosUri().size()>0)
+        List<Uri> imgUri = new ArrayList<>();
+
+       /* for(i = 0; i < property.getPicUri().size(); i++)
         {
-            for(i = 0; i < property.getPhotosUri().size(); i++)
-            {
-                Log.d("Property Pics Uri:", "" + property.getPhotosUri().get(i));
 
-               // Log.d("Property Pics Uri:", "" + imageUri.get(i));
+            Log.d("Property Pics Uri:", "" + property.getPicUri().get(i));
 
-            }
+            if((property.getPicUri().get(i))!=null)
+                imgUri.add((property.getPicUri().get(i)));
 
-        }
+            // Log.d("Property Pics Uri:", "" + imageUri.get(i));
+
+        }*/
+
+        if((property.getPicUri_1())!=null)
+
+            imgUri.add(Uri.parse(property.getPicUri_1()));
+
+        if((property.getPicUri_2())!=null)
+
+            imgUri.add(Uri.parse(property.getPicUri_2()));
+
+        if((property.getPicUri_3())!=null)
+
+            imgUri.add(Uri.parse(property.getPicUri_3()));
+
+        if((property.getPicUri_4())!=null)
+
+            imgUri.add(Uri.parse(property.getPicUri_4()));
+
 
         mToolbar.setTitle(property.getName());
-        swipeImageViewAdapter=new SwipeImageViewAdapter(this.getContext(),property.getPhotosUri());
+        swipeImageViewAdapter=new SwipeImageViewAdapter(this.getContext(),imgUri);
 
         viewPager.setAdapter(swipeImageViewAdapter);
-        viewPager.setCurrentItem(1);
+
         tabLayout.setupWithViewPager(viewPager);
         swipeImageViewAdapter.notifyDataSetChanged();
 
@@ -178,6 +200,7 @@ public class AddPropertyUploadFragment extends Fragment
     public void upload(Button b)
     {
         mListener.lastFragment(progress, b);
+
     }
 
     public interface OnFragmentInteractionListener
