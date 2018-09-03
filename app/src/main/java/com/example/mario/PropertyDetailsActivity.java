@@ -113,6 +113,7 @@ public class PropertyDetailsActivity extends AppCompatActivity
     {
 
         Intent intent = new Intent(this, AddRoomsActivity.class);
+        intent.putExtra(AddPropertyActivity.KEY_PROPERTY, property);
         startActivity(intent);
     }
 

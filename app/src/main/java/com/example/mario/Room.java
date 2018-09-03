@@ -1,81 +1,66 @@
 package com.example.mario;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class Room
-{
+public class Room /*implements Parcelable*/ {
 
-    private String roomId;
-    private int noOfFloors;
-    private int noOfBeds;
-    private  int monRent;
-    private Map<String,Boolean> roomAmmenities;
-    private Map<String,String> roomPhotos;
+    private int roomNo, floor, beds, rent;
+    private Map<String, Boolean> imap;
+    //private Photos pics;
 
-    Room()
-    {
-        roomAmmenities = new HashMap<>();
-        roomPhotos = new HashMap<>();
+    Room() {
+        imap = new HashMap<>();
     }
 
-    public String getRoomId()
-    {
-        return roomId;
+    public int getRoomNo() { return roomNo; }
+    public int getFloor() { return floor; }
+    public int getBeds() { return beds; }
+    public int getRent() { return rent; }
+    public Map getAmenities() { return imap; }
+
+    public void setRoomNo(int r) { this.roomNo = r; }
+    public void setFloor(int r) { this.floor = r; }
+    public void setBeds(int r) { this.beds = r; }
+    public void setRent(int r) { this.rent = r; }
+    public void setAmenities(Map<String, Boolean> m) { imap.putAll(m); }
+
+    /*@Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setRoomId(String roomId)
-    {
-        this.roomId = roomId;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.roomNo);
+        dest.writeInt(this.floor);
+        dest.writeInt(this.beds);
+        dest.writeInt(this.rent);
+        dest.writeMap(imap);
     }
 
-    public int getNoOfFloors()
-    {
-        return noOfFloors;
+    private Room(Parcel source) {
+        roomNo = source.readInt();
+        floor = source.readInt();
+        beds = source.readInt();
+        rent = source.readInt();
+        source.readMap(imap, getClass().getClassLoader());
     }
 
-    public void setNoOfFloors(int noOfFloors)
-    {
-        this.noOfFloors = noOfFloors;
-    }
+    public static final Parcelable.Creator<Room> CREATOR = new Parcelable.Creator<Room>() {
 
-    public int getNoOfBeds()
-    {
-        return noOfBeds;
-    }
+        @Override
+        public Room createFromParcel(Parcel source) {
+            return new Room(source);
+        }
 
-    public void setNoOfBeds(int noOfBeds)
-    {
-        this.noOfBeds = noOfBeds;
-    }
+        @Override
+        public Room[] newArray(int size) {
+            return new Room[size];
+        }
+    };*/
 
-    public int getMonRent()
-    {
-        return monRent;
-    }
-
-    public void setMonRent(int monRent)
-    {
-        this.monRent = monRent;
-    }
-
-    public Map<String, Boolean> getRoomAmmenities()
-    {
-        return roomAmmenities;
-    }
-
-    public void setRoomAmmenities(Map<String, Boolean> roomAmmenities)
-    {
-        this.roomAmmenities = roomAmmenities;
-    }
-
-    public Map<String, String> getRoomPhotos()
-    {
-        return roomPhotos;
-    }
-
-    public void setRoomPhotos(Map<String, String> roomPhotos)
-    {
-        this.roomPhotos = roomPhotos;
-    }
 }

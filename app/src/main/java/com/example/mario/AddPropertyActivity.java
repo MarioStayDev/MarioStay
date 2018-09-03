@@ -38,8 +38,7 @@ import java.util.Map;
 public class AddPropertyActivity extends AppCompatActivity  implements AddPropertyFragment.OnFragmentInteractionListener,
                                                             AddPropertyDescriptionFragment.OnFragmentInteractionListener,
                                                             AddPropertyPhotoFragment.OnFragmentInteractionListener,
-                                                            AddPropertyUploadFragment.OnFragmentInteractionListener
-{
+                                                            AddPropertyUploadFragment.OnFragmentInteractionListener {
 
     final static String KEY_PROPERTY = "com.example.mario.AddPropertyActivity.KEY_PROPERTY";
     private NonSwipeableViewPager mViewPager;
@@ -51,16 +50,12 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
     private String hid_string;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_property);
 
         Intent intent = getIntent();
         property = (intent.hasExtra(KEY_PROPERTY)) ? (IncompleteProperty)intent.getParcelableExtra(KEY_PROPERTY) : new IncompleteProperty();
-
-
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -74,8 +69,7 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
         mToast = new Toast(this);
     }
 
-    private void setupViewPager(ViewPager pager)
-    {
+    private void setupViewPager(ViewPager pager) {
         ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(AddPropertyFragment.newInstance(property));
         pagerAdapter.addFragment(AddPropertyDescriptionFragment.newInstance(property));
@@ -86,40 +80,28 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_add_property, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-
-        switch(item.getItemId())
-        {
-
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
             case android.R.id.home:
-
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
-
             case R.id.menu_add_property_save:
-
                 int c = mViewPager.getCurrentItem();
                 Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + c);
-
-                if (page != null)
-
-                    switch(c)
-                    {
-                        case 0: ((AddPropertyFragment)page).gotoNext(null);
-                            break;
-                        case 1: ((AddPropertyDescriptionFragment)page).gotoNext(null);
-                            break;
-                        case 2: ((AddPropertyPhotoFragment)page).gotoNext(null);
-                            break;
-                    }
+                if (page != null) switch(c) {
+                    case 0: ((AddPropertyFragment)page).gotoNext(null);
+                        break;
+                    case 1: ((AddPropertyDescriptionFragment)page).gotoNext(null);
+                        break;
+                    case 2: ((AddPropertyPhotoFragment)page).gotoNext(null);
+                        break;
+                }
                 Intent r = new Intent().putExtra(KEY_PROPERTY, property);
                 setResult(RESULT_CANCELED, r);
                 finish();
@@ -130,21 +112,18 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
 
     }
 
     @Override
-    public void nextFragment()
-    {
+    public void nextFragment() {
         mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
     }
 
     @Override
-    public void lastFragment(final ProgressBar p, final Button b)
-    {
+    public void lastFragment(final ProgressBar p, final Button b) {
         p.setVisibility(View.VISIBLE);
         b.setVisibility(View.GONE);
 
@@ -165,6 +144,29 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
         tempMap.put(getString(R.string.chip_text_sofa), property.getSofa());
         tempMap.put(getString(R.string.chip_text_table), property.getTtable());
 
+        Property property1 = new Property(property, tempMap);
+        DocumentReference dref = db.collection("properties").document();
+        property1.setPID(dref.getId());
+        dref.set(property1).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void avoid) {
+                b.setVisibility(View.VISIBLE);
+                p.setVisibility(View.GONE);
+                d("Success");
+                Intent r = new Intent().putExtra(KEY_PROPERTY, property);
+                //setResult(RESULT_CANCELED, r);
+                setResult(RESULT_OK, r);
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                b.setVisibility(View.VISIBLE);
+                p.setVisibility(View.GONE);
+                d("Failed");
+            }
+        });
+        /*db.collection("properties").add(property1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
         hid_string=firebaseUser.getUid();
 
         Property property1 = new Property(property,tempMap);
@@ -176,9 +178,7 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
 
 
             @Override
-            public void onSuccess(DocumentReference documentReference)
-            {
-
+            public void onSuccess(DocumentReference documentReference) {
                 b.setVisibility(View.VISIBLE);
                 p.setVisibility(View.GONE);
                 d("Success");
@@ -187,25 +187,19 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
                 setResult(RESULT_OK, r);
                 finish();
             }
-        }).addOnFailureListener(new OnFailureListener()
-        {
-
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onFailure(@NonNull Exception e)
-            {
-
+            public void onFailure(@NonNull Exception e) {
                 b.setVisibility(View.VISIBLE);
                 p.setVisibility(View.GONE);
                 d("Failed");
-
             }
-        });
+        });*/
         d("Uploading...");
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         int currentItem = mViewPager.getCurrentItem();
         if(currentItem == 0)
             super.onBackPressed();
@@ -213,8 +207,7 @@ public class AddPropertyActivity extends AppCompatActivity  implements AddProper
             mViewPager.setCurrentItem(currentItem - 1);
     }
 
-    private void d(String s)
-    {
+    private void d(String s) {
         mToast.cancel();
         mToast = Toast.makeText(this, s, Toast.LENGTH_LONG);
         mToast.show();
