@@ -93,6 +93,8 @@ public class PropertyDetailsActivity extends AppCompatActivity
             {
                 picPathuri.add(uri);
                 swipeImageViewAdapter=new SwipeImageViewAdapter(getBaseContext(),picPathuri);
+                viewPager.setAdapter(swipeImageViewAdapter);
+                tabLayout.setupWithViewPager(viewPager);
 
             }
         }).addOnFailureListener(new OnFailureListener()
@@ -105,8 +107,7 @@ public class PropertyDetailsActivity extends AppCompatActivity
             }
         });
 
-        viewPager.setAdapter(swipeImageViewAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+
 
 
 
